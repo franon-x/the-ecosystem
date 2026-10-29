@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Select Campaign Listings · THE ECOSYSTEM</title>
+<style>
+:root{--bg:#080909;--panel:#111413;--panel2:#171b19;--green:#80c995;--white:#fff;--muted:#a7afaa;--line:#2a302c;--red:#e6333e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:15px/1.6 Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}
+.top{border-bottom:1px solid var(--line);padding:18px 5vw;display:flex;justify-content:space-between;align-items:center;gap:14px}.brand{font-weight:900;letter-spacing:-.5px}.brand span{color:var(--green)}.top .back{color:var(--muted);font-size:13px}
+main{width:min(1050px,92%);margin:0 auto;padding:42px 0 80px}.eyebrow{color:var(--green);font-size:11px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase}.hero h1{font-size:clamp(32px,5vw,52px);line-height:1.05;letter-spacing:-1.8px;margin:12px 0}.hero p{color:var(--muted);max-width:760px;margin:0}.summary{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.pill{border:1px solid #35513d;background:#122017;color:#d8f1df;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:800}
+.group{margin-top:34px}.group-head{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:14px}.group h2{font-size:22px;margin:0}.group-head p{color:var(--muted);font-size:12px;margin:4px 0 0}.counter-label{color:var(--green);font-size:12px;font-weight:800;white-space:nowrap}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.listing{display:flex;gap:13px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:17px;cursor:pointer;transition:border-color .15s,background .15s}.listing:has(input:checked){border-color:var(--green);background:#111b14}.listing input{width:18px;height:18px;margin-top:4px;accent-color:var(--green);flex:0 0 auto}.listing-body{min-width:0;flex:1}.listing h3{font-size:15px;margin:0 0 3px}.meta{font-size:12px;color:var(--muted);overflow-wrap:anywhere}.status{display:inline-block;margin-top:8px;border:1px solid #39443d;border-radius:999px;padding:2px 8px;font-size:10px;color:#c6d2ca;text-transform:uppercase;letter-spacing:.4px}.empty{border:1px dashed #39413b;border-radius:12px;padding:20px;color:var(--muted);font-size:13px}.error{background:#2a1214;border:1px solid #713138;color:#ffc8cc;border-radius:10px;padding:12px 14px;margin-top:22px}.actions{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:10px;padding:13px 18px;font-weight:900;font-size:13px;border:1px solid var(--line);background:var(--panel2);color:white;cursor:pointer}.btn.primary{background:var(--green);border-color:var(--green);color:#08100a}.btn:disabled{opacity:.45;cursor:not-allowed}.hint{font-size:12px;color:var(--muted)}
+@media(max-width:680px){main{padding-top:30px}.cards{grid-template-columns:1fr}.group-head{align-items:flex-start;flex-direction:column}.actions{align-items:stretch;flex-direction:column-reverse}.btn{width:100%}.top{padding:15px 4vw}}
+
+/* THE ECOSYSTEM brand standard: THE white, ECOSYSTEM red */
+.brand span { color: #E6333E; }
+</style></head>
+<body>
+<header class="top"><a class="brand" href="{{ url_for('home') }}">THE <span>ECOSYSTEM</span></a><a class="back" href="{{ url_for('premium_listing_campaign_start') }}">← Change quantities</a></header>
+<main>
+<section class="hero"><div class="eyebrow">Premium campaign · Step 2</div><h1>Choose your listings.</h1><p>Select the exact registered businesses and events you want to promote. Businesses must be existing approved listings you own or manage. Events must have been submitted by your account. Your selections are checked again by the server before they are saved.</p>
+<div class="summary"><span class="pill">Businesses to select: {{ business_count }}</span><span class="pill">Events to select: {{ event_count }}</span></div></section>
+{% if error %}<div class="error" role="alert">{{ error }}</div>{% endif %}
+<form method="post" id="listingForm">
+{% if business_count > 0 %}
+<section class="group"><div class="group-head"><div><h2>Registered businesses</h2><p>Choose only the businesses you own or are approved to manage.</p></div><div class="counter-label"><span id="businessSelected">{{ selected_business_ids|length }}</span> / {{ business_count }} selected</div></div>
+{% if businesses %}<div class="cards">{% for business in businesses %}<label class="listing"><input type="checkbox" name="business_ids" value="{{ business.id }}" data-kind="business" {% if business.id in selected_business_ids %}checked{% endif %}><span class="listing-body"><h3>{{ business.name }}</h3><div class="meta">{{ business.category }}{% if business.location or business.state %} · {{ business.location or business.state }}{% endif %}</div></span></label>{% endfor %}</div>{% else %}<div class="empty">No eligible approved businesses are currently linked to your account. Return and set the business quantity to 0, or register/claim a business and complete approval first.</div>{% endif %}</section>
+{% endif %}
+{% if event_count > 0 %}
+<section class="group"><div class="group-head"><div><h2>Your submitted events</h2><p>Only events submitted by your signed-in account are listed here.</p></div><div class="counter-label"><span id="eventSelected">{{ selected_event_ids|length }}</span> / {{ event_count }} selected</div></div>
+{% if events %}<div class="cards">{% for event in events %}<label class="listing"><input type="checkbox" name="event_ids" value="{{ event.id }}" data-kind="event" {% if event.id in selected_event_ids %}checked{% endif %}><span class="listing-body"><h3>{{ event.title }}</h3><div class="meta">{{ event.category }}{% if event.location or event.state %} · {{ event.location or event.state }}{% endif %}{% if event.date %} · {{ event.date }}{% endif %}</div><span class="status">{{ event.status }}</span></span></label>{% endfor %}</div>{% else %}<div class="empty">No eligible submitted events were found for your account. Return and set the event quantity to 0, or submit an event first.</div>{% endif %}</section>
+{% endif %}
+<div class="actions"><a class="btn" href="{{ url_for('premium_listing_campaign_start') }}">Back</a><div><div class="hint" id="selectionHint">Select exactly the quantities you chose in Step 1.</div><button class="btn primary" id="saveButton" type="submit">Save selected listings</button></div></div>
+</form>
+</main>
+<script>
+(function(){
+ const limits={business:{{ business_count|int }},event:{{ event_count|int }}};
+ const boxes=Array.from(document.querySelectorAll('input[type="checkbox"][data-kind]'));
+ const hint=document.getElementById('selectionHint');const button=document.getElementById('saveButton');
+ function update(){
+  const counts={business:0,event:0};boxes.forEach(b=>{if(b.checked)counts[b.dataset.kind]++;});
+  document.getElementById('businessSelected')?.replaceChildren(String(counts.business));
+  document.getElementById('eventSelected')?.replaceChildren(String(counts.event));
+  boxes.forEach(b=>{const kind=b.dataset.kind;b.disabled=!b.checked&&counts[kind]>=limits[kind];});
+  const exact=counts.business===limits.business&&counts.event===limits.event;
+  hint.textContent=exact?'Quantities match. You can save your selections.':`Select ${limits.business-counts.business} more business(es) and ${limits.event-counts.event} more event(s).`;
+  button.disabled=!exact;
+ }
+ boxes.forEach(b=>b.addEventListener('change',update));update();
+})();
+</script></body></html>

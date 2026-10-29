@@ -1,0 +1,767 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitions | THE ECOSYSTEM</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #050505;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 750px;
+            height: 750px;
+            top: -330px;
+            right: -260px;
+            background: radial-gradient(circle, rgba(180,0,0,.24), transparent 70%);
+            filter: blur(110px);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 650px;
+            height: 650px;
+            bottom: -330px;
+            left: -270px;
+            background: radial-gradient(circle, rgba(110,0,0,.17), transparent 70%);
+            filter: blur(110px);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        nav {
+            padding: 25px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        .logo {
+            color: #e00000;
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: .22em;
+        }
+
+        .nav-right { display: flex; align-items: center; gap: 30px; }
+
+        .location {
+            color: rgba(255,80,80,.6);
+            font-size: 10px;
+            letter-spacing: .25em;
+        }
+
+        .nav-link, .back, .view-link {
+            color: rgba(255,255,255,.55);
+            text-decoration: none;
+            font-size: 10px;
+            letter-spacing: .18em;
+            transition: .3s;
+        }
+
+        .nav-link:hover, .back:hover, .view-link:hover { color: #ff3333; }
+
+        main {
+            width: min(1200px, 88%);
+            margin: auto;
+            padding: 55px 0 120px;
+        }
+
+        .back { display: inline-block; margin-bottom: 35px; }
+
+        .header { margin-bottom: 55px; }
+
+        .label, .featured-label {
+            color: rgba(255,60,60,.75);
+            font-size: 10px;
+            letter-spacing: .28em;
+            margin-bottom: 18px;
+        }
+
+        .header h1 {
+            font-size: clamp(3.2rem, 8vw, 7rem);
+            font-weight: 300;
+            line-height: .9;
+            margin-bottom: 25px;
+        }
+
+        .header h1 span {
+            background: linear-gradient(90deg, #fff, #a00000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p, .featured p, .competition-card p, .step p, .hall-of-fame p {
+            color: rgba(255,255,255,.4);
+            line-height: 1.8;
+        }
+
+        .header p { max-width: 650px; font-size: 13px; }
+
+        .featured {
+            position: relative;
+            min-height: 300px;
+            padding: 45px;
+            margin-bottom: 70px;
+            overflow: hidden;
+            border: 1px solid rgba(180,0,0,.28);
+            background: linear-gradient(120deg, rgba(120,0,0,.25), rgba(255,255,255,.015));
+        }
+
+        .featured::before {
+            content: "🏆";
+            position: absolute;
+            right: 6%;
+            top: 8%;
+            font-size: clamp(100px, 15vw, 190px);
+            opacity: .08;
+            filter: grayscale(1);
+        }
+
+        .featured-content { position: relative; z-index: 2; max-width: 650px; }
+
+        .featured h2 {
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 18px;
+        }
+
+        .featured p { max-width: 550px; font-size: 12px; margin-bottom: 28px; }
+
+        .featured-meta { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+
+        .status {
+            display: inline-block;
+            padding: 8px 12px;
+            border: 1px solid rgba(220,0,0,.35);
+            color: rgba(255,90,90,.85);
+            font-size: 8px;
+            letter-spacing: .18em;
+        }
+
+        .category {
+            color: rgba(255,255,255,.4);
+            font-size: 9px;
+            letter-spacing: .18em;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        .section-header h2 { font-size: 24px; font-weight: 300; }
+
+        .section-header span {
+            color: rgba(255,255,255,.35);
+            font-size: 9px;
+            letter-spacing: .18em;
+        }
+
+        .competition-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+
+        .competition-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 270px;
+            padding: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.07);
+            background: linear-gradient(145deg, rgba(90,0,0,.2), rgba(255,255,255,.015));
+            transition: transform .3s, border-color .3s;
+        }
+
+        .competition-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(220,0,0,.35);
+        }
+
+        .competition-icon { font-size: 34px; margin-bottom: 25px; }
+
+        .competition-category {
+            color: rgba(255,70,70,.75);
+            font-size: 8px;
+            letter-spacing: .23em;
+            margin-bottom: 12px;
+        }
+
+        .competition-card h3 {
+            font-size: 25px;
+            font-weight: 300;
+            margin-bottom: 12px;
+        }
+
+        .competition-card p { font-size: 11px; margin-bottom: 25px; }
+
+        .competition-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: auto;
+            padding-top: 15px;
+        }
+
+        .competition-status {
+            color: rgba(255,255,255,.4);
+            font-size: 8px;
+            letter-spacing: .12em;
+        }
+
+        .entry-count {
+            color: rgba(255,90,90,.8);
+            font-size: 9px;
+            margin-top: 14px;
+        }
+
+        .view-link { font-size: 8px; }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            padding: 45px 25px;
+            border: 1px solid rgba(255,255,255,.08);
+            text-align: center;
+        }
+
+        .empty-state h3 { font-weight: 300; margin-bottom: 12px; }
+        .empty-state p { color: rgba(255,255,255,.4); font-size: 12px; line-height: 1.8; }
+
+        .how-it-works, .hall-of-fame { margin-top: 80px; }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid rgba(255,255,255,.06);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        .step { padding: 30px 20px; border-right: 1px solid rgba(255,255,255,.06); }
+        .step:last-child { border-right: none; }
+
+        .step-number {
+            color: rgba(220,0,0,.75);
+            font-size: 9px;
+            letter-spacing: .18em;
+            margin-bottom: 25px;
+        }
+
+        .step h3 { font-size: 17px; font-weight: 300; margin-bottom: 10px; }
+        .step p { font-size: 10px; }
+
+        .hall-of-fame {
+            padding: 45px;
+            border: 1px solid rgba(255,255,255,.07);
+            background: linear-gradient(120deg, rgba(90,0,0,.14), rgba(255,255,255,.01));
+        }
+
+        .hall-of-fame h2 { font-size: 30px; font-weight: 300; margin-bottom: 12px; }
+        .hall-of-fame p { max-width: 620px; font-size: 11px; margin-bottom: 25px; }
+
+        .hall-status {
+            color: rgba(255,80,80,.75);
+            font-size: 8px;
+            letter-spacing: .2em;
+        }
+
+        footer {
+            margin-top: 80px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,.05);
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            color: rgba(255,255,255,.25);
+            font-size: 10px;
+            letter-spacing: .12em;
+        }
+
+        @media (max-width: 850px) {
+            .competition-grid { grid-template-columns: 1fr; }
+            .steps { grid-template-columns: repeat(2, 1fr); }
+            .step:nth-child(2) { border-right: none; }
+            .step:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.06); }
+        }
+
+        @media (max-width: 600px) {
+            nav { padding: 20px; }
+            .location { display: none; }
+            .nav-right { gap: 0; }
+            main { width: 90%; padding-top: 40px; }
+            .header { margin-bottom: 40px; }
+            .featured { padding: 28px; min-height: 330px; }
+            .featured h2 { font-size: 2.4rem; }
+            .competition-card { min-height: 250px; padding: 25px; }
+            .competition-card h3 { font-size: 22px; }
+            .steps { grid-template-columns: 1fr; }
+            .step { border-right: none; border-bottom: 1px solid rgba(255,255,255,.06); }
+            .step:last-child { border-bottom: none; }
+            .hall-of-fame { padding: 28px; }
+            footer { flex-direction: column; }
+        }
+    
+
+        /* THE ECOSYSTEM competition design system */
+        :root { --eco-red:#e6333e; --eco-green:#80c995; --eco-bg:#080909; --eco-panel:#111413; --eco-line:rgba(255,255,255,.10); }
+        body { background:radial-gradient(ellipse at 8% 0%,rgba(230,51,62,.13),transparent 34%),radial-gradient(ellipse at 95% 70%,rgba(54,139,82,.10),transparent 32%),var(--eco-bg); color:#f7f7f5; font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+        nav { position:sticky; top:0; z-index:20; padding:17px max(5%,calc((100% - 1200px)/2)); background:rgba(8,9,9,.90); backdrop-filter:blur(18px); border-bottom:1px solid var(--eco-line); }
+        .logo { color:#f7f7f5; font-weight:800; letter-spacing:.16em; }
+        .logo::first-letter { color:var(--eco-red); }
+        .location { color:var(--eco-green); }
+        .nav-link,.back,.view-link { color:#c5cbc6; letter-spacing:.06em; }
+        .nav-link:hover,.back:hover,.view-link:hover { color:var(--eco-green); }
+        main { width:min(1200px,90%); padding-top:42px; }
+        .header { margin-bottom:42px; }
+        .label,.featured-label { color:var(--eco-green); letter-spacing:.18em; font-weight:800; }
+        .header h1 { font-weight:750; letter-spacing:-.055em; line-height:1; }
+        .header h1 span { background:linear-gradient(90deg,#fff,var(--eco-red)); -webkit-background-clip:text; }
+        .header p,.featured p,.competition-card p,.step p,.hall-of-fame p { color:#a9b0aa; }
+        .featured { min-height:320px; padding:clamp(25px,4vw,48px); margin-bottom:55px; border:1px solid rgba(230,51,62,.32); border-radius:18px; background:radial-gradient(ellipse at 85% 30%,rgba(230,51,62,.18),transparent 42%),linear-gradient(120deg,rgba(230,51,62,.10),rgba(128,201,149,.06) 65%,rgba(255,255,255,.015)); box-shadow:0 24px 80px rgba(0,0,0,.18); }
+        .featured::before { content:"🏆"; opacity:.12; color:var(--eco-green); }
+        .featured h2 { font-weight:750; letter-spacing:-.045em; max-width:760px; }
+        .featured-meta .status { color:var(--eco-green); border-color:rgba(128,201,149,.35); background:rgba(128,201,149,.08); border-radius:99px; }
+        .category { color:#d2d8d3; }
+        .section-header { border-bottom-color:var(--eco-line); }
+        .section-header h2 { font-weight:750; letter-spacing:-.03em; }
+        .section-header span { color:var(--eco-green); }
+        .competition-grid { gap:16px; }
+        .competition-card { border:1px solid var(--eco-line); border-radius:16px; background:linear-gradient(145deg,#151917,#0e100f); padding:clamp(22px,3vw,30px); transition:transform .22s,border-color .22s,box-shadow .22s; }
+        .competition-card:hover { transform:translateY(-4px); border-color:rgba(128,201,149,.45); box-shadow:0 18px 45px rgba(0,0,0,.22); }
+        .competition-icon { color:var(--eco-green); }
+        .competition-category { color:#ff7a82; font-weight:800; }
+        .competition-card h3 { font-weight:700; letter-spacing:-.03em; }
+        .competition-status { color:#c0c7c1; }
+        .entry-count { color:var(--eco-green); }
+        .view-link { display:inline-flex; align-items:center; justify-content:center; border:1px solid rgba(230,51,62,.5); background:rgba(230,51,62,.10); color:#fff; padding:11px 14px; border-radius:9px; font-weight:800; }
+        .view-link:hover { color:#fff; background:var(--eco-red); }
+        .empty-state,.step,.hall-of-fame { border-color:var(--eco-line); }
+        .empty-state { border-radius:16px; background:#111413; }
+        .how-it-works,.hall-of-fame { margin-top:60px; }
+        .steps { border-color:var(--eco-line); border-radius:14px; overflow:hidden; background:#101311; }
+        .step { border-right-color:var(--eco-line); }
+        .step-number { color:var(--eco-green); font-weight:800; }
+        .step h3 { font-weight:700; }
+        .hall-of-fame { border-radius:18px; background:radial-gradient(ellipse at 90% 20%,rgba(128,201,149,.10),transparent 35%),linear-gradient(120deg,rgba(230,51,62,.10),rgba(255,255,255,.02)); }
+        .hall-status { color:var(--eco-green); }
+        footer { color:#89918b; border-top-color:var(--eco-line); }
+        @media(max-width:600px){ nav{padding:16px 5%;} .featured{border-radius:14px;} }
+        /* Featured competition carousel */
+        .featured-carousel { position:relative; touch-action:pan-y; }
+        .featured-slide { display:none; animation:ecoSlideIn .35s ease both; }
+        .featured-slide.is-active { display:block; }
+        @keyframes ecoSlideIn { from {opacity:.35; transform:translateX(12px)} to {opacity:1;transform:translateX(0)} }
+        .featured-controls { display:flex; align-items:center; gap:9px; margin-top:26px; flex-wrap:wrap; }
+        .featured-controls button { display:inline-flex; align-items:center; justify-content:center; min-height:42px; border:1px solid rgba(255,255,255,.18); border-radius:10px; background:#111513; color:#fff; padding:0 14px; font:inherit; font-size:11px; font-weight:800; cursor:pointer; transition:.2s; }
+        .featured-controls button:hover,.featured-controls button:focus-visible { border-color:var(--eco-green); background:rgba(128,201,149,.10); outline:none; }
+        .featured-controls .featured-cta { border:1px solid #fff; background:#fff; color:#237a43; border-radius:10px; padding:13px 20px; font-size:11px; font-weight:850; letter-spacing:.04em; text-decoration:none; box-shadow:0 4px 14px rgba(0,0,0,.12); }
+        .featured-controls .featured-cta:hover,.featured-controls .featured-cta:focus-visible { background:#f1fff4; border-color:#f1fff4; color:#176332; transform:translateY(-1px); outline:none; }
+        .featured-dots { display:flex; align-items:center; gap:7px; margin-left:auto; }
+        .featured-dots button { min-height:8px; width:8px; min-width:8px; padding:0; border:0; border-radius:99px; background:#4a514c; }
+        .featured-dots button[aria-current="true"] { width:24px; background:var(--eco-green); }
+        .featured-counter { color:#a9b0aa; font-size:10px; font-weight:800; letter-spacing:.08em; }
+        @media(prefers-reduced-motion:reduce){ .featured-slide{animation:none} }
+
+    
+
+        /* DISCOVER-MATCHED DESIGN SYSTEM */
+        :root {
+            --eco-bg: #080909;
+            --eco-panel: #111413;
+            --eco-panel-soft: #171b18;
+            --eco-green: #80C995;
+            --eco-red: #E6333E;
+            --eco-white: #FFFFFF;
+            --eco-muted: #A9B0AA;
+            --eco-line: rgba(255,255,255,.11);
+        }
+        html { background: var(--eco-bg); }
+        body {
+            background:
+                radial-gradient(ellipse at 8% 0%, rgba(128,201,149,.10), transparent 36%),
+                radial-gradient(ellipse at 94% 72%, rgba(128,201,149,.06), transparent 34%),
+                var(--eco-bg);
+            color: var(--eco-white);
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        }
+        body::before, body::after { content: none; display: none; }
+        nav { border-bottom-color: var(--eco-line); }
+        .logo { color: var(--eco-white); font-weight: 850; letter-spacing: .16em; }
+        .location { color: var(--eco-green); }
+        .nav-link, .back, .view-link { color: #c5cbc6; transition: color .2s ease, border-color .2s ease; }
+        .nav-link:hover, .back:hover { color: var(--eco-green); }
+        main { width: min(1200px, 90%); }
+        .label, .featured-label { color: var(--eco-green); font-weight: 850; letter-spacing: .18em; }
+        .header h1 {
+            color: var(--eco-white);
+            font-weight: 850;
+            letter-spacing: -.055em;
+            line-height: .98;
+        }
+        .header h1 span {
+            background: none;
+            color: var(--eco-red);
+            -webkit-text-fill-color: var(--eco-red);
+        }
+        .header p, .featured p, .competition-card p, .step p, .hall-of-fame p { color: var(--eco-muted); }
+        .featured {
+            border: 1px solid rgba(128,201,149,.25);
+            border-radius: 18px;
+            background: radial-gradient(ellipse at 88% 24%, rgba(128,201,149,.12), transparent 42%), linear-gradient(120deg, rgba(128,201,149,.07), rgba(255,255,255,.015));
+            box-shadow: 0 22px 70px rgba(0,0,0,.18);
+        }
+        .featured h2, .section-header h2, .competition-card h3, .empty-state h3, .step h3, .hall-of-fame h2 {
+            color: var(--eco-white);
+            font-weight: 800;
+            letter-spacing: -.035em;
+        }
+        .featured-meta .status {
+            color: var(--eco-green);
+            border-color: rgba(128,201,149,.35);
+            background: rgba(128,201,149,.07);
+            border-radius: 999px;
+        }
+        .category { color: #d2d8d3; }
+        .section-header { border-bottom-color: var(--eco-line); }
+        .section-header span { color: var(--eco-green); }
+        .competition-card {
+            border: 1px solid var(--eco-line);
+            border-radius: 16px;
+            background: linear-gradient(145deg, var(--eco-panel-soft), var(--eco-panel));
+            transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+        }
+        .competition-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(128,201,149,.42);
+            box-shadow: 0 16px 40px rgba(0,0,0,.2);
+        }
+        .competition-icon { color: var(--eco-green); }
+        .competition-category { color: var(--eco-green); font-weight: 800; }
+        .competition-status { color: #c0c7c1; }
+        .entry-count { color: var(--eco-green); font-weight: 800; }
+        .view-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 11px 15px;
+            border: 1px solid rgba(128,201,149,.35);
+            border-radius: 9px;
+            background: rgba(128,201,149,.07);
+            color: var(--eco-green);
+            font-weight: 800;
+        }
+        .view-link:hover { color: var(--eco-green); border-color: rgba(128,201,149,.55); }
+        .empty-state { border-color: var(--eco-line); border-radius: 16px; background: var(--eco-panel); }
+        .empty-state p { color: var(--eco-muted); }
+        .how-it-works, .hall-of-fame { margin-top: 64px; }
+        .steps { border-color: var(--eco-line); border-radius: 14px; overflow: hidden; background: #101311; }
+        .step { border-right-color: var(--eco-line); }
+        .step-number { color: var(--eco-green); font-weight: 850; }
+        .hall-of-fame {
+            border: 1px solid var(--eco-line);
+            border-radius: 18px;
+            background: radial-gradient(ellipse at 90% 18%, rgba(128,201,149,.09), transparent 36%), linear-gradient(120deg, rgba(128,201,149,.045), rgba(255,255,255,.015));
+        }
+        .hall-status { color: var(--eco-green); font-weight: 800; }
+        footer { color: #89918b; border-top-color: var(--eco-line); }
+        .featured-controls button:not(.featured-cta) {
+            border-color: var(--eco-line);
+            border-radius: 10px;
+            background: #111513;
+            color: var(--eco-white);
+        }
+        .featured-controls button:not(.featured-cta):hover,
+        .featured-controls button:not(.featured-cta):focus-visible {
+            border-color: var(--eco-green);
+            background: rgba(128,201,149,.08);
+            outline: none;
+        }
+        .featured-controls .featured-cta {
+            border: 1px solid #fff;
+            border-radius: 10px;
+            background: #fff;
+            color: #237744;
+            font-weight: 850;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(0,0,0,.12);
+        }
+        .featured-controls .featured-cta:hover,
+        .featured-controls .featured-cta:focus-visible {
+            background: #fff;
+            border-color: #fff;
+            color: #237744;
+            transform: none;
+            outline: 2px solid var(--eco-green);
+            outline-offset: 2px;
+        }
+        .featured-dots button[aria-current="true"] { background: var(--eco-green); }
+        @media (max-width: 600px) {
+            nav { padding: 18px 5%; }
+            .featured { border-radius: 14px; }
+            .header h1 { letter-spacing: -.045em; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+        }
+
+</style>
+
+<!-- THE ECOSYSTEM WORDMARK STANDARD: THE white, ECOSYSTEM red -->
+<style id="ecosystem-wordmark-standard">
+  .brand, .logo, .ecosystem-link-wordmark {
+    color: #FFFFFF !important;
+  }
+  .brand span, .logo span, .ecosystem-link-wordmark span {
+    color: #E6333E !important;
+    -webkit-text-fill-color: #E6333E !important;
+    background: none !important;
+    background-image: none !important;
+  }
+</style>
+
+</head>
+
+<body>
+    <nav>
+        <div class="logo">THE <span>ECOSYSTEM</span></div>
+        <div class="nav-right">
+            <div class="location">NIGERIA · COMMUNITY VOTES</div>
+            <a href="{{ url_for('home') }}" class="nav-link">HOME</a>
+        </div>
+    </nav>
+
+    <main>
+        <a href="{{ url_for('home') }}" class="back">← BACK TO HOME</a>
+
+        <section class="header">
+            <div class="label">P9 · COMPETITIONS</div>
+            <h1>Nigeria's <span>competition.</span></h1>
+            <p>
+                Discover the businesses, services, creators, communities and ideas making an impact in {{ selected_state_label|default('your state') }}. Each competition category is tailored to the state saved in your account.
+            </p>
+        </section>
+
+        {% if competitions %}
+            <section class="featured featured-carousel" id="featuredCarousel" aria-label="Featured competitions" tabindex="0">
+                {% for featured in competitions %}
+                    <article class="featured-slide{% if loop.first %} is-active{% endif %}"
+                             data-slide-index="{{ loop.index0 }}"
+                             aria-hidden="{{ 'false' if loop.first else 'true' }}">
+                        <div class="featured-content">
+                            <div class="featured-label">FEATURED COMPETITION · {{ featured.category|default('COMMUNITY') }}</div>
+                            <h2>{{ featured.title }}</h2>
+                            <p>{{ featured.description }}</p>
+                            <div class="featured-meta">
+                                <div class="status">{{ featured.status|default('COMING SOON') }}</div>
+                                <div class="category">{{ featured.category|default('COMMUNITY AWARDS') }}</div>
+                            </div>
+                            <p style="margin-top: 18px; margin-bottom: 0;">
+                                {{ featured.approved_entry_count|default(0) }} approved nominee(s)
+                            </p>
+                            <div class="featured-controls">
+                                <a class="featured-cta"
+                                   href="{{ url_for('competition_detail', competition_id=featured.id, state=selected_state) }}">CHECK NOMINEES</a>
+                                <button type="button" class="featured-prev" aria-label="Previous competition">←</button>
+                                <button type="button" class="featured-next" aria-label="Next competition">→</button>
+                                <span class="featured-counter"><span class="featured-current">{{ loop.index }}</span> / {{ competitions|length }}</span>
+                                <div class="featured-dots" aria-label="Choose featured competition">
+                                    {% for dot_competition in competitions %}
+                                        <button type="button" data-go-to="{{ loop.index0 }}" aria-label="Show competition {{ loop.index }}" aria-current="{{ 'true' if loop.first else 'false' }}"></button>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </section>
+        {% endif %}
+
+        <section>
+            <div class="section-header">
+                <h2>Competitions</h2>
+                <span>{{ competitions|length }} CATEGORIES</span>
+            </div>
+
+            <div class="competition-grid">
+                {% for competition in competitions %}
+                    <article class="competition-card">
+                        <div class="competition-icon">
+                            {{ competition.icon|default('🏆') }}
+                        </div>
+
+                        <div class="competition-category">
+                            {{ competition.category|default('COMMUNITY AWARDS') }}
+                        </div>
+
+                        <h3>{{ competition.title }}</h3>
+                        <p>{{ competition.description }}</p>
+
+                        <div class="competition-status">
+                            {{ competition.status|default('COMING SOON') }}
+                        </div>
+
+                        <div class="entry-count">
+                            {{ competition.approved_entry_count|default(0) }}
+                            APPROVED NOMINEES
+                        </div>
+
+                        <div class="competition-bottom">
+                            <span></span>
+                            <a
+                                href="{{ url_for('competition_detail', competition_id=competition.id, state=selected_state) }}"
+                                class="view-link"
+                            >VIEW COMPETITION</a>
+                        </div>
+                    </article>
+                {% else %}
+                    <div class="empty-state">
+                        <h3>No competitions are available yet.</h3>
+                        <p>
+                            Competition categories will appear here once they
+                            have been added to THE ECOSYSTEM.
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <span>THE ECOSYSTEM</span>
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">01 · NOMINATE</div>
+                    <h3>Discover</h3>
+                    <p>Find businesses, creators and places worth putting forward.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">02 · SHORTLIST</div>
+                    <h3>Shortlist</h3>
+                    <p>Approved nominees appear in their competition.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">03 · VOTE</div>
+                    <h3>Vote</h3>
+                    <p>The community will get a chance to have its say.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">04 · WIN</div>
+                    <h3>Win</h3>
+                    <p>Winners earn recognition across THE ECOSYSTEM.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="hall-of-fame">
+            <h2>The Hall of Fame</h2>
+            <p>
+                Future winners will live here. Businesses, creators and local
+                organisations recognised by the community will become part of
+                THE ECOSYSTEM's growing record.
+            </p>
+            <div class="hall-status">WINNERS WILL APPEAR HERE</div>
+        </section>
+
+        <footer>
+            <div>THE ECOSYSTEM</div>
+            <div>NIGERIA · COMMUNITY VOTES</div>
+        </footer>
+    </main>
+
+<script>
+(() => {
+    const carousel = document.getElementById('featuredCarousel');
+    if (!carousel) return;
+    const slides = Array.from(carousel.querySelectorAll('.featured-slide'));
+    if (slides.length < 2) return;
+
+    let active = 0;
+    let timer = null;
+    let touchStartX = null;
+    const interval = 4000;
+    const dots = Array.from(carousel.querySelectorAll('[data-go-to]'));
+
+    function show(index) {
+        active = (index + slides.length) % slides.length;
+        slides.forEach((slide, i) => {
+            const selected = i === active;
+            slide.classList.toggle('is-active', selected);
+            slide.setAttribute('aria-hidden', selected ? 'false' : 'true');
+        });
+        dots.forEach((dot, i) => dot.setAttribute('aria-current', i === active ? 'true' : 'false'));
+        slides.forEach((slide, i) => {
+            const counter = slide.querySelector('.featured-current');
+            if (counter) counter.textContent = String(active + 1);
+        });
+    }
+    function stop() { if (timer) window.clearInterval(timer); timer = null; }
+    function start() {
+        stop();
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            timer = window.setInterval(() => show(active + 1), interval);
+        }
+    }
+    carousel.addEventListener('click', (event) => {
+        const next = event.target.closest('.featured-next');
+        const prev = event.target.closest('.featured-prev');
+        const dot = event.target.closest('[data-go-to]');
+        if (next) { show(active + 1); start(); }
+        else if (prev) { show(active - 1); start(); }
+        else if (dot) { show(Number(dot.dataset.goTo)); start(); }
+    });
+    carousel.addEventListener('mouseenter', stop);
+    carousel.addEventListener('mouseleave', start);
+    carousel.addEventListener('focusin', stop);
+    carousel.addEventListener('focusout', (event) => {
+        if (!carousel.contains(event.relatedTarget)) start();
+    });
+    carousel.addEventListener('touchstart', (event) => {
+        touchStartX = event.changedTouches[0].clientX;
+        stop();
+    }, {passive:true});
+    carousel.addEventListener('touchend', (event) => {
+        if (touchStartX === null) return;
+        const delta = event.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(delta) > 45) show(active + (delta < 0 ? 1 : -1));
+        touchStartX = null;
+        start();
+    }, {passive:true});
+    carousel.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight') { show(active + 1); start(); }
+        if (event.key === 'ArrowLeft') { show(active - 1); start(); }
+    });
+    show(0);
+    start();
+})();
+</script>
+
+</body>
+</html>
+

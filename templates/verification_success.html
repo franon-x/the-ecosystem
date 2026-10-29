@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505">
+
+    <title>Email Verified — THE ECOSYSTEM</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background:
+                radial-gradient(circle at 50% 15%, rgba(190, 0, 35, 0.17), transparent 38%),
+                #050505;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .success-card {
+            width: 100%;
+            max-width: 460px;
+            padding: 42px 30px;
+            text-align: center;
+            background: rgba(17, 17, 17, 0.94);
+            border: 1px solid rgba(255, 45, 75, 0.25);
+            border-radius: 22px;
+            box-shadow: 0 0 55px rgba(180, 0, 35, 0.12);
+        }
+
+        .brand {
+            margin-bottom: 34px;
+            color: #ff304f;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 4px;
+        }
+
+        .success-icon {
+            width: 76px;
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            border: 1px solid rgba(255, 48, 79, 0.5);
+            border-radius: 50%;
+            background: rgba(255, 48, 79, 0.09);
+            color: #ff304f;
+            font-size: 38px;
+            box-shadow: 0 0 30px rgba(255, 48, 79, 0.12);
+        }
+
+        h1 {
+            margin-bottom: 16px;
+            font-size: clamp(25px, 5vw, 32px);
+            line-height: 1.25;
+        }
+
+        p {
+            margin-bottom: 28px;
+            color: #aaaaaa;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .login-button {
+            display: block;
+            width: 100%;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ff304f, #bd001f);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 48, 79, 0.2);
+        }
+
+        .footer {
+            margin-top: 24px;
+            color: #666666;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 480px) {
+            .success-card {
+                padding: 35px 22px;
+            }
+
+            .brand {
+                letter-spacing: 3px;
+            }
+        }
+    
+
+/* ==========================================================
+   THE ECOSYSTEM — OFFICIAL DESIGN SYSTEM
+   Palette: #080909 / #111413 / #E6333E / #80C995 / #FFFFFF
+   ========================================================== */
+:root {
+  --eco-bg: #080909;
+  --eco-panel: #111413;
+  --eco-panel-soft: #171b18;
+  --eco-red: #E6333E;
+  --eco-green: #80C995;
+  --eco-white: #FFFFFF;
+  --eco-muted: #A9B0AA;
+  --eco-line: rgba(255,255,255,.11);
+}
+html { background: var(--eco-bg); scroll-behavior: smooth; }
+body {
+  color: var(--eco-white);
+  background:
+    radial-gradient(ellipse at 8% 0%, rgba(230,51,62,.11), transparent 34%),
+    radial-gradient(ellipse at 95% 85%, rgba(128,201,149,.07), transparent 32%),
+    var(--eco-bg);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease; }
+header, nav {
+  border-color: var(--eco-line) !important;
+}
+.logo, .brand { color: var(--eco-white); }
+.logo span, .brand span { color: var(--eco-red); }
+h1, h2, h3, h4 { color: var(--eco-white); }
+p { text-wrap: pretty; }
+input, select, textarea {
+  color: var(--eco-white) !important;
+  background: #0b0e0c !important;
+  border-color: rgba(255,255,255,.15) !important;
+  border-radius: 10px;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--eco-green) !important;
+  box-shadow: 0 0 0 3px rgba(128,201,149,.11);
+  outline: none;
+}
+input::placeholder, textarea::placeholder { color: #737b75 !important; }
+label { color: #d1d6d2; }
+button, input[type="submit"], input[type="button"], .login-button, .view-button,
+.view-link, .view-button, .explore-state-button, .action-button, .btn,
+.primary-button, .submit-button, .save-button, .cta, .view-all,
+a.button, a.btn, .register-button, .submit-btn {
+  border-radius: 10px;
+}
+button[type="submit"], input[type="submit"], .login-button, .submit-button,
+.save-button, .primary-button, .submit-btn, .explore-state-button,
+.action-button, .cta, .register-button, a.button, a.btn, .view-button {
+  background: var(--eco-white) !important;
+  color: #237744 !important;
+  border: 1px solid rgba(128,201,149,.65) !important;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(0,0,0,.16);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+button[type="submit"]:hover, input[type="submit"]:hover, .login-button:hover,
+.submit-button:hover, .save-button:hover, .primary-button:hover, .submit-btn:hover,
+.explore-state-button:hover, .action-button:hover, .cta:hover, .register-button:hover,
+a.button:hover, a.btn:hover, .view-button:hover {
+  background: var(--eco-green) !important;
+  color: #08100b !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(128,201,149,.14);
+}
+button:not([type="submit"]):not(.toggle-password):not(.featured-prev):not(.featured-next) {
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--eco-green);
+  outline-offset: 3px;
+}
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card,
+.creator-card, .event-card, .plan, .stat, .success-card, .featured,
+.featured-creator, .profile-card, .content-card, .result-card {
+  border-color: var(--eco-line) !important;
+}
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card,
+.creator-card, .event-card, .plan, .stat, .success-card, .profile-card,
+.content-card, .result-card {
+  background-color: var(--eco-panel);
+}
+.eyebrow, .label, .page-label, .section-label, .category, .featured-label,
+.event-category, .competition-category { color: var(--eco-green); }
+.muted, .intro, .description, .hero p, .hero-description, .about-text,
+.location, .empty-state p { color: var(--eco-muted); }
+.error, .alert-error {
+  color: #ff9da3;
+  background: rgba(230,51,62,.09);
+  border-color: rgba(230,51,62,.35);
+  border-radius: 10px;
+}
+.success, .alert-success, .notice-success {
+  color: #b8f0c8;
+  background: rgba(128,201,149,.08);
+  border-color: rgba(128,201,149,.3);
+  border-radius: 10px;
+}
+hr { border-color: var(--eco-line); }
+::selection { background: rgba(128,201,149,.32); color: #fff; }
+@media (max-width: 700px) {
+  body { background:
+    radial-gradient(ellipse at 10% 0%, rgba(230,51,62,.09), transparent 38%),
+    var(--eco-bg); }
+}
+
+
+.success-card { border-radius: 24px; background: radial-gradient(ellipse at 50% 0%,rgba(128,201,149,.08),transparent 50%),var(--eco-panel) !important; border-color: rgba(128,201,149,.26) !important; box-shadow: 0 24px 80px rgba(0,0,0,.28); }
+.brand { color: var(--eco-white) !important; }
+.success-icon { color: var(--eco-green) !important; background: rgba(128,201,149,.1) !important; border-color: rgba(128,201,149,.35) !important; box-shadow: 0 0 28px rgba(128,201,149,.08) !important; }
+.login-button { background: #fff !important; color: #237744 !important; }
+
+
+/* THE ECOSYSTEM — unified green theme */
+:root{--eco-bg:#080909;--eco-panel:#111413;--eco-panel-soft:#171b18;--eco-green:#80C995;--eco-white:#fff;--eco-muted:#A9B0AA;--eco-line:rgba(255,255,255,.11)}
+html{background:#080909}body{background:#080909!important;color:#fff;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+body::before,body::after{content:none!important;display:none!important}
+a{color:#80C995}a:hover{color:#a8e3b7}
+header,.tabs{background:#0b0e0c!important;border-color:var(--eco-line)!important}
+.brand,.brand span{color:#fff}.brand span:first-of-type,.eyebrow{color:#80C995!important}
+h1,h2,h3,h4{color:#fff}
+.stat,.card,.success-card,.empty,.flash{background:#111413!important;border-color:var(--eco-line)!important;box-shadow:none}
+.stat small,.muted,.intro,.footer{color:#A9B0AA!important}
+.tab{background:#171b18!important;color:#d9e0da!important;border-color:var(--eco-line)!important}
+.tab.active{background:rgba(128,201,149,.13)!important;border-color:#80C995!important;color:#80C995!important}
+.pill{border-color:rgba(255,255,255,.16);color:#dce2dd}.pill.good,.flash.success{border-color:rgba(128,201,149,.4)!important;color:#a8e3b7!important}
+.pill.bad,.flash.error{border-color:rgba(230,51,62,.4)!important;color:#ff9da3!important}
+button.action,button.approve,.login-button,button[type=submit],input[type=submit]{background:#80C995!important;color:#08100b!important;border:1px solid #80C995!important;font-weight:800}
+button.reject,button.delete{background:#2b1718!important;color:#ffb6ba!important;border:1px solid rgba(230,51,62,.35)!important}
+button.hide{background:#202522!important;color:#e4e9e5!important;border:1px solid var(--eco-line)!important}
+button.action:hover,.login-button:hover,button[type=submit]:hover,input[type=submit]:hover{background:#80C995!important;color:#08100b!important;filter:brightness(1.04)}
+input,select,textarea{background:#0b0e0c!important;color:#fff!important;border-color:rgba(255,255,255,.15)!important}
+input:focus,select:focus,textarea:focus{border-color:#80C995!important;box-shadow:0 0 0 3px rgba(128,201,149,.11)!important;outline:none}
+.success-icon{color:#80C995!important;background:rgba(128,201,149,.1)!important;border-color:rgba(128,201,149,.35)!important;box-shadow:none!important}
+.success-card{border-radius:22px;border-color:rgba(128,201,149,.26)!important}
+.login-button{display:block;text-decoration:none;text-align:center;border-radius:10px}
+@media(max-width:600px){.tabs{top:66px}}
+
+
+/* Final brand wordmark consistency: THE white, ECOSYSTEM red */
+.logo, .brand { color: #FFFFFF !important; }
+.logo span, .brand span, .ecosystem-wordmark span, .ecosystem-wordmark b,
+.footer strong.ecosystem-wordmark span { color: #E6333E !important; }
+.ecosystem-wordmark { color: #FFFFFF !important; }
+
+</style>
+</head>
+
+<body>
+    <main class="success-card">
+        <div class="brand">THE <span>ECOSYSTEM</span></div>
+
+        <div class="success-icon" aria-label="Success">✓</div>
+
+        <h1>Email Verified Successfully!</h1>
+
+        <p>
+            Your email address has been confirmed. Your account is ready,
+            and you can now log in to explore THE ECOSYSTEM.
+        </p>
+
+        <a class="login-button" href="{{ url_for('login') }}">
+            Continue to Login →
+        </a>
+
+        <div class="footer">
+            Discover what's happening. Connect with your city.
+        </div>
+    </main>
+</body>
+</html>

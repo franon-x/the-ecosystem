@@ -1,0 +1,878 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ competition.title }} | THE ECOSYSTEM</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #050505;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before, body::after {
+            content: "";
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(110px);
+        }
+
+        body::before {
+            width: 750px;
+            height: 750px;
+            top: -330px;
+            right: -260px;
+            background: radial-gradient(circle, rgba(180,0,0,.24), transparent 70%);
+        }
+
+        body::after {
+            width: 650px;
+            height: 650px;
+            bottom: -330px;
+            left: -270px;
+            background: radial-gradient(circle, rgba(110,0,0,.17), transparent 70%);
+        }
+
+        nav {
+            width: 100%;
+            padding: 25px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        .logo {
+            color: #e00000;
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: .22em;
+        }
+
+        .nav-right { display: flex; align-items: center; gap: 30px; }
+
+        .location {
+            color: rgba(255,80,80,.60);
+            font-size: 10px;
+            letter-spacing: .25em;
+        }
+
+        .nav-link, .back {
+            color: rgba(255,255,255,.55);
+            text-decoration: none;
+            font-size: 10px;
+            letter-spacing: .18em;
+            transition: .3s;
+        }
+
+        .nav-link:hover, .back:hover { color: #ff3333; }
+
+        main {
+            width: min(1100px, 88%);
+            margin: auto;
+            padding: 55px 0 120px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 50px;
+            color: rgba(255,255,255,.35);
+        }
+
+        .hero {
+            position: relative;
+            min-height: 430px;
+            padding: 55px;
+            overflow: hidden;
+            border: 1px solid rgba(180,0,0,.28);
+            background: linear-gradient(120deg, rgba(120,0,0,.25), rgba(255,255,255,.015));
+        }
+
+        .hero::after {
+            content: "{{ competition.icon|default('🏆', true) }}";
+            position: absolute;
+            right: 5%;
+            top: 8%;
+            font-size: clamp(120px, 20vw, 230px);
+            opacity: .06;
+            filter: grayscale(1);
+            pointer-events: none;
+        }
+
+        .hero-content { position: relative; z-index: 2; max-width: 720px; }
+
+        .label, .about-label, .coming-label, .ecosystem-link-label {
+            color: rgba(255,60,60,.70);
+            font-size: 9px;
+            letter-spacing: .25em;
+            margin-bottom: 20px;
+        }
+
+        .category {
+            color: rgba(255,255,255,.30);
+            font-size: 9px;
+            letter-spacing: .20em;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 300;
+            line-height: .92;
+            margin-bottom: 30px;
+            overflow-wrap: anywhere;
+            background: linear-gradient(90deg, #fff, #a00000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .description {
+            max-width: 620px;
+            color: rgba(255,255,255,.40);
+            font-size: 13px;
+            line-height: 1.8;
+            margin-bottom: 35px;
+        }
+
+        .hero-meta { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+
+        .status {
+            display: inline-block;
+            padding: 9px 14px;
+            border: 1px solid rgba(220,0,0,.35);
+            color: rgba(255,90,90,.85);
+            font-size: 8px;
+            letter-spacing: .18em;
+        }
+
+        .competition-id {
+            color: rgba(255,255,255,.22);
+            font-size: 8px;
+            letter-spacing: .18em;
+        }
+
+        .about {
+            margin-top: 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .about-card {
+            padding: 35px;
+            min-height: 220px;
+            border: 1px solid rgba(255,255,255,.07);
+            background: linear-gradient(145deg, rgba(90,0,0,.18), rgba(255,255,255,.015));
+        }
+
+        .about-label { font-size: 8px; margin-bottom: 22px; }
+
+        .about-card h2, .coming-soon h2 {
+            font-size: 25px;
+            font-weight: 300;
+            margin-bottom: 15px;
+        }
+
+        .about-card p, .coming-soon p, .ecosystem-link p {
+            color: rgba(255,255,255,.38);
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        .coming-soon {
+            margin-top: 25px;
+            padding: 40px;
+            border: 1px solid rgba(220,0,0,.20);
+            background: linear-gradient(110deg, rgba(100,0,0,.15), rgba(255,255,255,.01));
+        }
+
+        .coming-label { font-size: 8px; margin-bottom: 18px; }
+
+        .coming-soon p { max-width: 620px; margin-bottom: 25px; }
+
+        .action-button {
+            display: inline-block;
+            padding: 14px 20px;
+            border: 1px solid #b80000;
+            background: #a00000;
+            color: white;
+            text-decoration: none;
+            font-size: 9px;
+            letter-spacing: .12em;
+            transition: .3s;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .action-button:hover {
+            background: #e00000;
+            border-color: #e00000;
+            transform: translateY(-2px);
+        }
+
+        .disabled-button {
+            display: inline-block;
+            padding: 12px 18px;
+            border: 1px solid rgba(255,255,255,.10);
+            color: rgba(255,255,255,.30);
+            font-size: 8px;
+            letter-spacing: .18em;
+        }
+
+        .public-entries, .flow { margin-top: 70px; }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        .section-header h2 { font-size: 24px; font-weight: 300; }
+
+        .section-header span {
+            color: rgba(255,255,255,.35);
+            font-size: 9px;
+            letter-spacing: .14em;
+            text-align: right;
+        }
+
+        .entry-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+
+        .entry-card {
+            padding: 28px;
+            border: 1px solid rgba(220,0,0,.20);
+            background: linear-gradient(145deg, rgba(90,0,0,.20), rgba(255,255,255,.015));
+        }
+
+        .entry-card.my-vote {
+            border-color: rgba(255,50,50,.75);
+            box-shadow: 0 0 25px rgba(180,0,0,.10);
+        }
+
+        .entry-tag {
+            display: inline-block;
+            margin-bottom: 18px;
+            padding: 7px 10px;
+            border: 1px solid rgba(220,0,0,.35);
+            color: rgba(255,100,100,.9);
+            font-size: 8px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+
+        .rank {
+            float: right;
+            color: rgba(255,255,255,.35);
+            font-size: 10px;
+            letter-spacing: .1em;
+        }
+
+        .entry-card h3 {
+            font-size: 23px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            overflow-wrap: anywhere;
+        }
+
+        .entry-type {
+            color: rgba(255,255,255,.45);
+            font-size: 10px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+        }
+
+        .entry-card p {
+            color: rgba(255,255,255,.55);
+            font-size: 12px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        .entry-meta {
+            color: rgba(255,255,255,.35);
+            font-size: 10px;
+            letter-spacing: .08em;
+            line-height: 1.9;
+            margin-bottom: 18px;
+        }
+
+        .vote-count {
+            color: #ff6464;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .vote-form { margin-top: 18px; }
+
+        .vote-button {
+            width: 100%;
+            text-align: center;
+        }
+
+        .vote-button.current {
+            background: transparent;
+            border-color: #b00000;
+            color: #ff7777;
+        }
+
+        .empty-entries {
+            padding: 35px;
+            border: 1px solid rgba(255,255,255,.07);
+            color: rgba(255,255,255,.35);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid rgba(255,255,255,.06);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+        }
+
+        .step {
+            padding: 30px 20px;
+            border-right: 1px solid rgba(255,255,255,.06);
+        }
+
+        .step:last-child { border-right: none; }
+
+        .number {
+            color: rgba(220,0,0,.65);
+            font-size: 9px;
+            letter-spacing: .18em;
+            margin-bottom: 20px;
+        }
+
+        .step h3 { font-size: 16px; font-weight: 300; margin-bottom: 10px; }
+
+        .step p {
+            color: rgba(255,255,255,.28);
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        .ecosystem-link {
+            margin-top: 70px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,.07);
+            background: linear-gradient(120deg, rgba(90,0,0,.12), rgba(255,255,255,.01));
+        }
+
+        .ecosystem-link h2 {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 12px;
+        }
+
+        .ecosystem-link p { max-width: 650px; }
+
+        footer {
+            margin-top: 80px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255,255,255,.05);
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            color: rgba(255,255,255,.20);
+            font-size: 10px;
+            letter-spacing: .12em;
+        }
+
+        @media (max-width: 800px) {
+            .about { grid-template-columns: 1fr; }
+            .steps { grid-template-columns: repeat(2, 1fr); }
+            .step:nth-child(2) { border-right: none; }
+            .step:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.06); }
+            .entry-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            nav { padding: 20px; }
+            .logo { font-size: 12px; letter-spacing: .15em; }
+            .nav-right { gap: 15px; }
+            .location { display: none; }
+            main { width: 90%; padding-top: 40px; }
+            .back { margin-bottom: 35px; }
+            .hero { padding: 30px; min-height: 400px; }
+            h1 { font-size: 3rem; }
+            .description { font-size: 12px; }
+            .about-card, .coming-soon, .ecosystem-link { padding: 28px; }
+            .steps { grid-template-columns: 1fr; }
+            .step, .step:nth-child(2) {
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,.06);
+            }
+            .step:last-child { border-bottom: none; }
+            .entry-card { padding: 23px; }
+            footer { flex-direction: column; gap: 10px; }
+        }
+    
+
+        /* THE ECOSYSTEM competition detail palette */
+        :root { --eco-red:#e6333e; --eco-green:#80c995; --eco-line:rgba(255,255,255,.10); }
+        body { background:radial-gradient(ellipse at 10% 0%,rgba(230,51,62,.12),transparent 36%),radial-gradient(ellipse at 92% 80%,rgba(70,145,88,.10),transparent 35%),#080909; color:#f7f7f5; font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+        nav { padding:18px max(5%,calc((100% - 1100px)/2)); background:rgba(8,9,9,.9); position:sticky;top:0;z-index:10;backdrop-filter:blur(16px);border-bottom-color:var(--eco-line); }
+        .logo { color:#f7f7f5; font-weight:800; letter-spacing:.16em; }
+        .location,.label,.about-label,.coming-label,.ecosystem-link-label { color:var(--eco-green); }
+        .nav-link,.back { color:#c5cbc6; letter-spacing:.06em; }
+        .nav-link:hover,.back:hover { color:var(--eco-green); }
+        main { padding-top:38px; }
+        .hero { border:1px solid rgba(230,51,62,.32); border-radius:18px; background:radial-gradient(ellipse at 85% 30%,rgba(230,51,62,.17),transparent 42%),linear-gradient(120deg,rgba(230,51,62,.10),rgba(128,201,149,.055),rgba(255,255,255,.015)); box-shadow:0 24px 80px #0004; }
+        h1 { font-weight:750; letter-spacing:-.055em; background:linear-gradient(90deg,#fff,#80c995 70%,#e6333e); -webkit-background-clip:text; }
+        .description { color:#b0b7b1; }
+        .status { border-color:rgba(128,201,149,.35); color:var(--eco-green); background:rgba(128,201,149,.07); border-radius:99px; }
+        .about-card,.coming-soon { border-color:var(--eco-line); border-radius:15px; background:linear-gradient(145deg,#141816,#0e100f); }
+        .about-card h2,.coming-soon h2 { font-weight:750; letter-spacing:-.03em; }
+        .about-card p,.coming-soon p,.ecosystem-link p { color:#aab1ab; }
+        .action-button { border:1px solid var(--eco-red); border-radius:9px; background:var(--eco-red); font-size:11px; font-weight:800; letter-spacing:.04em; }
+        .action-button:hover { background:#c92530; border-color:#c92530; }
+        .disabled-button { border-radius:9px; }
+        .section-header { border-bottom-color:var(--eco-line); }
+        .section-header h2 { font-weight:750; letter-spacing:-.03em; }
+        .section-header span { color:#aab1ab; }
+        .entry-card { border:1px solid var(--eco-line); border-radius:15px; background:linear-gradient(145deg,#151917,#0e100f); }
+        .entry-card.my-vote { border-color:rgba(128,201,149,.65); box-shadow:0 0 24px rgba(128,201,149,.08); }
+        .entry-tag { color:var(--eco-green); border-color:rgba(128,201,149,.32); background:rgba(128,201,149,.07); border-radius:99px; }
+        .rank,.entry-type,.entry-meta { color:#aab1ab; }
+        .entry-card h3 { font-weight:750; letter-spacing:-.025em; }
+        .vote-count { color:var(--eco-green); }
+        .vote-button.current { border-color:var(--eco-green); color:var(--eco-green); }
+        .empty-entries { border-color:var(--eco-line); border-radius:12px; color:#aab1ab; background:#111413; }
+        .steps { border-color:var(--eco-line); border-radius:14px; overflow:hidden; background:#101311; }
+        .step { border-color:var(--eco-line); }
+        .number { color:var(--eco-green); }
+        .step h3 { font-weight:700; }
+        footer { border-top-color:var(--eco-line); color:#89918b; }
+
+    
+
+/* DISCOVER-MATCHED VISUAL SYSTEM: bold white type, green ambience, restrained red accent. */
+:root {
+  --bg: #080909 !important;
+  --panel: #111413 !important;
+  --panel-soft: #171b18 !important;
+  --green: #80C995 !important;
+  --red: #E6333E !important;
+  --white: #FFFFFF !important;
+  --muted: #A9B0AA !important;
+  --line: rgba(255,255,255,.11) !important;
+  --text: #FFFFFF !important;
+  --border: rgba(255,255,255,.11) !important;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg) !important; }
+body {
+  background-color: var(--bg) !important;
+  background-image:
+    radial-gradient(ellipse at 8% 4%, rgba(128,201,149,.13) 0, rgba(128,201,149,.045) 23%, transparent 48%),
+    radial-gradient(ellipse at 94% 32%, rgba(128,201,149,.085) 0, transparent 38%),
+    radial-gradient(ellipse at 50% 100%, rgba(230,51,62,.035) 0, transparent 48%) !important;
+  color: var(--white) !important;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif !important;
+}
+/* No fixed pseudo-element layers: nothing can cover or block the interface. */
+body::before, body::after { content: none !important; display: none !important; }
+nav, header { border-color: var(--line) !important; }
+.logo, .ecosystem-link { color: var(--white) !important; font-weight: 850 !important; letter-spacing: .16em !important; }
+.logo span, .ecosystem-link span { color: var(--green) !important; }
+.nav-link, .back, .home-link, .forgot-link, .register-link, .admin-link { transition: color .2s ease, border-color .2s ease !important; }
+.nav-link:hover, .back:hover, .home-link:hover, .forgot-link:hover, .register-link:hover, .admin-link:hover { color: var(--green) !important; }
+.page-label, .eyebrow, .intro .eyebrow, .about-label, .coming-label, .entry-tag, .entry-type, .label, .pending-label, .info-label, .nav-location, .location {
+  color: var(--green) !important; font-weight: 850 !important; letter-spacing: .15em !important; text-transform: uppercase;
+}
+h1, h2, h3, .page-title, .hero h1, .hero-title, .section-title, .business-name, .pending-title, .about-card h2, .entry-card h3 {
+  color: var(--white); font-weight: 850 !important; letter-spacing: -.04em !important;
+}
+.page-title span, .hero h1 span, .hero-title span, .accent, .red, .highlight, .competition-id {
+  color: var(--red) !important; background: none !important; -webkit-text-fill-color: var(--red) !important;
+  text-shadow: 0 0 24px rgba(230,51,62,.12);
+}
+.description, .intro p, .hint, .pending-text, .business-description, .about-card p, .entry-meta, .section-note, .info-value, .field small {
+  color: var(--muted) !important; line-height: 1.8;
+}
+.panel, .container, .form-card, .about-card, .about, .claim-details, .pending-card, .user-info, .entry-card, .business-card, .hero, .coming-soon, .info-box, .steps, .controls, .search, .filters, .sort-wrap {
+  border-color: var(--line) !important; border-radius: 14px !important;
+}
+.panel, .container, .form-card, .about-card, .claim-details, .pending-card, .user-info, .entry-card, .business-card, .coming-soon, .info-box, .steps {
+  background-color: rgba(17,20,19,.94) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025), 0 12px 38px rgba(0,0,0,.16) !important;
+}
+.business-card:hover, .entry-card:hover, .about-card:hover { border-color: rgba(128,201,149,.48) !important; transform: translateY(-2px); }
+input, select, textarea, .field input, .field select, .field textarea {
+  background: #0b0e0c !important; color: var(--white) !important; border: 1px solid var(--line) !important; border-radius: 9px !important;
+}
+input::placeholder, textarea::placeholder { color: #737b75 !important; }
+input:focus, select:focus, textarea:focus { outline: none !important; border-color: var(--green) !important; box-shadow: 0 0 0 3px rgba(128,201,149,.09) !important; }
+button, .submit-btn, .login-button, .action-button, .cta-button, .vote-button, .view-business, .business-cta {
+  border: 1px solid rgba(128,201,149,.65) !important; border-radius: 9px !important;
+  background: var(--white) !important; color: #237744 !important; font-weight: 850 !important; transition: background .2s ease, color .2s ease, transform .2s ease !important;
+}
+button:hover, .submit-btn:hover, .login-button:hover, .action-button:hover, .cta-button:hover, .vote-button:hover, .view-business:hover, .business-cta:hover {
+  background: var(--green) !important; color: #08100b !important; transform: translateY(-1px);
+}
+button:disabled, .disabled-button, .coming-soon button { opacity: .55; cursor: not-allowed; }
+.filter, .category, .status, .business-tag, .visual-category, .rank, .step {
+  border-color: rgba(128,201,149,.22) !important; background: rgba(128,201,149,.075) !important; color: #dff2e4 !important;
+}
+.filter:hover, .filter.active, .status.active { border-color: rgba(128,201,149,.6) !important; background: rgba(128,201,149,.14) !important; color: var(--white) !important; }
+.stars, .rating-number, .business-rating, .vote-count { color: var(--green) !important; }
+.error { border-color: rgba(230,51,62,.35) !important; background: rgba(230,51,62,.075) !important; color: #ff9da3 !important; }
+.info-box, .hint { border-color: rgba(128,201,149,.2) !important; }
+::selection { background: rgba(128,201,149,.3); color: white; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--green) !important; outline-offset: 3px !important; }
+@media (max-width: 650px) {
+  body { background-image: radial-gradient(ellipse at 5% 0%, rgba(128,201,149,.11), transparent 45%), radial-gradient(ellipse at 95% 45%, rgba(128,201,149,.06), transparent 38%) !important; }
+  .page-title, h1 { font-weight: 850 !important; }
+}
+
+
+
+/* DISCOVER PAGE DESIGN SYSTEM — final consistent overrides */
+:root {
+  --eco-bg: #080909;
+  --eco-panel: #111413;
+  --eco-panel-soft: #171b18;
+  --eco-green: #80C995;
+  --eco-red: #E6333E;
+  --eco-white: #FFFFFF;
+  --eco-muted: #A9B0AA;
+  --eco-line: rgba(255,255,255,.11);
+}
+html { background: var(--eco-bg) !important; scroll-behavior: smooth; }
+body {
+  background-color: var(--eco-bg) !important;
+  background-image:
+    radial-gradient(ellipse at 8% 3%, rgba(128,201,149,.105) 0, rgba(128,201,149,.035) 24%, transparent 48%),
+    radial-gradient(ellipse at 94% 34%, rgba(128,201,149,.065) 0, transparent 39%) !important;
+  color: var(--eco-white) !important;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif !important;
+}
+body::before, body::after { pointer-events:none !important; }
+nav, header, footer { border-color: var(--eco-line) !important; }
+.logo, .ecosystem-link { color: var(--eco-white) !important; font-weight: 850 !important; letter-spacing: .16em !important; }
+.logo span, .ecosystem-link span { color: var(--eco-green) !important; }
+.location, .nav-location, .page-label, .eyebrow, .label, .about-label, .coming-label,
+.featured-label, .business-category, .card-tag, .entry-tag, .pending-label, .info-label,
+.form-section-title span, .business-category, .category-label {
+  color: var(--eco-green) !important; font-weight: 800 !important;
+}
+h1, h2, h3, h4, .page-title, .section-title, .hero-title, .business-name, .pending-title,
+.about-card h2, .entry-card h3, .card-title, .form-section-title {
+  color: var(--eco-white) !important; font-weight: 850 !important; letter-spacing: -.035em !important;
+}
+.page-title span, .hero h1 span, .hero-title span, .accent, .highlight, .competition-id {
+  color: var(--eco-red) !important; background: none !important; -webkit-text-fill-color: var(--eco-red) !important;
+}
+p, .description, .intro, .hero p, .business-location, .hint, .field-note, .pending-text,
+.about-card p, .coming-soon p, .entry-card p { color: var(--eco-muted) !important; }
+a { -webkit-tap-highlight-color: transparent; }
+.nav-link, .back, .quick-link, .clear-search, .clear-all-link { transition: color .2s ease, border-color .2s ease !important; }
+.nav-link:hover, .back:hover, .quick-link:hover, .clear-search:hover, .clear-all-link:hover { color: var(--eco-green) !important; }
+/* Cards stay near-black, not saturated green gradients. */
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card, .creator-card,
+.event-card, .plan, .stat, .success-card, .featured, .featured-creator, .profile-card,
+.content-card, .result-card, .local-card, .business-card, .place-card, .service-card,
+.listing-card, .meta-item, .dashboard-card, .about-card, .entry-card, .pending-card,
+.business-preview, .business-cta, .location-banner, .coming-soon, .hero, .form-card {
+  background-color: var(--eco-panel) !important;
+  background-image: linear-gradient(145deg, rgba(128,201,149,.035), rgba(17,20,19,.98) 70%) !important;
+  border-color: var(--eco-line) !important;
+  color: var(--eco-white) !important;
+  box-shadow: none;
+}
+.local-card:hover, .card:hover, .business-card:hover, .entry-card:hover, .quick-link:hover {
+  border-color: rgba(128,201,149,.45) !important;
+}
+input, select, textarea {
+  background-color: #0b0e0c !important; color: var(--eco-white) !important;
+  border-color: rgba(255,255,255,.14) !important;
+}
+input::placeholder, textarea::placeholder { color: rgba(255,255,255,.38) !important; }
+input:focus, select:focus, textarea:focus {
+  border-color: var(--eco-green) !important; outline: none !important;
+  box-shadow: 0 0 0 3px rgba(128,201,149,.09) !important;
+}
+select option { background: #0b0e0c !important; color: #fff !important; }
+/* Standard Discover-style action treatment. */
+button, .submit-btn, .login-button, .action-button, .save-button, .vote-button,
+.cta-button, .search-button, .quick-action, .form-button {
+  border: 1px solid rgba(128,201,149,.65) !important;
+  border-radius: 8px !important;
+  background: #FFFFFF !important; color: #237744 !important;
+  font-weight: 850 !important;
+  transition: background .2s ease, color .2s ease, border-color .2s ease !important;
+}
+button:hover, .submit-btn:hover, .login-button:hover, .action-button:hover, .save-button:hover,
+.vote-button:hover, .cta-button:hover, .search-button:hover, .quick-action:hover, .form-button:hover {
+  background: var(--eco-green) !important; color: #08100b !important;
+  border-color: var(--eco-green) !important; transform: none !important;
+}
+.filter, .category, .status, .business-tag, .entry-tag, .step, .number {
+  border-color: rgba(128,201,149,.24) !important;
+}
+.filter:hover, .filter.active, .status.active { border-color: rgba(128,201,149,.55) !important; background: rgba(128,201,149,.10) !important; }
+.error, .flash.error { border-color: rgba(230,51,62,.38) !important; background: rgba(230,51,62,.07) !important; color: #ff9da3 !important; }
+.flash.success, .success { border-color: rgba(128,201,149,.35) !important; color: #b8f0c8 !important; }
+::selection { background: rgba(128,201,149,.28); color: #fff; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--eco-green) !important; outline-offset: 3px !important; }
+@media (max-width: 700px) {
+  body { background-image: radial-gradient(ellipse at 5% 0%, rgba(128,201,149,.09), transparent 46%) !important; }
+  .page, main { max-width: 100%; }
+  .field-grid, .user-info { grid-template-columns: 1fr !important; }
+  .manage-grid { grid-template-columns: 1fr !important; }
+}
+
+
+        .flash-messages { display:grid; gap:10px; margin:0 0 22px; }
+        .flash-message { padding:14px 16px; border:1px solid var(--eco-line); border-radius:10px; background:#111413; color:#f7f7f5; font-size:12px; line-height:1.6; }
+        .flash-message.success { border-color:rgba(128,201,149,.4); color:#b8f0c8; background:rgba(128,201,149,.08); }
+        .flash-message.error { border-color:rgba(230,51,62,.4); color:#ff9da3; background:rgba(230,51,62,.08); }
+        .flash-message.info { border-color:rgba(255,255,255,.15); color:#dce1dc; }
+        .vote-button:disabled { cursor:not-allowed; opacity:.8; }
+
+</style>
+
+<!-- THE ECOSYSTEM WORDMARK STANDARD: THE white, ECOSYSTEM red -->
+<style id="ecosystem-wordmark-standard">
+  .brand, .logo, .ecosystem-link-wordmark {
+    color: #FFFFFF !important;
+  }
+  .brand span, .logo span, .ecosystem-link-wordmark span {
+    color: #E6333E !important;
+    -webkit-text-fill-color: #E6333E !important;
+    background: none !important;
+    background-image: none !important;
+  }
+</style>
+
+</head>
+
+<body>
+    <nav>
+        <div class="logo">THE <span>ECOSYSTEM</span></div>
+        <div class="nav-right">
+            <div class="location">{{ state|default("Oyo")|upper }} · NIGERIA</div>
+            <a href="{{ url_for('home') }}" class="nav-link">HOME</a>
+        </div>
+    </nav>
+
+    <main>
+        <a href="{{ url_for('competitions') }}" class="back">← BACK TO COMPETITIONS</a>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages" role="status" aria-live="polite">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category|default('info') }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <section class="hero">
+            <div class="hero-content">
+                <div class="label">P9 · COMPETITION</div>
+                <div class="category">{{ competition.category|default('COMMUNITY', true) }}</div>
+                <h1>{{ competition.title }}</h1>
+                <p class="description">{{ competition.description|default('', true) }}</p>
+
+                <div class="hero-meta">
+                    <div class="status">{{ competition.status|default('COMING SOON', true) }}</div>
+                    <div class="competition-id">
+                        COMPETITION #{{ "%02d"|format(competition_id|default(competition.id|default(0), true)|int) }}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about">
+            <div class="about-card">
+                <div class="about-label">ABOUT THE COMPETITION</div>
+                <h2>Why it matters</h2>
+                <p>{{ competition.about|default(competition.description|default('', true), true) }}</p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-label">THE ECOSYSTEM</div>
+                <h2>Community recognition</h2>
+                <p>
+                    Competitions connect {{ state|default("your state") }} with the businesses, creators
+                    and places making the community special. Recognition earned
+                    here helps celebrate local excellence across THE ECOSYSTEM.
+                </p>
+            </div>
+        </section>
+
+        <section class="public-entries">
+            <div class="section-header">
+                <h2>Official Nominees</h2>
+                <span>{{ approved_entries|length }} APPROVED</span>
+            </div>
+
+            {% if approved_entries %}
+                <div class="entry-grid">
+                    {% for entry in approved_entries %}
+                        <article class="entry-card{% if user_vote_entry_id == entry.id %} my-vote{% endif %}">
+                            <span class="entry-tag">✓ Official Nominee</span>
+                            <span class="rank">RANK #{{ loop.index }}</span>
+
+                            <h3>{{ entry.entrant_name|default(entry.business_name|default(entry.name|default('Community Nominee', true), true), true) }}</h3>
+
+                            {% if entry.entrant_type|default('', true) %}
+                                <div class="entry-type">{{ entry.entrant_type }}</div>
+                            {% elif entry.business_name|default('', true) %}
+                                <div class="entry-type">BUSINESS</div>
+                            {% endif %}
+
+                            {% if entry.description|default('', true) %}
+                                <p>{{ entry.description }}</p>
+                            {% elif entry.reason|default('', true) %}
+                                <p>{{ entry.reason }}</p>
+                            {% else %}
+                                <p>This nominee has been approved for public recognition in this competition.</p>
+                            {% endif %}
+
+                            {% if entry.reason|default('', true) and entry.description|default('', true) %}
+                                <p>{{ entry.reason }}</p>
+                            {% endif %}
+
+                            <div class="entry-meta">
+                                {% if entry.submitted_at|default('', true) %}
+                                    NOMINATED {{ entry.submitted_at }}<br>
+                                {% endif %}
+                                COMMUNITY VOTES:
+                                <span class="vote-count">{{ entry.votes|default(0, true) }}</span>
+                            </div>
+
+                            {% if voting_open %}
+                                {% if session.get('user_id') %}
+                                    {% if user_vote_entry_id == entry.id %}
+                                        <button type="button" class="action-button vote-button current" disabled>
+                                            YOUR VOTE ✓
+                                        </button>
+                                    {% elif user_vote_entry_id %}
+                                        <button type="button" class="action-button vote-button" disabled>
+                                            ALREADY VOTED IN THIS CATEGORY
+                                        </button>
+                                    {% else %}
+                                        <form class="vote-form" method="POST"
+                                              action="{{ url_for('vote_competition_entry', competition_id=competition.id, entry_id=entry.id) }}">
+                                            <button type="submit" class="action-button vote-button">
+                                                VOTE FOR NOMINEE →
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                {% else %}
+                                    <a class="action-button vote-button"
+                                       href="{{ url_for('login', next=request.path) }}">
+                                        SIGN IN TO VOTE →
+                                    </a>
+                                {% endif %}
+                            {% else %}
+                                <div class="disabled-button">
+                                    VOTING NOT OPEN YET
+                                </div>
+                            {% endif %}
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-entries">
+                    No approved nominees are available in {{ state|default("this state") }} yet. Once nominations are approved, they will appear here with a vote button when voting opens.
+                </div>
+            {% endif %}
+        </section>
+
+        <section class="coming-soon">
+            <div class="coming-label">NOMINATIONS</div>
+            {% set competition_status = competition.status|default('', true)|trim|upper %}
+
+            {% if competition_status == 'CLOSED' %}
+                <h2>This competition is closed.</h2>
+                <p>Nominations are no longer being accepted for this competition. Return to the competitions page to explore other opportunities.</p>
+                <span class="disabled-button">NOMINATIONS CLOSED</span>
+            {% else %}
+                <h2>Put forward your nominee.</h2>
+                <p>Know a business, creator, startup or individual that deserves recognition? Submit a nomination for this competition.</p>
+
+                <a href="{{ url_for('competition_entry', competition_id=competition.id) }}"
+                   class="action-button">
+                    SUBMIT A NOMINATION →
+                </a>
+
+                {% if not session.get('user_id') %}
+                    <p style="margin-top:16px; margin-bottom:0;">
+                        You may be asked to sign in before submitting.
+                    </p>
+                {% endif %}
+            {% endif %}
+        </section>
+
+        <section class="flow">
+            <div class="section-header">
+                <h2>Competition Journey</h2>
+                <span>P9 · THE ECOSYSTEM</span>
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="number">01 · NOMINATE</div>
+                    <h3>Nominate</h3>
+                    <p>Put forward a business, creator or place worth recognising.</p>
+                </div>
+                <div class="step">
+                    <div class="number">02 · SHORTLIST</div>
+                    <h3>Shortlist</h3>
+                    <p>Strong nominees move into the official competition.</p>
+                </div>
+                <div class="step">
+                    <div class="number">03 · VOTE</div>
+                    <h3>Vote</h3>
+                    <p>The people of {{ state|default("your state") }} get their chance to have a say.</p>
+                </div>
+                <div class="step">
+                    <div class="number">04 · WIN</div>
+                    <h3>Winner</h3>
+                    <p>Winners earn recognition across THE ECOSYSTEM.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="ecosystem-link">
+            <div class="ecosystem-link-label">FUTURE ECOSYSTEM CONNECTION</div>
+            <h2>Recognition becomes part of the story.</h2>
+            <p>
+                Participating businesses, creators and organisations can
+                connect directly to their profiles and showcases. Winners
+                can carry their achievements across THE ECOSYSTEM, turning
+                competition results into lasting local recognition.
+            </p>
+        </section>
+
+        <footer>
+            <div>THE ECOSYSTEM</div>
+            <div>{{ state|default("Oyo")|upper }} · NIGERIA</div>
+        </footer>
+    </main>
+</body>
+</html>

@@ -1,0 +1,2389 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Account — THE ECOSYSTEM</title>
+
+
+
+    <style>
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        body {
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: #080909;
+
+            color: #ffffff;
+
+            min-height: 100vh;
+
+        }
+
+
+
+        .page {
+
+            width: min(1100px, 92%);
+
+            margin: 0 auto;
+
+            padding: 35px 0 80px;
+
+        }
+
+
+
+        /* NAV */
+
+        nav {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding-bottom: 35px;
+
+            border-bottom: 1px solid #1c1c1c;
+
+        }
+
+
+
+        .logo {
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            letter-spacing: 4px;
+
+        }
+
+
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 24px;
+
+        }
+
+
+
+        .nav-links a {
+
+            color: #777;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            transition: color 0.2s ease;
+
+        }
+
+
+
+        .nav-links a:hover {
+
+            color: #fff;
+
+        }
+
+
+
+        .logout {
+
+            color: #E6333E !important;
+
+        }
+
+
+
+        /* HERO */
+
+        .hero {
+
+            padding: 80px 0 60px;
+
+        }
+
+
+
+        .eyebrow {
+
+            color: #E6333E;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+
+        h1 {
+
+            font-size: clamp(48px, 9vw, 90px);
+
+            line-height: 0.9;
+
+            letter-spacing: -5px;
+
+            max-width: 800px;
+
+        }
+
+
+
+        h1 span {
+
+            color: #E6333E;
+
+        }
+
+
+
+        .intro {
+
+            margin-top: 28px;
+
+            color: #888;
+
+            font-size: 16px;
+
+            line-height: 1.7;
+
+            max-width: 550px;
+
+        }
+
+
+
+        /* PROFILE */
+
+        .profile-card {
+
+            border: 1px solid #202020;
+
+            background: #111413;
+
+            padding: 35px;
+
+            margin-bottom: 60px;
+
+        }
+
+
+
+        .profile-top {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 24px;
+
+        }
+
+
+
+        .avatar {
+
+            width: 72px;
+
+            height: 72px;
+
+            border-radius: 50%;
+
+            background: #E6333E;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 28px;
+
+            font-weight: 900;
+
+            flex-shrink: 0;
+
+        }
+
+
+
+        .profile-info h2 {
+
+            font-size: 25px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+
+        .profile-info p {
+
+            color: #777;
+
+            font-size: 14px;
+
+        }
+
+
+
+        .profile-details {
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 1px;
+
+            background: #202020;
+
+            margin-top: 35px;
+
+            border: 1px solid #202020;
+
+        }
+
+
+
+        .detail {
+
+            background: #111413;
+
+            padding: 20px;
+
+        }
+
+
+
+        .detail-label {
+
+            color: #555;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+
+        }
+
+
+
+        .detail-value {
+
+            color: #ddd;
+
+            font-size: 14px;
+
+            word-break: break-word;
+
+        }
+
+
+
+        /* ACCOUNT ACTIONS */
+
+        .account-actions {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            margin-top: 25px;
+
+        }
+
+
+
+        .account-action {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 13px 20px;
+
+            border: 1px solid #333;
+
+            background: #111;
+
+            color: #ddd;
+
+            text-decoration: none;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            transition:
+
+                background 0.2s ease,
+
+                border-color 0.2s ease,
+
+                color 0.2s ease,
+
+                transform 0.2s ease;
+
+        }
+
+
+
+        .account-action:hover {
+
+            border-color: #E6333E;
+
+            color: #fff;
+
+            background: #191010;
+
+            transform: translateY(-2px);
+
+        }
+
+
+
+        .account-action.primary {
+
+            background: #E6333E;
+
+            border-color: #E6333E;
+
+            color: #fff;
+
+        }
+
+
+
+        .account-action.primary:hover {
+
+            background: #c92a34;
+
+            border-color: #c92a34;
+
+        }
+
+
+
+        /* SECTION */
+
+        .section-heading {
+
+            margin-bottom: 25px;
+
+        }
+
+
+
+        .section-heading .eyebrow {
+
+            margin-bottom: 10px;
+
+        }
+
+
+
+        .section-heading h2 {
+
+            font-size: 32px;
+
+            letter-spacing: -1.5px;
+
+        }
+
+
+
+
+        /* PREMIUM LISTING */
+        .premium-section { margin: 0 0 70px; }
+        .premium-panel { position: relative; overflow: hidden; padding: clamp(24px,4vw,36px); border: 1px solid rgba(128,201,149,.28); background: radial-gradient(circle at 100% 0, rgba(128,201,149,.10), transparent 38%), #111413; }
+        .premium-panel h3 { font-size: clamp(24px,3vw,34px); font-weight: 900; letter-spacing: -1.1px; line-height: 1.15; max-width: 700px; }
+        .premium-panel > p { max-width: 700px; margin-top: 12px; color: #b7bdb9; font-size: 14px; line-height: 1.8; }
+        .premium-panel-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+        .premium-button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; background: #fff; color: #173b25; border: 1px solid #fff; text-decoration: none; font-size: 11px; font-weight: 900; letter-spacing: .7px; transition: .2s ease; }
+        .premium-button:hover { background: #80C995; border-color: #80C995; transform: translateY(-2px); }
+        .premium-button.secondary { background: transparent; border-color: #3d5144; color: #80C995; }
+        .premium-button.secondary:hover { background: rgba(128,201,149,.08); }
+        .premium-orders { display: grid; gap: 10px; margin-top: 22px; }
+        .premium-order { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 18px; padding: 18px; border: 1px solid #292f2b; background: rgba(0,0,0,.18); }
+        .premium-order h4 { font-size: 16px; font-weight: 850; margin-bottom: 5px; }
+        .premium-order p { color: #aeb5b0; font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; }
+        .premium-status { display: inline-flex; align-items: center; padding: 6px 9px; border: 1px solid #3d5144; color: #80C995; font-size: 9px; font-weight: 900; letter-spacing: .8px; text-transform: uppercase; white-space: nowrap; }
+        .premium-status.pending { color: #f0c875; border-color: #6d5930; }
+        .premium-status.rejected { color: #ff8d93; border-color: #6d3034; }
+        @media (max-width: 620px) { .premium-order { grid-template-columns: 1fr; } .premium-order .premium-button { width: 100%; } }
+
+        /* YOUR BUSINESSES */
+
+        .business-section {
+
+            margin-bottom: 70px;
+
+        }
+
+
+
+        .business-list {
+
+            display: grid;
+
+            gap: 12px;
+
+        }
+
+
+
+        .business-card {
+
+            border: 1px solid #1c1c1c;
+
+            background: #090909;
+
+            padding: 28px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 30px;
+
+            transition: border-color 0.2s ease;
+
+        }
+
+
+
+        .business-card:hover {
+
+            border-color: #2d2d2d;
+
+        }
+
+
+
+        .business-info {
+
+            min-width: 0;
+
+        }
+
+
+
+        .business-category {
+
+            color: #E6333E;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 9px;
+
+        }
+
+
+
+        .business-info h3 {
+
+            font-size: 22px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+
+        .business-location {
+
+            color: #666;
+
+            font-size: 12px;
+
+        }
+
+
+
+        .business-actions {
+
+            flex-shrink: 0;
+
+        }
+
+
+
+        .business-status {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-width: 150px;
+
+            padding: 13px 18px;
+
+            border: 1px solid #292929;
+
+            color: #777;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+
+        }
+
+
+
+        .business-status.claim-pending {
+
+            color: #E6333E;
+
+            border-color: #4a1717;
+
+        }
+
+
+
+        .business-status.claim-rejected {
+
+            color: #ff6b6b;
+
+            border-color: #4a1717;
+
+        }
+
+
+
+        .claim-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-width: 150px;
+
+            padding: 13px 18px;
+
+            background: #E6333E;
+
+            color: #fff;
+
+            text-decoration: none;
+
+            font-size: 10px;
+
+            font-weight: 900;
+
+            letter-spacing: 1.5px;
+
+            transition:
+
+                background 0.2s ease,
+
+                transform 0.2s ease;
+
+        }
+
+
+
+        .claim-button:hover {
+
+            background: #c92a34;
+
+            transform: translateY(-2px);
+
+        }
+
+
+
+        .business-empty {
+
+            border: 1px solid #1c1c1c;
+
+            background: #090909;
+
+            padding: 35px;
+
+        }
+
+
+
+        .business-empty p {
+
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            max-width: 600px;
+
+        }
+
+
+
+        /* ECOSYSTEM GRID */
+
+        .ecosystem-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 12px;
+
+        }
+
+
+
+        .ecosystem-card {
+
+            min-height: 160px;
+
+            border: 1px solid #1c1c1c;
+
+            background: #090909;
+
+            padding: 24px;
+
+            text-decoration: none;
+
+            color: #fff;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: space-between;
+
+            transition:
+
+                border-color 0.2s ease,
+
+                transform 0.2s ease;
+
+        }
+
+
+
+        .ecosystem-card:hover {
+
+            border-color: #E6333E;
+
+            transform: translateY(-3px);
+
+        }
+
+
+
+        .card-icon {
+
+            font-size: 22px;
+
+        }
+
+
+
+        .card-content h3 {
+
+            font-size: 17px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+
+        .card-content p {
+
+            color: #666;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+
+        }
+
+
+
+        /* FUTURE */
+
+        .future {
+
+            margin-top: 70px;
+
+            border-top: 1px solid #1c1c1c;
+
+            padding-top: 35px;
+
+        }
+
+
+
+        .future p {
+
+            color: #666;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            max-width: 650px;
+
+        }
+
+
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .page {
+
+                width: 90%;
+
+                padding-top: 22px;
+
+            }
+
+
+
+            nav {
+
+                align-items: flex-start;
+
+            }
+
+
+
+            .nav-links {
+
+                gap: 12px;
+
+            }
+
+
+
+            .nav-links a:not(.logout) {
+
+                display: none;
+
+            }
+
+
+
+            .hero {
+
+                padding: 60px 0 45px;
+
+            }
+
+
+
+            h1 {
+
+                letter-spacing: -3px;
+
+            }
+
+
+
+            .profile-card {
+
+                padding: 24px;
+
+            }
+
+
+
+            .profile-top {
+
+                align-items: flex-start;
+
+            }
+
+
+
+            .profile-details {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+
+            .account-actions {
+
+                flex-direction: column;
+
+            }
+
+
+
+            .account-action {
+
+                width: 100%;
+
+            }
+
+
+
+            .business-card {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                padding: 24px;
+
+            }
+
+
+
+            .business-actions {
+
+                width: 100%;
+
+            }
+
+
+
+            .business-status,
+
+            .claim-button {
+
+                width: 100%;
+
+            }
+
+
+
+            .ecosystem-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+
+            .ecosystem-card {
+
+                min-height: 140px;
+
+            }
+
+        }
+
+    
+        .event-section {
+            margin-top: 52px;
+            margin-bottom: 70px;
+        }
+
+        .event-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .event-card {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: flex-start;
+            background: #090909;
+            border: 1px solid #1c1c1c;
+            padding: 28px;
+            transition: border-color 0.2s ease;
+        }
+
+        .event-card:hover {
+            border-color: #2d2d2d;
+        }
+
+        .event-card h3 {
+            font-size: 22px;
+            margin: 5px 0 8px;
+        }
+
+        .event-meta {
+            color: #999;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .event-status {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #693232;
+            background: #241010;
+            color: #ff9b9b;
+            padding: 10px 14px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .event-status.approved {
+            color: #83e6aa;
+            border-color: #28583b;
+            background: #0e2015;
+        }
+
+        .event-status.expired {
+            color: #bbb;
+            border-color: #444;
+            background: #1a1a1a;
+        }
+
+        .event-flyer {
+            width: 74px;
+            height: 90px;
+            object-fit: cover;
+            border: 1px solid #333;
+            flex-shrink: 0;
+        }
+
+        .event-empty {
+            border: 1px solid #1c1c1c;
+            background: #090909;
+            padding: 35px;
+            color: #999;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-top: 18px;
+        }
+
+        @media (max-width: 700px) {
+            .event-card {
+                align-items: flex-start;
+                flex-direction: column;
+                padding: 24px;
+            }
+
+            .event-status {
+                align-self: flex-start;
+            }
+        }
+
+    
+        /* RESIDENCE SETTINGS — isolated styles to preserve the existing account layout */
+        .residence-section {
+            margin: 0 0 70px;
+            border: 1px solid #202020;
+            background: #111413;
+            padding: 30px;
+        }
+
+        .residence-section h2 {
+            font-size: 28px;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .residence-description {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.7;
+            max-width: 650px;
+            margin-bottom: 24px;
+        }
+
+        .residence-current {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #4a1717;
+            background: #170909;
+            color: #ff8b8b;
+            padding: 10px 13px;
+            font-size: 12px;
+            margin-bottom: 24px;
+        }
+
+        .residence-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .residence-field label {
+            display: block;
+            color: #777;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-bottom: 9px;
+        }
+
+        .residence-field input,
+        .residence-field select {
+            width: 100%;
+            min-height: 47px;
+            padding: 12px 13px;
+            border: 1px solid #292929;
+            background: #080909;
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .residence-field input:focus,
+        .residence-field select:focus {
+            border-color: #E6333E;
+        }
+
+        .residence-help {
+            color: #666;
+            font-size: 11px;
+            line-height: 1.6;
+            margin-top: 8px;
+        }
+
+        .residence-save {
+            margin-top: 22px;
+            padding: 14px 18px;
+            border: 1px solid #E6333E;
+            background: #E6333E;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1.3px;
+            cursor: pointer;
+        }
+
+        .residence-save:hover {
+            background: #c92a34;
+        }
+
+        .residence-message {
+            padding: 12px 14px;
+            margin: 0 0 18px;
+            font-size: 12px;
+            line-height: 1.6;
+            border: 1px solid #333;
+            background: #111;
+            color: #ddd;
+        }
+
+        .residence-message.success {
+            border-color: #28583b;
+            color: #9ce6b7;
+            background: #0e2015;
+        }
+
+        .residence-message.error {
+            border-color: #693232;
+            color: #ff9b9b;
+            background: #241010;
+        }
+
+        @media (max-width: 700px) {
+            .residence-section {
+                padding: 24px;
+            }
+
+            .residence-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .residence-save {
+                width: 100%;
+            }
+        }
+
+    
+
+        /* THE ECOSYSTEM — restrained green theme */
+        :root {
+            --eco-green: #80C995;
+            --eco-bg: #080909;
+            --eco-panel: #111413;
+            --eco-panel-soft: #0b0e0c;
+            --eco-border: rgba(255,255,255,.11);
+            --eco-muted: #A9B0AA;
+        }
+        html, body { background: #080909 !important; color: #fff; }
+        body::before, body::after { content: none !important; display: none !important; }
+        .logo, .eyebrow, h1 span, .business-category, .card-icon { color: var(--eco-green) !important; }
+        nav { border-color: var(--eco-border) !important; }
+        .nav-links a:hover { color: var(--eco-green) !important; }
+        .nav-links .logout { color: var(--eco-green) !important; }
+        .profile-card, .detail, .residence-section, .premium-panel { background: var(--eco-panel) !important; border-color: var(--eco-border) !important; }
+        .profile-details { background: #202722 !important; border-color: var(--eco-border) !important; }
+        .avatar { background: var(--eco-green) !important; color: #07110a !important; }
+        .detail-label, .residence-field label { color: #9ba59d !important; }
+        .detail-value { color: #e6e9e6 !important; }
+        .account-action, .business-card, .business-empty, .ecosystem-card, .event-card, .event-empty { background: var(--eco-panel-soft) !important; border-color: var(--eco-border) !important; }
+        .account-action:hover, .ecosystem-card:hover, .business-card:hover, .event-card:hover { border-color: rgba(128,201,149,.55) !important; }
+        .account-action.primary, .claim-button, .residence-save { background: var(--eco-green) !important; border-color: var(--eco-green) !important; color: #07110a !important; }
+        .account-action.primary:hover, .claim-button:hover, .residence-save:hover { background: var(--eco-green) !important; border-color: var(--eco-green) !important; transform: none !important; }
+        .business-status.claim-pending, .business-status.claim-rejected { color: var(--eco-green) !important; border-color: rgba(128,201,149,.35) !important; }
+        .premium-panel { background: #111413 !important; }
+        .premium-button { background: var(--eco-green) !important; color: #07110a !important; border-color: var(--eco-green) !important; }
+        .premium-button:hover { background: var(--eco-green) !important; border-color: var(--eco-green) !important; transform: none !important; }
+        .premium-button.secondary { background: transparent !important; color: var(--eco-green) !important; border-color: rgba(128,201,149,.35) !important; }
+        .premium-order { background: #0b0e0c !important; border-color: var(--eco-border) !important; }
+        .premium-status { color: var(--eco-green) !important; border-color: rgba(128,201,149,.35) !important; }
+        .premium-status.pending { color: #f0c875 !important; border-color: #6d5930 !important; }
+        .premium-status.rejected { color: #ff8d93 !important; border-color: #6d3034 !important; }
+        .event-status.approved { color: var(--eco-green) !important; border-color: rgba(128,201,149,.35) !important; background: #101a13 !important; }
+        .residence-current { color: var(--eco-green) !important; border-color: rgba(128,201,149,.35) !important; background: #101a13 !important; }
+        .residence-field input, .residence-field select { background: #080909 !important; border-color: #303833 !important; color: #fff !important; }
+        .residence-field input:focus, .residence-field select:focus { border-color: var(--eco-green) !important; outline: 1px solid rgba(128,201,149,.15); }
+        .residence-message.success { border-color: rgba(128,201,149,.35) !important; color: var(--eco-green) !important; background: #101a13 !important; }
+        .residence-message.error { border-color: #693232 !important; color: #ff9b9b !important; background: #241010 !important; }
+        .business-location, .card-content p, .intro, .residence-description, .residence-help, .future p { color: var(--eco-muted) !important; }
+
+        /* Collapsible account sections */
+        .account-accordion { margin: 0 0 28px; border: 1px solid rgba(128,201,149,.25); background: #111413; }
+        .account-accordion > summary { list-style: none; cursor: pointer; display:flex; align-items:center; justify-content:space-between; gap:18px; padding:22px 25px; }
+        .account-accordion > summary::-webkit-details-marker { display:none; }
+        .accordion-heading { min-width:0; }
+        .accordion-eyebrow { display:block; color:#80C995; font-size:10px; font-weight:800; letter-spacing:2px; margin-bottom:7px; }
+        .accordion-title { display:block; color:#fff; font-size:clamp(19px,2.5vw,27px); font-weight:850; letter-spacing:-.5px; }
+        .accordion-description { display:block; color:#A9B0AA; font-size:12px; line-height:1.6; margin-top:6px; }
+        .accordion-toggle { flex:0 0 34px; width:34px; height:34px; display:grid; place-items:center; border:1px solid rgba(128,201,149,.35); color:#80C995; border-radius:8px; }
+        .accordion-toggle::before { content:''; display:block; width:8px; height:8px; border-right:2px solid currentColor; border-bottom:2px solid currentColor; transform:translateY(-2px) rotate(45deg); transition:transform .2s ease; }
+        .account-accordion[open] > summary { border-bottom:1px solid rgba(255,255,255,.1); }
+        .account-accordion[open] .accordion-toggle::before { transform:translateY(2px) rotate(225deg); }
+        .accordion-content { padding:24px; }
+        .account-accordion .residence-section, .account-accordion .premium-section { margin:0; border:0; padding:0; background:transparent!important; }
+        .account-accordion .business-section, .account-accordion .event-section { margin:0; }
+        .account-accordion .business-section > .section-heading, .account-accordion .event-section > .section-heading { display:none; }
+        .account-accordion .premium-section .section-heading { display:none; }
+        .account-accordion .premium-panel { padding:0; border:0; background:transparent!important; }
+        .account-accordion .premium-panel h3 { font-size:clamp(22px,3vw,30px); }
+        .account-accordion .premium-orders { margin-top:20px; }
+        .account-accordion .business-notification-item:last-child { border-bottom:0!important; }
+        @media(max-width:700px) { .account-accordion > summary { padding:18px; } .accordion-content { padding:18px; } }
+
+
+/* ACCOUNT SIDEBAR — clean navigation pass */
+:root{--dash-bg:#090b0a;--dash-panel:#111512;--dash-line:rgba(255,255,255,.09);--dash-green:#80c995;--dash-muted:#a9b0aa}
+html{scroll-behavior:smooth}
+body{background:var(--dash-bg)!important;color:#f4f6f4!important;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;letter-spacing:0!important}
+.page{width:auto!important;max-width:none!important;margin:0!important;padding:28px 34px 64px 286px!important}
+nav.account-sidebar{position:fixed!important;z-index:100;left:0;top:0;bottom:0;width:268px;display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;gap:22px!important;padding:26px 19px 18px!important;background:#0e110f!important;border-right:1px solid var(--dash-line)!important;border-bottom:0!important;overflow-y:auto}
+.account-sidebar .logo{display:block!important;flex:none!important;padding:7px 4px 24px!important;border-bottom:1px solid var(--dash-line)!important;color:#f4f6f4!important;text-decoration:none!important;font-size:17px!important;font-weight:800!important;letter-spacing:2px!important;white-space:nowrap}
+.account-sidebar .logo span{color:#f4f6f4!important}.account-sidebar .logo strong{color:#E6333E!important}
+.sidebar-links{display:flex;flex-direction:column;gap:5px;width:100%}
+.sidebar-link{display:flex;align-items:center;gap:15px;min-height:49px;padding:0 13px;border:1px solid transparent;border-radius:9px;color:#b5bcb7;text-decoration:none;font-size:13px;font-weight:500;transition:background .18s,border-color .18s,color .18s}
+.sidebar-icon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 22px;width:22px;font-size:22px;line-height:1;color:#aab2ac}
+.sidebar-link:hover,.sidebar-link:focus,.sidebar-link.active{background:rgba(128,201,149,.09);color:#fff;border-color:transparent}
+.sidebar-link.active{box-shadow:inset 3px 0 0 var(--dash-green)}
+.sidebar-link.active .sidebar-icon,.sidebar-link:hover .sidebar-icon{color:var(--dash-green)}
+.sidebar-divider{height:1px;background:var(--dash-line);margin:12px 4px}
+.sidebar-bottom{margin-top:auto;display:flex;flex-direction:column;gap:18px}
+.sidebar-premium{display:flex;align-items:center;gap:12px;min-height:100px;padding:15px 13px;border:1px solid rgba(255,255,255,.14);border-radius:11px;color:#fff;text-decoration:none;background:linear-gradient(135deg,rgba(128,201,149,.06),transparent)}
+.premium-crown{font-size:25px;color:#f5bd48}
+.premium-copy{display:flex;flex-direction:column;gap:6px;min-width:0}
+.premium-copy strong{font-size:13px;font-weight:750}
+.premium-copy small{font-size:11px;line-height:1.55;color:#a9b0aa}
+.premium-arrow{margin-left:auto;font-size:27px;color:#d6ddd7}
+.sidebar-premium:hover{border-color:rgba(128,201,149,.5);background:rgba(128,201,149,.08)}
+.sidebar-logout{display:flex;align-items:center;gap:15px;min-height:48px;padding:0 13px;border-top:1px solid var(--dash-line);padding-top:17px;color:#b5bcb7;text-decoration:none;font-size:13px}
+.sidebar-logout:hover{color:#fff}
+.sidebar-deleted-link{margin-bottom:2px}
+.sidebar-deleted-link .sidebar-icon{font-size:17px}
+.sidebar-notification-engine{position:absolute!important;top:22px;right:16px;opacity:0;pointer-events:none;width:1px;height:1px;overflow:visible}
+.hero{padding:12px 0 24px!important;margin:0!important}
+.hero .eyebrow{font-size:10px!important;letter-spacing:2px!important;color:var(--dash-green)!important}
+.hero h1{font-size:clamp(30px,3.1vw,44px)!important;line-height:1.12!important;letter-spacing:-1.6px!important;max-width:none!important;margin-top:12px!important}
+.hero .intro{font-size:13px!important;line-height:1.7!important;max-width:700px!important;margin-top:12px!important;color:var(--dash-muted)!important}
+.profile-card{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:20px!important;padding:20px 24px!important;margin-bottom:28px!important;border:1px solid var(--dash-line)!important;border-radius:16px!important;background:linear-gradient(135deg,#151a16,#101310)!important}
+.profile-top{gap:16px!important;min-width:0}.avatar{width:62px!important;height:62px!important;min-width:62px!important;border-radius:50%!important;display:grid!important;place-items:center!important;border:2px solid rgba(128,201,149,.55)!important;background:#26372b!important;color:#c5ebcd!important;font-size:25px!important;font-weight:750!important;overflow:hidden}
+.profile-info h2{font-size:20px!important;letter-spacing:-.4px!important}.profile-info p{font-size:12px!important;color:var(--dash-muted)!important;margin-top:5px!important}
+.profile-details{display:none!important}.account-actions{display:flex!important;flex-wrap:wrap!important;justify-content:flex-end!important;gap:8px!important;margin:0!important}.account-actions>.account-action{min-height:39px!important;padding:0 13px!important;border-radius:8px!important;font-size:10px!important;letter-spacing:.4px!important;white-space:nowrap}
+.business-section{margin:0 0 34px!important}.business-list{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important;align-items:stretch!important}
+.business-card{display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;gap:17px!important;padding:18px!important;min-width:0!important;border:1px solid var(--dash-line)!important;border-radius:14px!important;background:var(--dash-panel)!important}
+.business-card:hover{border-color:rgba(128,201,149,.42)!important}
+.business-info{width:100%!important}.business-info h3{font-size:17px!important;line-height:1.35!important;letter-spacing:-.25px!important;margin:8px 0!important}.business-category{font-size:10px!important;letter-spacing:1px!important;text-transform:uppercase!important}.business-location{font-size:11px!important;line-height:1.6!important}
+.business-actions{display:flex!important;align-items:center!important;justify-content:space-between!important;flex-wrap:wrap!important;gap:8px!important;width:100%!important;margin-top:auto!important}.business-status{border-radius:999px!important;padding:6px 9px!important;font-size:9px!important;letter-spacing:.7px!important}
+.account-accordion{border:1px solid var(--dash-line)!important;border-radius:13px!important;background:var(--dash-panel)!important;margin:12px 0!important;overflow:hidden!important}.account-accordion>summary{padding:17px 20px!important;min-height:74px!important}.accordion-title{font-size:15px!important;letter-spacing:-.2px!important}.accordion-description{font-size:11px!important;color:var(--dash-muted)!important}
+.detail,.ecosystem-card,.event-card,.business-empty,.event-empty{border-radius:12px!important}
+@media(min-width:1500px){.page{padding-right:48px!important}.business-list{gap:20px!important}}
+@media(max-width:1050px){.page{padding-left:288px!important;padding-right:22px!important}.business-list{grid-template-columns:repeat(2,minmax(0,1fr))!important}.profile-card{grid-template-columns:1fr!important}.account-actions{justify-content:flex-start!important}}
+@media(max-width:700px){.page{padding:18px 14px 44px!important}nav.account-sidebar{position:relative!important;left:auto!important;top:auto!important;bottom:auto!important;width:100%!important;max-height:none!important;padding:14px!important;margin-bottom:22px!important;border:1px solid var(--dash-line)!important;border-radius:13px!important;gap:12px!important}.account-sidebar .logo{padding:4px 4px 12px!important}.sidebar-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.sidebar-link{gap:8px;min-height:42px;padding:0 8px;font-size:11px}.sidebar-icon{font-size:18px;flex-basis:19px}.sidebar-divider{grid-column:1/-1;margin:7px 3px}.sidebar-bottom{margin-top:4px}.sidebar-premium{min-height:75px}.sidebar-logout{padding-top:10px}.hero{padding-top:4px!important}.hero h1{font-size:34px!important;letter-spacing:-1px!important}.profile-card{padding:17px!important;gap:16px!important}.profile-top{align-items:center!important}.account-actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;width:100%!important}.account-actions>.account-action{min-width:0!important;white-space:normal!important}.business-list{grid-template-columns:1fr!important;gap:12px!important}.business-card{padding:16px!important}.account-accordion>summary{padding:15px!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.business-card{transition:none!important}}
+
+
+/* MAIN DASHBOARD TOPBAR + OVERVIEW */
+.dashboard-topbar{height:76px;min-height:76px;display:grid;grid-template-columns:minmax(240px,560px) minmax(0,1fr);grid-template-rows:76px;align-items:center;column-gap:18px;min-width:0;position:relative;margin:-28px -34px 32px -18px;padding:0 34px 0 18px;border-bottom:1px solid rgba(255,255,255,.78);background:rgba(10,13,11,.96)}
+.dashboard-search{grid-column:1;grid-row:1;display:flex;align-items:center;gap:12px;width:100%;max-width:560px;min-width:0;height:48px;padding:0 16px;border:1px solid #303632;border-radius:10px;background:#111512}
+.search-symbol{font-size:25px;color:#aab2ac;line-height:1;transform:rotate(-20deg)}.dashboard-search input{width:100%;border:0;outline:0;background:transparent;color:#f5f7f5;font:inherit;font-size:13px}.dashboard-search input::placeholder{color:#9ba39d}
+.topbar-actions{grid-column:2;grid-row:1;align-self:center;justify-self:end;display:flex;flex-direction:row;align-items:center;justify-content:flex-end;gap:18px;min-width:0;height:48px;white-space:nowrap;margin:0;padding:0;position:relative;z-index:2}.topbar-actions .account-notification-wrap{position:relative!important;top:auto!important;right:auto!important;opacity:1!important;pointer-events:auto!important;width:auto!important;height:auto!important;overflow:visible!important}
+.topbar-home-button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:36px;padding:0 12px;border:1px solid rgba(128,201,149,.35);border-radius:7px;background:rgba(128,201,149,.08);color:#f7f7f5;text-decoration:none;font-size:12px;font-weight:750;white-space:nowrap;transition:background .18s,border-color .18s}
+.topbar-home-button:hover{background:rgba(128,201,149,.16);border-color:rgba(128,201,149,.7)}
+.topbar-home-button svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.notification-bell{position:relative;width:38px;height:42px;display:grid;place-items:center;border:0;background:transparent;color:#c6cec8;cursor:pointer}.notification-bell svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.notification-count{position:absolute;top:2px;right:0;min-width:8px;height:8px;border-radius:99px;background:#f04a53;color:transparent;font-size:0}
+.deleted-icon{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--dash-line);border-radius:9px;text-decoration:none;font-size:19px;background:#111512}.deleted-icon:hover{border-color:rgba(128,201,149,.55)}
+.topbar-profile{display:flex;align-items:center;gap:11px;color:#f5f7f5;text-decoration:none}.topbar-avatar{width:43px;height:43px;display:grid;place-items:center;border-radius:50%;background:#293b2e;border:1px solid rgba(128,201,149,.45);font-weight:800}.topbar-profile-copy{display:flex;flex-direction:column;gap:4px;white-space:nowrap}.topbar-profile-copy strong{font-size:12px}.topbar-profile-copy small{font-size:11px;color:#aab2ac}.topbar-chevron{margin-left:8px;color:#aab2ac;font-size:20px}
+.dashboard-welcome{display:flex;align-items:center;justify-content:space-between;gap:25px;margin:0 0 28px}.welcome-kicker{font-size:11px;letter-spacing:1.2px;color:var(--dash-muted);margin-bottom:8px}.dashboard-welcome h1{font-size:clamp(27px,3vw,36px)!important;line-height:1.12!important;letter-spacing:-1.1px!important;margin:0!important}.dashboard-welcome .intro{margin-top:8px!important;font-size:13px!important;max-width:700px!important}.add-business-button{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 22px;border-radius:10px;background:#58c88b;color:#06130b;text-decoration:none;font-size:14px;font-weight:750;white-space:nowrap;box-shadow:0 8px 24px rgba(65,190,125,.12)}.add-business-button span{font-size:26px;font-weight:400}.add-business-button:hover{background:#78d9a2}
+.dashboard-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 34px}.stat-card{display:flex;align-items:center;gap:13px;min-width:0;min-height:100px;padding:17px;border:1px solid var(--dash-line);border-radius:12px;background:linear-gradient(140deg,#131915,#101310)}.stat-icon{flex:0 0 43px;width:43px;height:43px;display:grid;place-items:center;border-radius:13px;background:rgba(128,201,149,.10);color:#9be0b1;font-size:23px}.stat-card>div{display:flex;flex-direction:column;gap:5px;min-width:0}.stat-card strong{font-size:25px;line-height:1;font-weight:800}.stat-card span:not(.stat-icon){font-size:11px;color:#aab2ac;white-space:nowrap}.stat-card small{margin-left:auto;align-self:flex-start;color:#84d8a1;font-size:10px;line-height:1.5;text-align:right}
+.location-sidebar-link{margin:0 0 3px}.account-sidebar #locationAccordion{margin:0!important;border-radius:9px!important;background:rgba(128,201,149,.035)!important}.account-sidebar #locationAccordion>summary{padding:12px!important;min-height:0!important;gap:8px!important}.account-sidebar #locationAccordion .accordion-eyebrow{font-size:9px!important;margin-bottom:4px!important}.account-sidebar #locationAccordion .accordion-title{font-size:12px!important}.account-sidebar #locationAccordion .accordion-description{font-size:10px!important}.account-sidebar #locationAccordion .accordion-toggle{flex-basis:24px;width:24px;height:24px;font-size:17px}.account-sidebar #locationAccordion .accordion-content{padding:12px!important}.account-sidebar #locationAccordion .residence-section h2{font-size:17px!important}.account-sidebar #locationAccordion .residence-description{font-size:10px!important}.account-sidebar #locationAccordion .residence-current{font-size:10px!important;padding:7px!important;margin-bottom:12px!important}.account-sidebar #locationAccordion .residence-form-grid{grid-template-columns:1fr!important;gap:12px!important}.account-sidebar #locationAccordion .residence-field label{font-size:9px!important}.account-sidebar #locationAccordion .residence-field input,.account-sidebar #locationAccordion .residence-field select{min-height:38px!important;font-size:11px!important}.account-sidebar #locationAccordion .residence-help{font-size:9px!important}.account-sidebar #locationAccordion .residence-save{width:100%;padding:10px!important;font-size:9px!important}
+@media(max-width:1100px){.dashboard-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.dashboard-topbar{column-gap:14px;grid-template-columns:minmax(200px,420px) minmax(0,1fr)}.dashboard-search{width:100%;min-width:0}.topbar-actions{gap:12px;margin-left:0}.topbar-profile-copy{display:none}}
+@media(max-width:700px){.topbar-home-button{min-height:32px;padding:0 7px;gap:4px;font-size:11px}.topbar-home-button svg{width:15px;height:15px}.topbar-actions{grid-column:2;grid-row:1;align-self:center;justify-self:end;height:42px;gap:6px}.dashboard-topbar{height:65px;min-height:65px;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:45px;margin:-18px -14px 22px;padding:10px 12px;column-gap:8px}.dashboard-search{grid-column:1;grid-row:1;width:100%;min-width:0;height:42px;padding:0 10px;gap:7px}.dashboard-search input{font-size:11px}.topbar-actions{gap:6px;margin-left:auto}.notification-bell{width:30px}.deleted-icon{width:32px;height:32px;font-size:16px}.topbar-avatar{width:32px;height:32px}.topbar-profile-copy{display:none}.topbar-profile{gap:0}.topbar-chevron{display:none}.dashboard-welcome{align-items:flex-start;flex-direction:column;gap:16px}.add-business-button{width:100%;min-height:48px}.dashboard-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.stat-card{min-height:92px;padding:11px;gap:8px;flex-wrap:wrap}.stat-icon{width:34px;height:34px;flex-basis:34px;font-size:18px}.stat-card strong{font-size:21px}.stat-card small{margin-left:42px;text-align:left}.account-sidebar #locationAccordion{max-height: none}}
+
+/* Always-visible business section */
+.dashboard-business-section{margin:0 0 30px!important;padding:0!important}
+.business-section-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:0 0 20px}
+.business-section-toolbar h2{margin:0;color:#f4f6f4;font-size:21px;line-height:1.25;font-weight:700;letter-spacing:-.35px}
+.business-total{color:#aab3ad;font-weight:500}
+.business-section-toolbar p{margin:7px 0 0;color:#929b95;font-size:13px;line-height:1.5}
+.business-status-filter select{min-width:172px;max-width:220px;height:43px;padding:0 38px 0 14px;border:1px solid #303832;border-radius:10px;background:#101411;color:#e8ece9;font:inherit;font-size:12px;outline:none}
+.business-status-filter select:focus{border-color:#63d99b;box-shadow:0 0 0 3px rgba(99,217,155,.1)}
+.dashboard-business-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px!important;align-items:stretch}
+.dashboard-business-card{display:flex!important;flex-direction:column!important;overflow:hidden;padding:0!important;gap:0!important;border:1px solid #252c28!important;border-radius:13px!important;background:#101412!important;min-width:0}
+.dashboard-business-cover{height:160px;position:relative;overflow:hidden;background:linear-gradient(135deg,#17251d,#202321 55%,#172d22)}
+.dashboard-business-cover>img{width:100%;height:100%;display:block;object-fit:cover}
+.dashboard-business-cover:after{content:"";position:absolute;inset:40% 0 0;background:linear-gradient(180deg,transparent,rgba(0,0,0,.42));pointer-events:none}
+.dashboard-business-cover-placeholder{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#e5f6eb}
+.dashboard-business-cover-placeholder span{font-size:42px;font-weight:800;opacity:.8}
+.dashboard-business-cover-placeholder small{font-size:11px;letter-spacing:.8px;text-transform:uppercase;opacity:.8}
+.dashboard-business-status{position:absolute;z-index:2;top:12px;left:12px;padding:6px 10px;border-radius:20px;background:rgba(8,13,10,.88);border:1px solid rgba(255,255,255,.12);color:#eaf3ed;font-size:10px;font-weight:650;white-space:nowrap}
+.dashboard-business-status:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:6px;background:#62d99b;vertical-align:1px}
+.dashboard-business-status.status-pending:before,.dashboard-business-status.status-claim:before{background:#f0bd4f}
+.dashboard-business-status.status-rejected:before,.dashboard-business-status.status-archived:before{background:#f27676}
+.dashboard-business-menu{position:absolute;z-index:2;top:10px;right:10px;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:rgba(0,0,0,.62);color:white;font-size:15px;letter-spacing:1px}
+.business-engagement-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:14px 0 2px;padding:10px 0;border-top:1px solid var(--line,rgba(255,255,255,.08));border-bottom:1px solid var(--line,rgba(255,255,255,.08))}.business-engagement-metrics>div{min-width:0;padding:6px 7px;display:flex;flex-direction:column;gap:4px}.business-engagement-metrics strong{font-size:17px;line-height:1.1;font-weight:750;color:var(--text,#f5f5f5)}.business-engagement-metrics span{font-size:10px;line-height:1.35;color:var(--muted,#969da5);overflow-wrap:anywhere}.business-engagement-metrics .metric-attention strong{color:#f2b84b}@media(max-width:900px){.business-engagement-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.dashboard-business-card-body{padding:14px 14px 13px;display:flex;flex-direction:column;flex:1;min-width:0}
+.dashboard-business-title-row{display:flex;align-items:center;gap:11px;min-width:0}
+.dashboard-business-logo{width:43px;height:43px;flex:0 0 43px;display:grid;place-items:center;border:1px solid #35413a;border-radius:50%;background:#0a0f0c;color:#8be3b1;font-size:15px;font-weight:800}
+.dashboard-business-title{min-width:0}
+.dashboard-business-title h3{margin:0 0 4px!important;font-size:14px!important;font-weight:700;line-height:1.3;overflow-wrap:anywhere}
+.dashboard-business-title p{margin:0;color:#929b95;font-size:11px;line-height:1.45;overflow-wrap:anywhere}
+.dashboard-business-card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:18px}
+.dashboard-business-status-text{font-size:10px;font-weight:650;white-space:nowrap;color:#6de0a2}
+.dashboard-business-status-text.status-pending,.dashboard-business-status-text.status-claim{color:#f1c15b}
+.dashboard-business-status-text.status-rejected,.dashboard-business-status-text.status-archived{color:#f18b8b}
+.dashboard-business-card .business-actions{display:flex;align-items:center;justify-content:flex-end;min-width:0}
+.dashboard-business-card .claim-button{display:inline-flex;align-items:center;gap:8px;max-width:100%;padding:9px 10px;border:1px solid #303a33;border-radius:8px;color:#e5ebe7;background:#111713;text-decoration:none;font-size:10px;font-weight:650;white-space:nowrap}
+.dashboard-business-card .claim-button:hover{border-color:#62d99b;color:#82e6b0}
+.business-filter-empty{padding:24px;text-align:center;color:#a7b0aa;border:1px dashed #343d37;border-radius:12px}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+@media(max-width:1100px){.dashboard-business-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.business-section-toolbar{align-items:flex-start;flex-direction:column;gap:13px}.business-status-filter,.business-status-filter select{width:100%;max-width:none}.dashboard-business-grid{grid-template-columns:minmax(0,1fr)}.dashboard-business-cover{height:180px}.dashboard-business-card-footer{align-items:flex-start;flex-direction:column}.dashboard-business-card .business-actions{width:100%;justify-content:flex-start}}
+
+
+/* Business profile picture in the circular card avatar */
+.dashboard-business-logo{overflow:hidden;padding:0}
+.dashboard-business-logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+.dashboard-business-status-text.activity-active{color:#6de0a2}
+.dashboard-business-status-text.activity-inactive{color:#f1c15b}
+
+
+/* Per-card action menus replace checkbox selection controls */
+.business-card-menu-wrap{position:absolute;z-index:8;top:10px;right:10px}
+.dashboard-business-menu{position:relative;top:auto;right:auto;width:30px;height:30px;padding:0;border:1px solid rgba(255,255,255,.14);border-radius:8px;display:grid;place-items:center;background:rgba(0,0,0,.72);color:#fff;font-size:16px;letter-spacing:1px;cursor:pointer;backdrop-filter:blur(8px)}
+.dashboard-business-menu:hover,.dashboard-business-menu[aria-expanded="true"]{border-color:rgba(128,201,149,.7);background:#111713}
+.business-card-menu{position:absolute;top:36px;right:0;min-width:178px;padding:6px;border:1px solid #303a33;border-radius:10px;background:#101411;box-shadow:0 14px 36px rgba(0,0,0,.55);display:flex;flex-direction:column;gap:3px}
+.business-card-menu[hidden]{display:none!important}
+.business-card-menu a,.business-card-menu button{width:100%;display:flex;align-items:center;text-align:left;padding:10px 11px;border:0;border-radius:7px;background:transparent;color:#e8eee9;text-decoration:none;font:500 12px/1.3 inherit;cursor:pointer;white-space:nowrap}
+.business-card-menu a:hover,.business-card-menu button:hover{background:#1b241e;color:#8be3b1}
+.business-card-menu .business-card-delete{color:#ff9c9c}
+.business-card-menu .business-card-delete:hover{background:rgba(255,90,90,.1);color:#ffb2b2}
+.business-card-delete-form{margin:0;padding:0}
+
+
+/* Independent sidebar scrolling and location pop-out */
+@media(min-width:701px){
+  html,body{height:100%;overflow:hidden}
+  body{min-height:100%;overflow:hidden}
+  .page{height:100vh;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+  nav.account-sidebar{height:100vh;max-height:100vh;overflow-y:auto;overscroll-behavior:contain;overscroll-behavior-y:contain}
+}
+.location-quick-card.location-popup-open{position:fixed!important;z-index:10050!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;width:min(390px,calc(100vw - 28px))!important;max-height:min(520px,calc(100vh - 32px))!important;overflow:auto!important;margin:0!important;border:1px solid rgba(255,255,255,.22)!important;border-radius:14px!important;background:#0d110f!important;box-shadow:0 20px 65px rgba(0,0,0,.68)!important}
+.location-quick-card.location-popup-open>summary{display:none!important}
+.location-quick-card.location-popup-open .accordion-content{display:block!important;padding:16px!important}
+.location-popup-backdrop{position:fixed;inset:0;z-index:10040;background:rgba(0,0,0,.72)}
+body>.location-quick-card.location-popup-open{z-index:10050!important;display:block!important;visibility:visible!important;opacity:1!important}
+.location-popup-close{position:sticky;top:0;float:right;z-index:3;margin:0 0 6px 10px;width:32px;height:32px;border:1px solid #3a443e;border-radius:10px;background:#151b17;color:#fff;font-size:22px;cursor:pointer}
+@media(max-width:700px){
+ .location-quick-card.location-popup-open{width:min(360px,calc(100vw - 24px))!important;max-height:min(480px,calc(100vh - 24px))!important}
+ .location-quick-card.location-popup-open .accordion-content{padding:13px!important}
+}
+
+</style>
+
+
+<style>html,body{background:#080909!important;color:#fff!important}body::before,body::after{display:none!important}.eyebrow,.business-category,h1 span{color:#80C995!important}.profile-card,.detail,.business-card,.business-empty,.ecosystem-card{background:#111413!important;border-color:rgba(255,255,255,.11)!important}.account-action.primary,.claim-button{background:#80C995!important;border-color:#80C995!important;color:#08100b!important}.account-action.primary:hover,.claim-button:hover{background:#80C995!important;border-color:#80C995!important;color:#08100b!important;transform:none!important}.premium-panel{background:#111413!important;background-image:none!important;border-color:rgba(128,201,149,.25)!important}.premium-button:hover{transform:none!important}</style>
+<style id="location-quick-card-layout">
+.profile-card { overflow: hidden; }
+.account-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; }
+.account-actions > .account-action { min-height: 48px; text-align: center; }
+.account-actions .location-quick-card { grid-column: 1 / -1; width: 100%; min-width: 0; margin: 4px 0 0; border: 1px solid rgba(128,201,149,.3); background: #0b0e0c; }
+.location-quick-card > summary { min-height: 88px; padding: 17px 20px; }
+.location-quick-card .accordion-title { font-size: 20px; }
+.location-quick-card .accordion-description { margin-top: 4px; }
+.location-quick-card .accordion-content { padding: 20px; }
+.location-quick-card .residence-section { padding: 0; margin: 0; border: 0; background: transparent !important; }
+.location-quick-card .residence-section > .eyebrow { display: none; }
+@media (max-width:700px) { .account-actions { grid-template-columns: 1fr; } .account-actions .location-quick-card { grid-column: 1; } .location-quick-card > summary { min-height: 78px; padding: 16px; } }
+</style>
+
+<style id="account-notification-styles">
+        /* Shared homepage/account notification centre */
+        .notification-ui { --bg: #080909; --red: #e6333e; --green: #80c995; --line: rgba(255,255,255,.10); --muted: #a9b0aa; }
+        .notification-bell { position: relative; display: inline-grid; place-items: center; width: 35px; height: 35px; flex: 0 0 35px; border: 1px solid rgba(255,255,255,.16); border-radius: 7px; background: rgba(255,255,255,.035); color: #f7f7f5; cursor: pointer; vertical-align: middle; }
+        .notification-bell:hover, .notification-bell[aria-expanded="true"] { border-color: rgba(128,201,149,.65); background: rgba(128,201,149,.12); }
+        .notification-bell svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+        .notification-count { position: absolute; top: -6px; right: -6px; min-width: 17px; height: 17px; padding: 0 4px; display: grid; place-items: center; border: 2px solid var(--bg); border-radius: 99px; background: var(--red); color: #fff; font-size: 9px; font-weight: 850; line-height: 1; }
+        .notification-count[hidden], .notification-panel[hidden] { display: none !important; }
+        .notification-panel { position: absolute; top: calc(100% + 12px); right: max(5%, calc((100% - var(--content))/2)); z-index: 50; width: min(390px, calc(100vw - 24px)); max-height: min(600px, calc(100vh - 100px)); display: flex; flex-direction: column; overflow: hidden; border: 1px solid rgba(255,255,255,.14); border-radius: 12px; background: #101212; box-shadow: 0 22px 70px rgba(0,0,0,.65); }
+        .notification-panel-head, .notification-panel-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+        .notification-panel-head strong { display: block; font-size: 14px; }
+        .notification-panel-head span, .notification-panel-foot span { display: block; margin-top: 2px; color: var(--muted); font-size: 10px; }
+        .notification-close { width: 28px; height: 28px; border: 0; border-radius: 6px; background: rgba(255,255,255,.07); color: #fff; font-size: 22px; cursor: pointer; }
+        .notification-list { overflow-y: auto; min-height: 90px; }
+        .notification-empty { padding: 28px 18px; color: var(--muted); text-align: center; font-size: 12px; }
+        .notification-item { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; padding: 13px 15px; border-bottom: 1px solid rgba(255,255,255,.07); cursor: pointer; }
+        .notification-item:hover { background: rgba(255,255,255,.035); }
+        .notification-item.unread { background: rgba(128,201,149,.055); }
+        .notification-item-title { display: flex; align-items: center; gap: 7px; color: #f7f7f5; font-size: 12px; font-weight: 750; }
+        .notification-item.unread .notification-item-title::before { content: ''; width: 6px; height: 6px; flex: 0 0 6px; border-radius: 50%; background: var(--red); }
+        .notification-item-message { display: -webkit-box; margin-top: 4px; overflow: hidden; color: #aeb3af; font-size: 11px; line-height: 1.6; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .notification-item-date { display: block; margin-top: 7px; color: #747b76; font-size: 9px; }
+        .notification-item-actions { display: flex; align-items: start; gap: 5px; }
+        .notification-item-actions button { border: 0; background: transparent; color: #9ba19c; padding: 4px; cursor: pointer; font-size: 13px; }
+        .notification-item-actions button:hover { color: #ff737b; }
+        .notification-panel-foot { border-top: 1px solid var(--line); border-bottom: 0; }
+        .notification-panel-foot button { border: 0; background: transparent; color: #ff858b; cursor: pointer; font-size: 10px; font-weight: 750; white-space: nowrap; }
+        .notification-detail-backdrop { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 18px; background: rgba(0,0,0,.72); backdrop-filter: blur(7px); }
+        .notification-detail { width: min(520px, 100%); max-height: 80vh; overflow-y: auto; padding: 25px; border: 1px solid rgba(255,255,255,.15); border-radius: 13px; background: #111414; box-shadow: 0 25px 90px rgba(0,0,0,.65); }
+        .notification-detail h3 { font-size: 20px; line-height: 1.35; }
+        .notification-detail time { display: block; margin-top: 7px; color: var(--muted); font-size: 10px; }
+        .notification-detail p { margin-top: 18px; color: #d1d5d1; font-size: 13px; line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; }
+        @media (max-width: 900px) { .notification-panel { top: 72px; right: 12px; } .nav-links.open .notification-bell { align-self: flex-start; margin: 8px 0 12px; } .nav-links.open .notification-panel { top: auto; right: 12px; } }
+        @media (max-width: 620px) { .notification-panel { top: 64px; right: 10px; } .notification-detail { padding: 20px; } }
+        .account-notification-wrap { position:relative; display:inline-flex; align-items:center; flex:0 0 auto; }
+        .account-notification-wrap .notification-panel { top:calc(100% + 12px); right:0; }
+        .account-notification-wrap .notification-count { border-color:#080909; }
+        .account-notification-wrap .notification-bell { color:#80C995; border-color:rgba(128,201,149,.35); }
+        .account-notification-wrap .notification-panel-foot span { color:#a9b0aa; }
+        @media(max-width:700px){ .account-sidebar .account-notification-wrap .notification-panel { position:fixed; top:78px; right:12px; } }
+</style>
+<style id="ecosystem-brand-wordmark-standard">.brand,.logo{color:#fff!important}.brand>span,.logo>strong,.logo .eco-word-ecosystem{color:#f04444!important}.logo>span{color:#fff!important}.brand .eco-word-the{color:#fff!important}.brand .eco-word-ecosystem{color:#f04444!important}</style></head>
+
+
+
+<body>
+<div class="page">
+
+
+
+        <!-- ACCOUNT SIDEBAR -->
+        <nav class="account-sidebar" aria-label="Account navigation">
+            <a class="logo" href="{{ url_for('account') }}" aria-label="THE ECOSYSTEM account home">
+                <span>THE</span> <strong>ECOSYSTEM</strong>
+            </a>
+
+            <div class="sidebar-links">
+                <a class="sidebar-link active" href="#yourBusinessesAccordion">
+                    <span class="sidebar-icon">⌂</span><span>My Businesses</span>
+                </a>
+                <a class="sidebar-link" href="{{ url_for('business_dashboard') }}">
+                    <span class="sidebar-icon">▦</span><span>Business Dashboard</span>
+                </a>
+                <a class="sidebar-link" href="{{ url_for('submit_business') }}">
+                    <span class="sidebar-icon">⊕</span><span>Add a Business</span>
+                </a>
+                <a class="sidebar-link" href="#yourBusinessesAccordion">
+                    <span class="sidebar-icon">▤</span><span>Reviews &amp; Replies</span>
+                </a>
+                <a class="sidebar-link" href="{{ url_for('account_awards') }}">
+                    <span class="sidebar-icon">♜</span><span>Awards &amp; Certifications</span>
+                </a>
+                <a class="sidebar-link" href="{{ url_for('competitions') }}">
+                    <span class="sidebar-icon">♧</span><span>Competitions</span>
+                </a>
+                <a class="sidebar-link" href="{{ url_for('saved_places') }}">
+                    <span class="sidebar-icon">♧</span><span>Saved Businesses</span>
+                </a>
+
+                <div class="sidebar-divider"></div>
+
+                <a class="sidebar-link" href="{{ url_for('edit_profile') }}">
+                    <span class="sidebar-icon">♙</span><span>Profile Settings</span>
+                </a>
+                <a class="sidebar-link" href="{{ url_for('change_password') }}">
+                    <span class="sidebar-icon">♢</span><span>Security</span>
+                </a>
+                <a class="sidebar-link" href="#accountNotificationsAccordion">
+                    <span class="sidebar-icon">♧</span><span>Notifications</span>
+                </a>
+            </div>
+
+            <a class="sidebar-link location-sidebar-link" href="#locationAccordion"><span class="sidebar-icon">⌖</span><span>Change Your Location</span></a>
+            <details class="account-accordion location-quick-card" id="locationAccordion">
+                    <summary>
+                        <span class="accordion-heading">
+                            <span class="accordion-eyebrow">YOUR LOCATION</span>
+                            <span class="accordion-title">Change Your Location</span>
+                            <span class="accordion-description">Update your home state, city and LGA.</span>
+                        </span>
+                        <span class="accordion-toggle" aria-hidden="true"></span>
+                    </summary>
+                    <div class="accordion-content">
+
+        <section class="residence-section" id="residence-settings">
+            <div class="eyebrow">YOUR LOCATION</div>
+            <h2>Where is your world?</h2>
+            <p class="residence-description">
+                Your state of residence sets your default discovery feed. City and LGA are optional,
+                and you can still explore places across Nigeria without changing your home state.
+            </p>
+
+            <div class="residence-current">
+                <span aria-hidden="true">⌖</span>
+                <span>Current home state: <strong>{{ home_state }}</strong></span>
+            </div>
+
+            {% with residence_messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in residence_messages %}
+                    <div class="residence-message {{ category if category in ['success', 'error'] else '' }}">{{ message }}</div>
+                {% endfor %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('update_residence') }}" id="residenceForm">
+                <div class="residence-form-grid">
+                    <div class="residence-field">
+                        <label for="account_state_of_residence">STATE OF RESIDENCE *</label>
+                        <select id="account_state_of_residence" name="state_of_residence" required>
+                            {% for state_name in states %}
+                            <option value="{{ state_name }}" {% if home_state == state_name %}selected{% endif %}>{{ state_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <p class="residence-help">Changing this updates your default state across discovery, businesses, events and creators.</p>
+                    </div>
+
+                    <div class="residence-field">
+                        <label for="account_city_of_residence">CITY / TOWN (OPTIONAL)</label>
+                        <input
+                            id="account_city_of_residence"
+                            type="text"
+                            name="city_of_residence"
+                            maxlength="100"
+                            value="{{ user.get('city_of_residence', '') }}"
+                            placeholder="Your city or town"
+                            autocomplete="address-level2"
+                        >
+                    </div>
+
+                    <div class="residence-field">
+                        <label for="account_lga_of_residence">LOCAL GOVERNMENT AREA (OPTIONAL)</label>
+                        <select
+                            id="account_lga_of_residence"
+                            name="lga_of_residence"
+                            data-selected="{{ user.get('lga_of_residence', '') }}"
+                        >
+                            <option value="">Skip for now</option>
+                        </select>
+                        <p class="residence-help">Leave this blank to see listings across the entire state.</p>
+                    </div>
+                </div>
+
+                <button class="residence-save" type="submit">SAVE RESIDENCE SETTINGS</button>
+            </form>
+        </section>
+            </div>
+                </details>
+
+            <div class="sidebar-bottom">
+                <a class="sidebar-link sidebar-deleted-link" href="{{ url_for('account_deleted_items') }}" aria-label="Deleted Items" title="Deleted Items">
+                    <span class="sidebar-icon">🗑</span><span>Deleted Items</span>
+                </a>
+                <a class="sidebar-premium" href="{{ url_for('premium_listing_plans') }}">
+                    <span class="premium-crown">♛</span>
+                    <span class="premium-copy"><strong>Go Premium</strong><small>Get more visibility<br>for your businesses.</small></span>
+                    <span class="premium-arrow">›</span>
+                </a>
+                <a class="sidebar-logout" href="{{ url_for('logout') }}">
+                    <span class="sidebar-icon">⇥</span><span>Log Out</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- TOP BAR -->
+        <header class="dashboard-topbar">
+            <form class="dashboard-search" action="{{ url_for('businesses_page') }}" method="GET" role="search">
+                <span aria-hidden="true" class="search-symbol">⌕</span>
+                <input type="search" name="q" placeholder="Search your businesses..." aria-label="Search your businesses">
+            </form>
+            <div class="topbar-actions">
+                <div class="account-notification-wrap notification-ui">
+                    <button class="notification-bell" id="notificationBell" type="button" aria-label="Open notifications" aria-haspopup="dialog" aria-expanded="false" data-notifications-url="{{ url_for('api_notifications') }}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span class="notification-count" id="notificationCount" hidden>0</span>
+                    </button>
+                    <div class="notification-panel" id="notificationPanel" role="dialog" aria-modal="false" aria-labelledby="notificationHeading" hidden>
+                        <div class="notification-panel-head"><div><strong id="notificationHeading">Notifications</strong><span id="notificationSubheading">Your latest updates</span></div><button type="button" class="notification-close" id="notificationClose" aria-label="Close notifications">×</button></div>
+                        <div class="notification-list" id="notificationList"><div class="notification-empty">Loading notifications…</div></div>
+                        <div class="notification-panel-foot"><span>Read notifications expire after 48 hours.</span><button type="button" id="clearNotifications">Clear all</button></div>
+                    </div>
+                </div>
+                <a class="topbar-home-button" href="{{ url_for('home') }}" aria-label="Go to homepage" title="Home">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5M5.5 9v11h13V9M9.5 20v-6h5v6"/></svg>
+                    <span>Home</span>
+                </a>
+                <a class="topbar-profile" href="{{ url_for('edit_profile') }}"><span class="topbar-avatar">{{ user.name[0]|upper }}</span><span class="topbar-profile-copy"><strong>{{ user.name }}</strong><small>View Profile</small></span><span class="topbar-chevron">⌄</span></a>
+            </div>
+        </header>
+
+        <!-- DASHBOARD WELCOME -->
+        <section class="dashboard-welcome">
+            <div><p class="welcome-kicker">WELCOME BACK,</p><h1>{{ user.name }}</h1><p class="intro">Manage your businesses, track performance and engage with your customers.</p></div>
+            <a class="add-business-button" href="{{ url_for('submit_business') }}"><span>＋</span> Add a Business</a>
+        </section>
+
+        {% set total_owned = submitted_businesses|length %}
+        {% set approved_owned = submitted_businesses|selectattr('status', 'equalto', 'APPROVED')|list|length %}
+        {% set pending_owned = submitted_businesses|selectattr('status', 'equalto', 'PENDING')|list|length %}
+        {% set total_events = submitted_events|length %}
+        <section class="dashboard-stats" aria-label="Business overview">
+            <article class="stat-card"><span class="stat-icon">▣</span><div><strong>{{ total_owned }}</strong><span>Your businesses</span></div><small>{{ '100%' if total_owned else '0%' }} of your listings</small></article>
+            <article class="stat-card"><span class="stat-icon">✓</span><div><strong>{{ approved_owned }}</strong><span>Approved listings</span></div><small>{{ ((approved_owned / total_owned * 100)|round|int) if total_owned else 0 }}% approved</small></article>
+            <article class="stat-card"><span class="stat-icon">◷</span><div><strong>{{ pending_owned }}</strong><span>Pending review</span></div><small>{{ ((pending_owned / total_owned * 100)|round|int) if total_owned else 0 }}% awaiting review</small></article>
+            <article class="stat-card"><span class="stat-icon">▤</span><div><strong>{{ total_events }}</strong><span>Events submitted</span></div><small>Your event submissions</small></article>
+        </section>
+
+        <!-- HOME STATE / RESIDENCE SETTINGS -->
+
+
+        <!-- YOUR BUSINESSES: always visible, with status filter -->
+        <section class="business-section dashboard-business-section" id="yourBusinessesSection">
+            <div class="business-section-toolbar">
+                <div>
+                    <h2>Your Businesses <span class="business-total">({{ total_owned }})</span></h2>
+                    <p>Click on a business to manage its details, reviews, and performance.</p>
+                </div>
+                <label class="business-status-filter">
+                    <span class="sr-only">Filter businesses by status</span>
+                    <select id="businessStatusFilter" aria-label="Filter businesses by status">
+                        <option value="all">All Statuses</option>
+                        <option value="approved">Approved</option>
+                        <option value="pending">Pending Review</option>
+                        <option value="rejected">Rejected</option>
+                        <option value="claim">Claim Needed</option>
+                        <option value="archived">Archived</option>
+                    </select>
+                </label>
+            </div>
+
+            {% if submitted_businesses %}
+            <div class="business-list dashboard-business-grid" id="dashboardBusinessGrid">
+                {% for item in submitted_businesses %}
+                    {% set business = item.business %}
+                    {% set claim = item.claim %}
+                    {% set raw_status = (business.status or '')|upper %}
+                    {% if business.archived or raw_status == 'ARCHIVED' %}
+                        {% set filter_status = 'archived' %}
+                        {% set display_status = 'Archived' %}
+                    {% elif business.ownership_dispute %}
+                        {% set filter_status = 'pending' %}
+                        {% set display_status = 'Ownership Dispute' %}
+                    {% elif raw_status in ['PENDING', 'PENDING REVIEW', 'PENDING_REVIEW'] %}
+                        {% set filter_status = 'pending' %}
+                        {% set display_status = 'Pending Review' %}
+                    {% elif raw_status == 'REJECTED' %}
+                        {% set filter_status = 'rejected' %}
+                        {% set display_status = 'Rejected' %}
+                    {% elif claim and claim.status == 'PENDING' %}
+                        {% set filter_status = 'pending' %}
+                        {% set display_status = 'Claim Pending' %}
+                    {% elif claim and claim.status == 'REJECTED' %}
+                        {% set filter_status = 'rejected' %}
+                        {% set display_status = 'Claim Rejected' %}
+                    {% elif claim and claim.status == 'APPROVED' %}
+                        {% set filter_status = 'approved' %}
+                        {% set display_status = 'Approved' %}
+                    {% else %}
+                        {% set filter_status = 'claim' %}
+                        {% set display_status = 'Claim Needed' %}
+                    {% endif %}
+
+                    <article class="business-card dashboard-business-card" data-item-kind="business" data-item-id="{{ business.id }}" data-business-status="{{ filter_status }}">
+                        <div class="dashboard-business-cover">
+                            {% set business_image = business.get('cover_image') or business.get('cover_image_url') or item.card_image_url %}
+                            {% if business_image %}
+                                {% if business_image.startswith('http://') or business_image.startswith('https://') or business_image.startswith('/') or business_image.startswith('data:') %}
+                                    <img src="{{ business_image }}" alt="{{ business.name }}" loading="lazy">
+                                {% else %}
+                                    <img src="{{ url_for('static', filename=business_image) }}" alt="{{ business.name }}" loading="lazy">
+                                {% endif %}
+                            {% else %}
+                                <div class="dashboard-business-cover-placeholder"><span>{{ (business.name or 'B')[0]|upper }}</span><small>{{ business.category or 'Business' }}</small></div>
+                            {% endif %}
+                            <span class="dashboard-business-status status-{{ filter_status }}">{{ display_status }}</span>
+                            <div class="business-card-menu-wrap">
+                                <button type="button" class="dashboard-business-menu" aria-label="Business options for {{ business.name|e }}" aria-haspopup="true" aria-expanded="false">•••</button>
+                                <div class="business-card-menu" role="menu" hidden>
+                                    <a role="menuitem" href="{{ url_for('business_profile', business_id=business.id) }}">View Business</a>
+                                    {% if claim and claim.status == 'APPROVED' %}
+                                        <a role="menuitem" href="{{ url_for('manage_business', business_id=business.id) }}">Manage Business</a>
+                                    {% elif not (business.archived or raw_status == 'ARCHIVED') %}
+                                        <a role="menuitem" href="{{ url_for('claim_business', business_id=business.id) }}">Claim Business</a>
+                                    {% endif %}
+                                    <form method="POST" action="{{ url_for('account_bulk_delete') }}" class="business-card-delete-form" onsubmit="return confirm('Move {{ business.name|e }} to Deleted Items? You can restore it later.');">
+                                        <input type="hidden" name="selected_items" value="business:{{ business.id }}">
+                                        <button type="submit" role="menuitem" class="business-card-delete">Delete Business</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-business-card-body">
+                            <div class="dashboard-business-title-row">
+                                <div class="dashboard-business-logo" aria-hidden="true">
+                                    {% if item.card_image_url %}<img src="{{ item.card_image_url }}" alt="" loading="lazy">{% else %}{{ (business.name or 'B')[0]|upper }}{% endif %}
+                                </div>
+                                <div class="dashboard-business-title">
+                                    <h3>{{ business.name }}</h3>
+                                    <p>{{ business.category or 'Business' }}{% if business.location %} · {{ business.location }}{% endif %}</p>
+                                </div>
+                            </div>
+                            <div class="business-engagement-metrics" aria-label="Business performance metrics">
+                                <div><strong>{{ item.review_count|default(0) }}</strong><span>Reviews</span></div>
+                                <div><strong>{{ item.review_replied|default(0) }}</strong><span>Replied</span></div>
+                                <div class="{{ 'metric-attention' if item.review_unanswered else '' }}"><strong>{{ item.review_unanswered|default(0) }}</strong><span>Unanswered</span></div>
+                                <div><strong>{{ item.engagement.showcase_likes|default(0) }}</strong><span>Showcase likes</span></div>
+                                <div><strong>{{ item.engagement.showcase_comments|default(0) }}</strong><span>Showcase comments</span></div>
+                                <div><strong>{{ item.engagement.showcase_views|default(0) }}</strong><span>Showcase views</span></div>
+                                <div><strong>{{ item.engagement.showcase_shares|default(0) }}</strong><span>Shares</span></div>
+                                <div class="{{ 'metric-attention' if item.engagement.showcase_unanswered else '' }}"><strong>{{ item.engagement.showcase_unanswered|default(0) }}</strong><span>Unanswered comments</span></div>
+                            </div>
+                            <div class="dashboard-business-card-footer">
+                                <span class="dashboard-business-status-text activity-status {{ 'activity-active' if item.is_active else 'activity-inactive' }}">{{ 'Active' if item.is_active else 'Inactive' }}</span>
+                                <div class="business-actions">
+                                    {% if business.archived or raw_status == 'ARCHIVED' %}
+                                        <span class="business-status">ARCHIVED</span>
+                                    {% elif business.ownership_dispute %}
+                                        <span class="business-status claim-pending">OWNERSHIP DISPUTE</span>
+                                    {% elif raw_status in ['PENDING', 'PENDING REVIEW', 'PENDING_REVIEW'] %}
+                                        <span class="business-status claim-pending">LISTING PENDING</span>
+                                    {% elif raw_status == 'REJECTED' %}
+                                        <span class="business-status claim-rejected">LISTING REJECTED</span>
+                                    {% elif claim and claim.status == 'APPROVED' %}
+                                        <a href="{{ url_for('manage_business', business_id=business.id) }}" class="claim-button">MANAGE BUSINESS <span aria-hidden="true">→</span></a>
+                                    {% elif claim and claim.status == 'PENDING' %}
+                                        <span class="business-status claim-pending">CLAIM PENDING</span>
+                                    {% elif claim and claim.status == 'REJECTED' %}
+                                        <span class="business-status claim-rejected">CLAIM REJECTED</span>
+                                    {% else %}
+                                        <a href="{{ url_for('claim_business', business_id=business.id) }}" class="claim-button">CLAIM BUSINESS <span aria-hidden="true">→</span></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+            <p class="business-filter-empty" id="businessFilterEmpty" hidden>No businesses match this status.</p>
+            {% else %}
+                <div class="business-empty">
+                    <p>You haven't submitted a business yet. Add a business to manage its listing and claim process from your account.</p>
+                    <a class="add-business-button" href="{{ url_for('submit_business') }}"><span>＋</span> Add a Business</a>
+                </div>
+            {% endif %}
+        </section>
+
+<details class="account-accordion" id="yourEventsAccordion">
+            <summary><span class="accordion-heading"><span class="accordion-eyebrow">YOUR EVENTS</span><span class="accordion-title">My Events</span><span class="accordion-description">Check your event submissions and approval status.</span></span><span class="accordion-toggle" aria-hidden="true"></span></summary>
+            <div class="accordion-content">
+        <section class="event-section">
+            <div class="section-heading">
+                <div class="eyebrow">YOUR EVENTS</div>
+                <h2>My Events.</h2>
+            </div>
+            {% if submitted_events %}
+                
+                <div class="event-list">
+                    {% for event in submitted_events %}
+                        <article class="event-card" data-item-kind="event" data-item-id="{{ event.id }}">
+                            <div style="display:flex;gap:15px;align-items:flex-start;min-width:0;">
+                                {% if event.flyer_path %}
+                                    <img class="event-flyer" src="{{ url_for('static', filename=event.flyer_path) }}" alt="Flyer for {{ event.title }}">
+                                {% elif event.flyer_url %}
+                                    <img class="event-flyer" src="{{ event.flyer_url }}" alt="Flyer for {{ event.title }}" onerror="this.style.display='none'">
+                                {% endif %}
+                                <div>
+                                    <div class="business-category">{{ event.category }}</div>
+                                    <h3>{{ event.title }}</h3>
+                                    <div class="event-meta">
+                                        {{ event.city }}, {{ event.state }}{% if event.lga %} · {{ event.lga }}{% endif %}<br>
+                                        {{ event.date }} · {{ event.time }}<br>
+                                        Venue: {{ event.venue }}
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="event-status {% if event.status == 'APPROVED' %}approved{% elif event.status == 'EXPIRED' %}expired{% endif %}">{{ event.status }}</span>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="event-empty">
+                    You haven't submitted an event yet. Submit one to share it with your community; it will appear here while it is pending review and after approval.
+                    <div style="margin-top:14px;"><a class="account-action" href="{{ url_for('submit_business') }}">＋ SUBMIT AN EVENT</a></div>
+                </div>
+            {% endif %}
+        </section>
+            </div>
+        </details>
+
+<details class="account-accordion" id="premiumListingAccordion">
+            <summary>
+                <span class="accordion-heading"><span class="accordion-eyebrow">GROW YOUR REACH</span><span class="accordion-title">Premium Listing</span><span class="accordion-description">Apply for premium visibility and check your listing applications.</span></span>
+                <span class="accordion-toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="accordion-content">
+        <section class="premium-section">
+            <div class="section-heading">
+                <div class="eyebrow">GROW YOUR REACH</div>
+                <h2>Premium Listing.</h2>
+            </div>
+            <div class="premium-panel">
+                <h3>Help more customers discover your business.</h3>
+                <p>Choose the Nigerian states you want to reach, select a subscription duration and manage your Premium Listing applications from your account. Listings go live only after payment verification and required approval.</p>
+                <div class="premium-panel-actions">
+                    <a class="premium-button" href="{{ url_for('premium_listing_plans') }}">GET PREMIUM LISTING</a>
+                    <a class="premium-button secondary" href="{{ url_for('premium_listing_apply') }}">START AN APPLICATION</a>
+                </div>
+                {% if premium_orders %}
+                    <div class="premium-orders">
+                        {% for order in premium_orders %}
+                            {% set order_status = order.get('status', 'PENDING')|upper %}
+                            <article class="premium-order" data-item-kind="premium_listing" data-item-id="{{ order.id }}">
+                                <div>
+                                    <h4>{{ order.get('business_name', 'Premium business listing') }}</h4>
+                                    <p>Coverage: {{ order.get('selected_states', [])|join(', ') or 'Not selected' }}<br>Duration: {{ order.get('duration_months', 1) }} month(s) · Total: ₦{{ '{:,.0f}'.format(order.get('amount_naira', 0)|float) }}<br>Payment: {{ order.get('payment_status', 'PENDING')|replace('_', ' ') }}</p>
+                                    {% if order.get('expires_at') %}<p>Expires: {{ order.get('expires_at')[:10] }}</p>{% endif %}
+                                </div>
+                                <div>
+                                    <span class="premium-status {% if order_status in ['PENDING_REVIEW', 'AWAITING_PAYMENT', 'INITIALIZING_PAYMENT'] %}pending{% elif order_status in ['REJECTED', 'PAYMENT_UNVERIFIED', 'PAYMENT_INITIALIZATION_FAILED'] %}rejected{% endif %}">{{ order_status|replace('_', ' ') }}</span>
+                                    <div style="margin-top:10px;"><a class="premium-button secondary" href="{{ url_for('premium_listing_status', order_id=order.id) }}">VIEW STATUS</a></div>
+                                </div>
+                            </article>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+            </div>
+        </details>
+
+
+
+        <!-- YOUR BUSINESSES -->
+        
+
+        <!-- YOUR EVENTS -->
+        
+
+        <!-- YOUR CONNECTIONS -->
+        <details class="account-accordion" id="yourConnectionsAccordion">
+            <summary><span class="accordion-heading"><span class="accordion-eyebrow">YOUR CONNECTIONS</span><span class="accordion-title">Explore your ecosystem</span><span class="accordion-description">Quick links to discover businesses, events, creators and saved places.</span></span><span class="accordion-toggle" aria-hidden="true"></span></summary>
+            <div class="accordion-content">
+        <section>
+
+            <div class="section-heading">
+
+                <div class="eyebrow">YOUR CONNECTIONS</div>
+
+                <h2>Explore your ecosystem.</h2>
+
+            </div>
+
+
+
+            <div class="ecosystem-grid">
+
+
+
+                <!-- DISCOVER -->
+
+                <a
+
+                    href="{{ url_for('discover') }}"
+
+                    class="ecosystem-card"
+
+                >
+
+                    <div class="card-icon">◉</div>
+
+
+
+                    <div class="card-content">
+
+                        <h3>Discover</h3>
+
+                        <p>
+
+                            Find places, people and things
+
+                            happening around {{ home_state }}.
+
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- BUSINESSES -->
+
+                <a
+
+                    href="{{ url_for('businesses_page') }}"
+
+                    class="ecosystem-card"
+
+                >
+
+                    <div class="card-icon">▣</div>
+
+
+
+                    <div class="card-content">
+
+                        <h3>Businesses</h3>
+
+                        <p>
+
+                            Explore businesses and local
+
+                            brands across {{ home_state }}.
+
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- EVENTS -->
+
+                <a
+
+                    href="{{ url_for('events') }}"
+
+                    class="ecosystem-card"
+
+                >
+
+                    <div class="card-icon">◷</div>
+
+
+
+                    <div class="card-content">
+
+                        <h3>Events</h3>
+
+                        <p>
+
+                            See what's happening and what's
+
+                            coming next.
+
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- COMPETITIONS -->
+
+                <a
+
+                    href="{{ url_for('competitions') }}"
+
+                    class="ecosystem-card"
+
+                >
+
+                    <div class="card-icon">♛</div>
+
+
+
+                    <div class="card-content">
+
+                        <h3>Competitions</h3>
+
+                        <p>
+
+                            Discover community competitions
+
+                            and future awards.
+
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- CREATORS -->
+
+                <a
+
+                    href="{{ url_for('creators_page') }}"
+
+                    class="ecosystem-card"
+
+                >
+
+                    <div class="card-icon">✦</div>
+
+
+
+                    <div class="card-content">
+
+                        <h3>Creators</h3>
+
+                        <p>
+
+                            Discover the people creating
+
+                            and shaping Ibadan.
+
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- HOME -->
+
+                <a
+
+                    href="{{ url_for('home') }}"
+
+                    class="ecosystem-card"
+
+                >
+
+                    <div class="card-icon">↗</div>
+
+
+
+                    <div class="card-content">
+
+                        <h3>Home</h3>
+
+                        <p>
+
+                            Return to the main THE ECOSYSTEM
+
+                            experience.
+
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- NEW: SAVED BUSINESSES CARD -->
+
+                <a
+
+                    href="{{ url_for('saved_places') }}"
+
+                    class="ecosystem-card"
+
+                >
+
+                    <div class="card-icon">♡</div>
+
+
+
+                    <div class="card-content">
+
+                        <h3>Saved Businesses</h3>
+
+                        <p>
+
+                            Revisit your favourite local businesses
+
+                            and manage the places you've saved.
+
+                        </p>
+
+                    </div>
+
+                </a>
+
+
+
+            
+
+                <!-- AWARDS & CERTIFICATIONS -->
+                <a href="{{ url_for('account_awards') }}" class="ecosystem-card">
+                    <div class="card-icon">🏆</div>
+                    <div class="card-content">
+                        <h3>Awards &amp; Certifications</h3>
+                        <p>View your awards and access certificates earned through THE ECOSYSTEM.</p>
+                    </div>
+                </a>
+
+</div>
+
+        </section>
+            </div>
+        </details>
+
+        <!-- FUTURE -->
+
+        <section class="future">
+
+            <div class="eyebrow">WHAT'S COMING</div>
+
+
+
+            <p>
+
+                Your account will eventually become more powerful:
+
+                saved places, personalized discoveries, business
+
+                profiles, business claiming, submissions, creator
+
+                connections, event participation and more.
+
+            </p>
+
+        </section>
+
+
+
+    </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const stateSelect = document.getElementById("account_state_of_residence");
+        const lgaSelect = document.getElementById("account_lga_of_residence");
+        if (!stateSelect || !lgaSelect) return;
+
+        let locationData = {};
+        const initialLga = lgaSelect.dataset.selected || "";
+
+        function populateLgas(selectedLga) {
+            const stateName = stateSelect.value;
+            lgaSelect.innerHTML = '<option value="">Skip for now</option>';
+            (locationData[stateName] || []).forEach(function (lgaName) {
+                const option = document.createElement("option");
+                option.value = lgaName;
+                option.textContent = lgaName;
+                if (lgaName === selectedLga) option.selected = true;
+                lgaSelect.appendChild(option);
+            });
+        }
+
+        fetch("{{ url_for('nigeria_locations_api') }}")
+            .then(function (response) {
+                if (!response.ok) throw new Error("Location data unavailable");
+                return response.json();
+            })
+            .then(function (data) {
+                locationData = data.lgas || {};
+                populateLgas(initialLga);
+            })
+            .catch(function () {
+                lgaSelect.innerHTML = '<option value="">LGA list unavailable (optional)</option>';
+            });
+
+        stateSelect.addEventListener("change", function () {
+            populateLgas("");
+        });
+    });
+    </script>
+
+
+<script id="account-notification-script">
+document.addEventListener("DOMContentLoaded", function () {
+    const bell = document.getElementById("notificationBell");
+    const panel = document.getElementById("notificationPanel");
+    const list = document.getElementById("notificationList");
+    const count = document.getElementById("notificationCount");
+    const closeButton = document.getElementById("notificationClose");
+    const clearButton = document.getElementById("clearNotifications");
+    if (!bell || !panel || !list || !count) return;
+    const api = bell.dataset.notificationsUrl;
+    let items = [];
+    function node(tag, cls, value) { const el = document.createElement(tag); if (cls) el.className = cls; el.textContent = value || ""; return el; }
+    function dateLabel(value) { if (!value) return ""; const d = new Date(value); return Number.isNaN(d.getTime()) ? "" : d.toLocaleString([], {dateStyle:"medium", timeStyle:"short"}); }
+    function setCount(value) { const n = Math.max(0, Number(value) || 0); count.textContent = n > 99 ? "99+" : String(n); count.hidden = n === 0; bell.setAttribute("aria-label", n ? `Notifications, ${n} unread` : "Open notifications"); }
+    async function load() {
+        list.replaceChildren(node("div", "notification-empty", "Loading notifications…"));
+        try { const r = await fetch(api, {credentials:"same-origin", headers:{Accept:"application/json"}}); if (!r.ok) throw new Error("Unable to load notifications"); const data = await r.json(); items = data.notifications || []; setCount(data.unread || 0); render(); }
+        catch (_) { list.replaceChildren(node("div", "notification-empty", "Could not load notifications. Please try again.")); }
+    }
+    function render() {
+        list.replaceChildren();
+        if (!items.length) { list.append(node("div", "notification-empty", "You’re all caught up. No notifications yet.")); return; }
+        items.forEach(item => {
+            const card = node("div", `notification-item${item.read ? "" : " unread"}`, ""); card.tabIndex=0; card.setAttribute("role","button"); card.setAttribute("aria-label", `Open notification: ${item.title}`);
+            const body = document.createElement("div"); body.append(node("div","notification-item-title",item.title),node("div","notification-item-message",item.message),node("time","notification-item-date",dateLabel(item.created_at)));
+            const actions=node("div","notification-item-actions",""); const del=node("button","","×"); del.type="button"; del.title="Delete notification"; del.setAttribute("aria-label",`Delete ${item.title}`); del.addEventListener("click",async e=>{e.stopPropagation();await remove(item.id);});
+            actions.append(del); card.append(body,actions); card.addEventListener("click",()=>openItem(item)); card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openItem(item);}}); list.append(card);
+        });
+    }
+    async function openItem(item) {
+        if (!item.read) { try { const r=await fetch(`${api}/${encodeURIComponent(item.id)}/read`,{method:"POST",credentials:"same-origin",headers:{Accept:"application/json"}}); if(r.ok){item.read=true;const d=await r.json();setCount(d.unread);} } catch(_){} }
+        render();
+        const backdrop=node("div","notification-detail-backdrop",""); backdrop.setAttribute("role","presentation"); const detail=node("article","notification-detail",""); detail.setAttribute("role","dialog"); detail.setAttribute("aria-modal","true"); detail.tabIndex=-1;
+        detail.append(node("h3","",item.title),node("time","",dateLabel(item.created_at)),node("p","",item.message)); backdrop.append(detail);
+        const close=()=>{backdrop.remove();document.removeEventListener("keydown",esc);}; const esc=e=>{if(e.key==="Escape")close();}; backdrop.addEventListener("click",e=>{if(e.target===backdrop)close();}); detail.addEventListener("click",e=>e.stopPropagation()); document.addEventListener("keydown",esc); document.body.append(backdrop); detail.focus();
+    }
+    async function remove(id) { try { const r=await fetch(`${api}/${encodeURIComponent(id)}`,{method:"DELETE",credentials:"same-origin",headers:{Accept:"application/json"}}); if(!r.ok)return; items=items.filter(x=>String(x.id)!==String(id));const d=await r.json();setCount(d.unread);render(); } catch(_){} }
+    function closePanel(){panel.hidden=true;bell.setAttribute("aria-expanded","false");}
+    bell.addEventListener("click",async e=>{e.stopPropagation();if(!panel.hidden){closePanel();return;}panel.hidden=false;bell.setAttribute("aria-expanded","true");await load();});
+    panel.addEventListener("click",e=>e.stopPropagation()); closeButton.addEventListener("click",closePanel);
+    document.addEventListener("click",e=>{if(!panel.hidden&&!panel.contains(e.target)&&!bell.contains(e.target))closePanel();});
+    document.addEventListener("keydown",e=>{if(e.key==="Escape")closePanel();});
+    clearButton.addEventListener("click",async()=>{if(!items.length||!window.confirm("Clear all your notifications? This cannot be undone."))return;try{const r=await fetch(`${api}/clear`,{method:"POST",credentials:"same-origin",headers:{Accept:"application/json"}});if(r.ok){items=[];setCount(0);render();}}catch(_){}});
+    load().catch(()=>{});
+});
+</script>
+
+
+<script>
+(function () {
+    const filter = document.getElementById('businessStatusFilter');
+    const grid = document.getElementById('dashboardBusinessGrid');
+    const empty = document.getElementById('businessFilterEmpty');
+    if (!filter || !grid) return;
+    const cards = Array.from(grid.querySelectorAll('[data-business-status]'));
+    filter.addEventListener('change', function () {
+        const selected = filter.value;
+        let visible = 0;
+        cards.forEach(function (card) {
+            const show = selected === 'all' || card.dataset.businessStatus === selected;
+            card.hidden = !show;
+            if (show) visible++;
+        });
+        if (empty) empty.hidden = visible !== 0;
+    });
+})();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const wrappers = Array.from(document.querySelectorAll('.business-card-menu-wrap'));
+  function closeAll(except) {
+    wrappers.forEach(function (wrap) {
+      if (wrap === except) return;
+      const button = wrap.querySelector('.dashboard-business-menu');
+      const menu = wrap.querySelector('.business-card-menu');
+      if (button && menu) { button.setAttribute('aria-expanded', 'false'); menu.hidden = true; }
+    });
+  }
+  wrappers.forEach(function (wrap) {
+    const button = wrap.querySelector('.dashboard-business-menu');
+    const menu = wrap.querySelector('.business-card-menu');
+    if (!button || !menu) return;
+    button.addEventListener('click', function (event) {
+      event.preventDefault(); event.stopPropagation();
+      const opening = menu.hidden;
+      closeAll(wrap);
+      menu.hidden = !opening;
+      button.setAttribute('aria-expanded', opening ? 'true' : 'false');
+    });
+    menu.addEventListener('click', function (event) { event.stopPropagation(); });
+  });
+  document.addEventListener('click', function () { closeAll(); });
+  document.addEventListener('keydown', function (event) { if (event.key === 'Escape') closeAll(); });
+});
+</script>
+
+
+<script>
+(function(){
+ const link=document.querySelector('.location-sidebar-link');
+ const panel=document.getElementById('locationAccordion');
+ if(!link||!panel) return;
+ const originalParent=panel.parentNode;
+ const placeholder=document.createComment('location-settings-panel');
+ originalParent.insertBefore(placeholder,panel);
+ let backdrop=null, closeButton=null;
+ function closePopup(){
+   panel.classList.remove('location-popup-open');
+   panel.removeAttribute('open');
+   if(backdrop){backdrop.remove();backdrop=null;}
+   if(closeButton){closeButton.remove();closeButton=null;}
+   if(placeholder.parentNode) placeholder.parentNode.insertBefore(panel,placeholder.nextSibling);
+   document.body.style.overflow='';
+ }
+ function openPopup(){
+   if(panel.classList.contains('location-popup-open')) return;
+   backdrop=document.createElement('div');
+   backdrop.className='location-popup-backdrop';
+   backdrop.addEventListener('click',closePopup);
+   document.body.appendChild(backdrop);
+   // Move the panel out of sidebar/profile stacking and clipping contexts.
+   document.body.appendChild(panel);
+   closeButton=document.createElement('button');
+   closeButton.type='button';
+   closeButton.className='location-popup-close';
+   closeButton.setAttribute('aria-label','Close location settings');
+   closeButton.textContent='×';
+   closeButton.addEventListener('click',closePopup);
+   const content=panel.querySelector('.accordion-content');
+   if(content) content.insertBefore(closeButton,content.firstChild);
+   panel.setAttribute('open','open');
+   panel.classList.add('location-popup-open');
+   document.body.style.overflow='hidden';
+ }
+ link.addEventListener('click',function(e){e.preventDefault();openPopup();});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&panel.classList.contains('location-popup-open'))closePopup();});
+})();
+</script>
+
+
+<style id="dashboard-topbar-single-row-fix">
+/* Keep business search, notifications and profile on one shared horizontal line. */
+.dashboard-topbar {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 18px !important;
+    min-width: 0 !important;
+}
+.dashboard-search {
+    flex: 1 1 auto !important;
+    width: auto !important;
+    max-width: 560px !important;
+    min-width: 120px !important;
+    margin: 0 !important;
+}
+.topbar-actions {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 14px !important;
+    width: auto !important;
+    min-width: max-content !important;
+    height: 48px !important;
+    margin: 0 0 0 auto !important;
+    padding: 0 !important;
+    position: relative !important;
+}
+.topbar-actions .account-notification-wrap,
+.topbar-actions .topbar-profile {
+    flex: 0 0 auto !important;
+    align-self: center !important;
+}
+.topbar-profile-copy { display: flex !important; }
+@media (max-width: 1100px) {
+    .dashboard-topbar { gap: 12px !important; }
+    .dashboard-search { min-width: 100px !important; }
+    .topbar-actions { gap: 9px !important; }
+    .topbar-profile-copy { display: none !important; }
+}
+@media (max-width: 700px) {
+    .dashboard-topbar {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 8px !important;
+    }
+    .dashboard-search {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        width: auto !important;
+    }
+    .topbar-actions {
+        flex: 0 0 auto !important;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        gap: 5px !important;
+        min-width: max-content !important;
+        margin-left: auto !important;
+    }
+}
+</style>
+
+
+<style id="welcome-back-position-fix">
+/* Move the welcome section slightly lower beneath the search bar; leave other layout unchanged. */
+.dashboard-welcome { margin-top: 14px !important; }
+</style>
+
+</body>
+
+
+
+</html>

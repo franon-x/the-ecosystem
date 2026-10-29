@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spotlight Submission Received — THE ECOSYSTEM</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#090909;color:#f7f4f2;font:15px Arial,sans-serif;padding:24px}
+    main{max-width:980px;margin:auto}.brand{color:#fff;text-decoration:none;font-weight:900}.brand span{color:#ef4444}
+    .panel{max-width:760px;margin:28px auto;padding:clamp(22px,5vw,42px);background:#111;border:1px solid #303030;border-radius:18px}
+    p{color:#b8b0b0;line-height:1.65}h1{font-size:clamp(30px,5vw,44px);margin:12px 0}.check{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#123321;color:#72e6a1;font-size:30px;font-weight:900}
+    small{color:#aaa}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:22px 0}.stat{background:#090909;border:1px solid #333;border-radius:12px;padding:16px}.stat h2{font-size:18px;margin:8px 0}
+    .status{color:#ffd166}.paid{color:#72e6a1}.details{border-top:1px solid #303030;padding-top:18px}.notice{background:#1b1710;border:1px solid #59451d;border-radius:10px;padding:14px;color:#f5d99a!important}
+    .btn{display:inline-block;border-radius:9px;background:#ef3434;color:white;padding:12px 16px;font-weight:800;text-decoration:none;margin:8px 8px 0 0}.secondary{background:#252525;border:1px solid #444}
+    @media(max-width:600px){body{padding:12px}.panel{padding:20px}}
+  
+
+/* ==========================================================
+   THE ECOSYSTEM — OFFICIAL DESIGN SYSTEM
+   Palette: #080909 / #111413 / #E6333E / #80C995 / #FFFFFF
+   ========================================================== */
+:root {
+  --eco-bg: #080909;
+  --eco-panel: #111413;
+  --eco-panel-soft: #171b18;
+  --eco-red: #E6333E;
+  --eco-green: #80C995;
+  --eco-white: #FFFFFF;
+  --eco-muted: #A9B0AA;
+  --eco-line: rgba(255,255,255,.11);
+}
+html { background: var(--eco-bg); scroll-behavior: smooth; }
+body {
+  color: var(--eco-white);
+  background:
+    radial-gradient(ellipse at 8% 0%, rgba(230,51,62,.11), transparent 34%),
+    radial-gradient(ellipse at 95% 85%, rgba(128,201,149,.07), transparent 32%),
+    var(--eco-bg);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease; }
+header, nav {
+  border-color: var(--eco-line) !important;
+}
+.logo, .brand { color: var(--eco-white); }
+.logo span, .brand span { color: var(--eco-red); }
+h1, h2, h3, h4 { color: var(--eco-white); }
+p { text-wrap: pretty; }
+input, select, textarea {
+  color: var(--eco-white) !important;
+  background: #0b0e0c !important;
+  border-color: rgba(255,255,255,.15) !important;
+  border-radius: 10px;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--eco-green) !important;
+  box-shadow: 0 0 0 3px rgba(128,201,149,.11);
+  outline: none;
+}
+input::placeholder, textarea::placeholder { color: #737b75 !important; }
+label { color: #d1d6d2; }
+button, input[type="submit"], input[type="button"], .login-button, .view-button,
+.view-link, .view-button, .explore-state-button, .action-button, .btn,
+.primary-button, .submit-button, .save-button, .cta, .view-all,
+a.button, a.btn, .register-button, .submit-btn {
+  border-radius: 10px;
+}
+button[type="submit"], input[type="submit"], .login-button, .submit-button,
+.save-button, .primary-button, .submit-btn, .explore-state-button,
+.action-button, .cta, .register-button, a.button, a.btn, .view-button {
+  background: var(--eco-white) !important;
+  color: #237744 !important;
+  border: 1px solid rgba(128,201,149,.65) !important;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(0,0,0,.16);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+button[type="submit"]:hover, input[type="submit"]:hover, .login-button:hover,
+.submit-button:hover, .save-button:hover, .primary-button:hover, .submit-btn:hover,
+.explore-state-button:hover, .action-button:hover, .cta:hover, .register-button:hover,
+a.button:hover, a.btn:hover, .view-button:hover {
+  background: var(--eco-green) !important;
+  color: #08100b !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(128,201,149,.14);
+}
+button:not([type="submit"]):not(.toggle-password):not(.featured-prev):not(.featured-next) {
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--eco-green);
+  outline-offset: 3px;
+}
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card,
+.creator-card, .event-card, .plan, .stat, .success-card, .featured,
+.featured-creator, .profile-card, .content-card, .result-card {
+  border-color: var(--eco-line) !important;
+}
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card,
+.creator-card, .event-card, .plan, .stat, .success-card, .profile-card,
+.content-card, .result-card {
+  background-color: var(--eco-panel);
+}
+.eyebrow, .label, .page-label, .section-label, .category, .featured-label,
+.event-category, .competition-category { color: var(--eco-green); }
+.muted, .intro, .description, .hero p, .hero-description, .about-text,
+.location, .empty-state p { color: var(--eco-muted); }
+.error, .alert-error {
+  color: #ff9da3;
+  background: rgba(230,51,62,.09);
+  border-color: rgba(230,51,62,.35);
+  border-radius: 10px;
+}
+.success, .alert-success, .notice-success {
+  color: #b8f0c8;
+  background: rgba(128,201,149,.08);
+  border-color: rgba(128,201,149,.3);
+  border-radius: 10px;
+}
+hr { border-color: var(--eco-line); }
+::selection { background: rgba(128,201,149,.32); color: #fff; }
+@media (max-width: 700px) {
+  body { background:
+    radial-gradient(ellipse at 10% 0%, rgba(230,51,62,.09), transparent 38%),
+    var(--eco-bg); }
+}
+
+
+.panel { border-radius: 22px; background: radial-gradient(ellipse at 90% 0%,rgba(128,201,149,.08),transparent 38%),var(--eco-panel) !important; box-shadow: 0 24px 80px rgba(0,0,0,.24); }
+.check { background: rgba(128,201,149,.13) !important; color: var(--eco-green) !important; }
+.stat { border-radius: 13px; }
+.status, .paid { color: var(--eco-green) !important; }
+.notice { background: rgba(230,51,62,.08) !important; border-color: rgba(230,51,62,.25) !important; border-radius: 12px; }
+.secondary { background: #171b18 !important; color: #fff !important; border-color: var(--eco-line) !important; }
+
+
+/* Final brand wordmark consistency: THE white, ECOSYSTEM red */
+.logo, .brand { color: #FFFFFF !important; }
+.logo span, .brand span, .ecosystem-wordmark span, .ecosystem-wordmark b,
+.footer strong.ecosystem-wordmark span { color: #E6333E !important; }
+.ecosystem-wordmark { color: #FFFFFF !important; }
+
+</style>
+</head>
+<body><main>
+  <a class="brand" href="{{ url_for('marketplace_page') }}">THE <span>ECOSYSTEM</span></a>
+  <section class="panel">
+    <div class="check" aria-label="Success">✓</div>
+    <small>{{ plan.get('name', 'Spotlight campaign') }}</small>
+    <h1>Submission received!</h1>
+    <p>Your business Spotlight details have been submitted successfully. Our admin team will review your campaign before it appears on the Marketplace.</p>
+    <div class="stats">
+      <div class="stat"><small>CAMPAIGN STATUS</small><h2 class="status">{{ campaign.get('status', 'PENDING_REVIEW')|replace('_', ' ') }}</h2></div>
+      <div class="stat"><small>PAYMENT STATUS</small><h2 class="paid">{{ campaign.get('payment_status', 'PENDING')|replace('_', ' ') }}</h2></div>
+    </div>
+    <div class="details">
+      <p><strong>Business:</strong> {{ campaign.get('company', 'Your business') }}</p>
+      <p><strong>Campaign headline:</strong> {{ campaign.get('headline', '—') }}</p>
+      {% if campaign.get('submitted_at') %}<p><strong>Submitted:</strong> {{ campaign.get('submitted_at')[:19].replace('T', ' ') }} UTC</p>{% endif %}
+      {% if campaign.get('expires_at') %}<p><strong>Expires:</strong> {{ campaign.get('expires_at') }}</p>{% endif %}
+    </div>
+    <p class="notice">Your campaign is not live yet. It will appear publicly after admin approval.</p>
+    <a class="btn" href="{{ url_for('marketplace_page') }}">Back to Marketplace</a>
+    <a class="btn secondary" href="{{ url_for('spotlight_plans') }}">View Spotlight plans</a>
+  </section>
+</main></body></html>

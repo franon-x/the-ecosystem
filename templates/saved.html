@@ -1,0 +1,543 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Places — THE ECOSYSTEM</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #050505;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* NAVIGATION */
+        nav {
+            width: 100%;
+            padding: 22px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .logo {
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #888;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .account-link {
+            color: #ff2b2b !important;
+        }
+
+        /* PAGE */
+        .page {
+            width: 88%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 0 100px;
+        }
+
+        .eyebrow {
+            color: #ff2b2b;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: clamp(42px, 7vw, 82px);
+            line-height: 0.95;
+            letter-spacing: -4px;
+            max-width: 800px;
+            margin-bottom: 24px;
+        }
+
+        .intro {
+            color: #888;
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 600px;
+            margin-bottom: 60px;
+        }
+
+        /* SAVED GRID */
+        .saved-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .saved-card {
+            border: 1px solid #1d1d1d;
+            background: #0b0b0b;
+            padding: 28px;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: 0.25s ease;
+        }
+
+        .saved-card:hover {
+            border-color: #ff2b2b;
+            transform: translateY(-3px);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .category {
+            color: #ff2b2b;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .saved-icon {
+            color: #ff2b2b;
+            font-size: 18px;
+        }
+
+        .business-name {
+            font-size: 27px;
+            line-height: 1.05;
+            letter-spacing: -1px;
+            margin: 35px 0 12px;
+        }
+
+        .location {
+            color: #777;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .view-button,
+        .remove-button {
+            flex: 1;
+            padding: 13px 10px;
+            text-align: center;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: 0.2s ease;
+        }
+
+        .view-button {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .view-button:hover {
+            background: #ff2b2b;
+            color: #ffffff;
+        }
+
+        .remove-button {
+            border: 1px solid #292929;
+            color: #777;
+            background: transparent;
+        }
+
+        .remove-button:hover {
+            border-color: #ff2b2b;
+            color: #ff2b2b;
+        }
+
+        /* EMPTY STATE */
+        .empty-state {
+            border: 1px solid #1d1d1d;
+            background: #0b0b0b;
+            padding: 70px 30px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            font-size: 34px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .empty-state p {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.7;
+            max-width: 450px;
+            margin: 0 auto 28px;
+        }
+
+        .discover-button {
+            display: inline-block;
+            background: #ff2b2b;
+            color: #ffffff;
+            padding: 14px 22px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: 0.2s ease;
+        }
+
+        .discover-button:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid #1a1a1a;
+            padding: 28px 6%;
+            color: #555;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* TABLET */
+        @media (max-width: 850px) {
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a {
+                font-size: 10px;
+            }
+
+            .saved-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* MOBILE */
+        @media (max-width: 600px) {
+            nav {
+                padding: 20px 5%;
+            }
+
+            .logo {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 9px;
+                letter-spacing: 0.5px;
+            }
+
+            .page {
+                width: 90%;
+                padding: 55px 0 70px;
+            }
+
+            h1 {
+                font-size: 48px;
+                letter-spacing: -2.5px;
+            }
+
+            .intro {
+                font-size: 14px;
+                margin-bottom: 40px;
+            }
+
+            .saved-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .saved-card {
+                min-height: 230px;
+            }
+        }
+    
+
+/* ==========================================================
+   THE ECOSYSTEM — OFFICIAL DESIGN SYSTEM
+   Palette: #080909 / #111413 / #E6333E / #80C995 / #FFFFFF
+   ========================================================== */
+:root {
+  --eco-bg: #080909;
+  --eco-panel: #111413;
+  --eco-panel-soft: #171b18;
+  --eco-red: #E6333E;
+  --eco-green: #80C995;
+  --eco-white: #FFFFFF;
+  --eco-muted: #A9B0AA;
+  --eco-line: rgba(255,255,255,.11);
+}
+html { background: var(--eco-bg); scroll-behavior: smooth; }
+body {
+  color: var(--eco-white);
+  background:
+    radial-gradient(ellipse at 8% 0%, rgba(230,51,62,.11), transparent 34%),
+    radial-gradient(ellipse at 95% 85%, rgba(128,201,149,.07), transparent 32%),
+    var(--eco-bg);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease; }
+header, nav {
+  border-color: var(--eco-line) !important;
+}
+.logo, .brand { color: var(--eco-white); }
+.logo span, .brand span { color: var(--eco-red); }
+h1, h2, h3, h4 { color: var(--eco-white); }
+p { text-wrap: pretty; }
+input, select, textarea {
+  color: var(--eco-white) !important;
+  background: #0b0e0c !important;
+  border-color: rgba(255,255,255,.15) !important;
+  border-radius: 10px;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--eco-green) !important;
+  box-shadow: 0 0 0 3px rgba(128,201,149,.11);
+  outline: none;
+}
+input::placeholder, textarea::placeholder { color: #737b75 !important; }
+label { color: #d1d6d2; }
+button, input[type="submit"], input[type="button"], .login-button, .view-button,
+.view-link, .view-button, .explore-state-button, .action-button, .btn,
+.primary-button, .submit-button, .save-button, .cta, .view-all,
+a.button, a.btn, .register-button, .submit-btn {
+  border-radius: 10px;
+}
+button[type="submit"], input[type="submit"], .login-button, .submit-button,
+.save-button, .primary-button, .submit-btn, .explore-state-button,
+.action-button, .cta, .register-button, a.button, a.btn, .view-button {
+  background: var(--eco-white) !important;
+  color: #237744 !important;
+  border: 1px solid rgba(128,201,149,.65) !important;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(0,0,0,.16);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+button[type="submit"]:hover, input[type="submit"]:hover, .login-button:hover,
+.submit-button:hover, .save-button:hover, .primary-button:hover, .submit-btn:hover,
+.explore-state-button:hover, .action-button:hover, .cta:hover, .register-button:hover,
+a.button:hover, a.btn:hover, .view-button:hover {
+  background: var(--eco-green) !important;
+  color: #08100b !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(128,201,149,.14);
+}
+button:not([type="submit"]):not(.toggle-password):not(.featured-prev):not(.featured-next) {
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--eco-green);
+  outline-offset: 3px;
+}
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card,
+.creator-card, .event-card, .plan, .stat, .success-card, .featured,
+.featured-creator, .profile-card, .content-card, .result-card {
+  border-color: var(--eco-line) !important;
+}
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card,
+.creator-card, .event-card, .plan, .stat, .success-card, .profile-card,
+.content-card, .result-card {
+  background-color: var(--eco-panel);
+}
+.eyebrow, .label, .page-label, .section-label, .category, .featured-label,
+.event-category, .competition-category { color: var(--eco-green); }
+.muted, .intro, .description, .hero p, .hero-description, .about-text,
+.location, .empty-state p { color: var(--eco-muted); }
+.error, .alert-error {
+  color: #ff9da3;
+  background: rgba(230,51,62,.09);
+  border-color: rgba(230,51,62,.35);
+  border-radius: 10px;
+}
+.success, .alert-success, .notice-success {
+  color: #b8f0c8;
+  background: rgba(128,201,149,.08);
+  border-color: rgba(128,201,149,.3);
+  border-radius: 10px;
+}
+hr { border-color: var(--eco-line); }
+::selection { background: rgba(128,201,149,.32); color: #fff; }
+@media (max-width: 700px) {
+  body { background:
+    radial-gradient(ellipse at 10% 0%, rgba(230,51,62,.09), transparent 38%),
+    var(--eco-bg); }
+}
+
+
+nav { position: sticky; top: 0; z-index: 20; background: rgba(8,9,9,.88); backdrop-filter: blur(16px); }
+.ecosystem-wordmark { color: var(--eco-red); font-weight: 800; }
+.logo { color: var(--eco-white) !important; }
+.logo span { color: var(--eco-red) !important; }
+.saved-card { border-radius: 17px; background: linear-gradient(145deg,#151917,#0e100f) !important; transition: transform .22s ease,border-color .22s ease,box-shadow .22s ease; }
+.saved-card:hover { transform: translateY(-4px); border-color: rgba(128,201,149,.42) !important; box-shadow: 0 18px 45px rgba(0,0,0,.2); }
+.category, .saved-icon { color: var(--eco-green) !important; }
+.view-button { background: #fff !important; color: #237744 !important; }
+.remove-button { border: 1px solid rgba(230,51,62,.35) !important; background: rgba(230,51,62,.08) !important; color: #ff8b91 !important; }
+
+</style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <a href="{{ url_for('home') }}" class="logo">
+            THE <span>ECOSYSTEM</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="{{ url_for('discover') }}">Discover</a>
+            <a href="{{ url_for('events') }}">Events</a>
+            <a href="{{ url_for('businesses_page') }}">Businesses</a>
+            <a href="{{ url_for('account') }}" class="account-link">
+                Account
+            </a>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="page">
+
+        <div class="eyebrow">YOUR COLLECTION</div>
+
+        <h1>Saved Places.</h1>
+
+        <p class="intro">
+            The places you don't want to forget.
+            Save something interesting now and come back to it whenever you need it.
+        </p>
+
+        {% if saved_businesses %}
+
+            <div class="saved-grid">
+
+                {% for business in saved_businesses %}
+
+                    <article class="saved-card">
+
+                        <div>
+                            <div class="card-top">
+                                <span class="category">
+                                    {{ business.category }}
+                                </span>
+
+                                <span class="saved-icon">♥</span>
+                            </div>
+
+                            <h2 class="business-name">
+                                {{ business.name }}
+                            </h2>
+
+                            <p class="location">
+                                {{ business.location }}
+                            </p>
+                        </div>
+
+                        <div class="card-actions">
+
+                            <a
+                                href="{{ url_for('business_profile', business_id=business.id) }}"
+                                class="view-button"
+                            >
+                                View
+                            </a>
+
+                            <a
+                                href="{{ url_for('remove_saved_business', business_id=business.id) }}"
+                                class="remove-button"
+                            >
+                                Remove
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">♡</div>
+
+                <h2>Nothing saved yet.</h2>
+
+                <p>
+                    Start exploring THE ECOSYSTEM and save businesses
+                    you want to remember, visit or check out later.
+                </p>
+
+                <a
+                    href="{{ url_for('businesses_page') }}"
+                    class="discover-button"
+                >
+                    Explore Businesses →
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        THE <span class="ecosystem-wordmark">ECOSYSTEM</span>
+    </footer>
+
+</body>
+</html>

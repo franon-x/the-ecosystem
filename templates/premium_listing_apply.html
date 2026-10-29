@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Configure Premium Listing · THE ECOSYSTEM</title>
+<style>
+:root{--bg:#080909;--panel:#111413;--panel2:#171b19;--red:#E6333E;--green:#80C995;--white:#fff;--muted:#a7afaa;--line:#2a302c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:14px/1.55 Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}.top{border-bottom:1px solid var(--line);padding:17px 5vw;display:flex;justify-content:space-between;align-items:center}.brand{font-weight:900}.brand span{color:var(--red)}.top a:last-child{font-size:13px;color:var(--muted)}main{width:min(980px,92%);margin:0 auto;padding:38px 0 70px}.eyebrow{font-size:11px;color:var(--green);font-weight:800;letter-spacing:1.5px;text-transform:uppercase}h1{font-size:clamp(30px,5vw,46px);letter-spacing:-1.8px;line-height:1.08;margin:9px 0} .intro{color:var(--muted);margin:0 0 25px}.layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(270px,.8fr);gap:20px;align-items:start}.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:23px}.panel h2{font-size:18px;margin:0 0 16px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{min-width:0}.field.full{grid-column:1/-1}label,.label{display:block;color:#e7eae8;font-size:12px;font-weight:700;margin-bottom:7px}input,select,textarea{width:100%;border:1px solid #363d38;background:#090b0a;color:white;border-radius:9px;padding:12px;font:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--green)}textarea{min-height:110px;resize:vertical}select option{background:#111413}.hint{font-size:11px;color:var(--muted);margin-top:5px}.states-tools{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:12px 0}.text-btn{border:1px solid var(--line);background:var(--panel2);color:var(--white);padding:7px 10px;border-radius:8px;cursor:pointer;font-size:11px}.state-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-height:310px;overflow:auto;padding:2px}.state-option{display:flex;gap:8px;align-items:center;border:1px solid var(--line);background:#0b0d0c;border-radius:9px;padding:9px;font-size:12px;cursor:pointer}.state-option input{width:15px;height:15px;accent-color:var(--green);flex:0 0 auto}.state-option:has(input:checked){border-color:var(--green);background:#111b14}.summary{position:sticky;top:20px}.summary-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.pill{background:#16251b;color:var(--green);border-radius:999px;padding:5px 9px;font-size:10px;font-weight:800}.total{font-size:35px;font-weight:900;letter-spacing:-1.5px;margin:7px 0}.muted{color:var(--muted)}.line{height:1px;background:var(--line);margin:17px 0}.row{display:flex;justify-content:space-between;gap:12px;margin:10px 0;font-size:13px}.row strong{text-align:right}.duration-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.duration-option{border:1px solid var(--line);border-radius:10px;padding:11px;display:flex;gap:8px;align-items:center;cursor:pointer}.duration-option input{width:auto;accent-color:var(--green)}.duration-option:has(input:checked){border-color:var(--green);background:#111b14}.btn{width:100%;border:0;border-radius:10px;padding:14px;background:var(--white);color:#111;font-weight:900;cursor:pointer;font-size:13px;margin-top:16px}.btn:hover{background:var(--green)}.flash{padding:11px 13px;border-radius:9px;margin:10px 0;background:#281517;color:#ffb7bd;border:1px solid #5d262b}.flash.success{background:#12251a;color:#bde7ca;border-color:#244b31}.notice{font-size:11px;color:var(--muted);margin-top:12px}.file{font-size:12px}.footer-note{font-size:11px;color:var(--muted);margin-top:18px}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.summary{position:static}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.state-grid{grid-template-columns:repeat(2,minmax(0,1fr))}main{padding-top:28px}.panel{padding:18px}}
+
+/* THE ECOSYSTEM brand standard: THE white, ECOSYSTEM red */
+.brand span { color: #E6333E; }
+</style>
+</head>
+<body>
+<header class="top"><a class="brand" href="{{ url_for('home') }}">THE <span>ECOSYSTEM</span></a><a href="{{ url_for('premium_listing_plans') }}">← Pricing</a></header>
+<main>
+<div class="eyebrow">Premium business listing</div><h1>Choose your coverage.</h1><p class="intro">Tell us about your business, select the states you want to reach, then review your price before secure checkout.</p>
+{% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}<div class="flash {{ 'success' if category == 'success' else '' }}">{{ message }}</div>{% endfor %}{% endwith %}
+{% set f = form or {} %}
+<form method="post" enctype="multipart/form-data" id="listingForm">
+<div class="layout">
+<div class="panel">
+<h2>01 / Business details</h2>
+<div class="fields">
+<div class="field"><label for="name">Business name *</label><input id="name" name="name" maxlength="120" required value="{{ f.get('name','') }}"></div>
+<div class="field"><label for="category">Category *</label><input id="category" name="category" maxlength="80" required placeholder="e.g. Fashion, Food, Technology" value="{{ f.get('category','') }}"></div>
+<div class="field full"><label for="description">Business description *</label><textarea id="description" name="description" maxlength="1800" required placeholder="What does your business offer?">{{ f.get('description','') }}</textarea></div>
+<div class="field"><label for="phone">Phone number *</label><input id="phone" name="phone" required maxlength="40" value="{{ f.get('phone','') }}"></div>
+<div class="field"><label for="email">Business email</label><input id="email" name="email" type="email" maxlength="254" value="{{ f.get('email', user.get('email','')) }}"></div>
+<div class="field"><label for="whatsapp">WhatsApp</label><input id="whatsapp" name="whatsapp" maxlength="80" value="{{ f.get('whatsapp','') }}"></div>
+<div class="field"><label for="instagram">Instagram</label><input id="instagram" name="instagram" maxlength="120" placeholder="@yourbusiness" value="{{ f.get('instagram','') }}"></div>
+<div class="field full"><label for="website">Website URL</label><input id="website" name="website" type="url" maxlength="300" placeholder="https://..." value="{{ f.get('website','') }}"></div>
+<div class="field full"><label for="address">Street address</label><input id="address" name="address" maxlength="250" value="{{ f.get('address','') }}"></div>
+<div class="field"><label for="primary_state">Business's primary state *</label><select id="primary_state" name="primary_state" required><option value="">Choose state / FCT</option>{% for state in states %}<option value="{{ state }}" {% if f.get('primary_state','') == state %}selected{% endif %}>{{ state }}</option>{% endfor %}</select></div>
+<div class="field"><label for="city">City or town *</label><input id="city" name="city" required maxlength="100" value="{{ f.get('city','') }}"></div>
+<div class="field full"><label for="lga">Local Government Area (LGA) *</label><select id="lga" name="lga" required><option value="{{ f.get('lga','') }}">{{ f.get('lga','Choose your state first') }}</option></select><p class="hint">Select your primary state first to load the LGA list.</p></div>
+</div>
+<div class="line"></div>
+<h2>02 / Select advertising coverage</h2>
+<p class="muted">₦{{ '{:,.0f}'.format(rate|float) }} per state per month. Include your business's primary state.</p>
+<div class="states-tools"><span class="muted" id="selectionCount">0 states selected</span><div><button class="text-btn" type="button" id="selectAll">Select all</button> <button class="text-btn" type="button" id="clearAll">Clear</button></div></div>
+<div class="state-grid" id="stateGrid">{% for state in states %}<label class="state-option"><input type="checkbox" name="states" value="{{ state }}" {% if state in selected_states %}checked{% endif %}><span>{{ state }}</span></label>{% endfor %}</div>
+<p class="hint">Choose 1–37 locations. Selecting every region provides nationwide coverage.</p>
+<div class="line"></div>
+<h2>03 / Subscription duration</h2>
+<div class="duration-grid">{% for months, label in durations.items() %}<label class="duration-option"><input type="radio" name="duration_months" value="{{ months }}" {% if f.get('duration_months','1')|string == months|string %}checked{% elif not f.get('duration_months') and months == 1 %}checked{% endif %}><span>{{ label }}</span></label>{% endfor %}</div>
+<div class="line"></div>
+<h2>04 / Business media</h2>
+<div class="field"><label for="business_images">Images (up to 8, JPG/PNG/WEBP)</label><input class="file" id="business_images" name="business_images" type="file" accept=".jpg,.jpeg,.png,.webp" multiple><p class="hint">Maximum 5 MB per image.</p></div>
+<div class="field" style="margin-top:14px"><label for="business_videos">Videos (up to 3, MP4/WEBM/MOV)</label><input class="file" id="business_videos" name="business_videos" type="file" accept=".mp4,.webm,.mov" multiple><p class="hint">Maximum 40 MB per video.</p></div>
+</div>
+<aside class="panel summary">
+<div class="summary-top"><h2 style="margin:0">Your estimate</h2><span class="pill">30-day base</span></div>
+<p class="muted" style="font-size:12px;margin-top:9px">Calculated from your selected locations and subscription length.</p>
+<div class="total" id="totalPrice">₦0</div><div class="muted" style="font-size:12px" id="durationLabel">Choose your coverage</div>
+<div class="line"></div>
+<div class="row"><span class="muted">Selected states</span><strong id="stateSummary">0</strong></div>
+<div class="row"><span class="muted">Rate per state / month</span><strong>₦{{ '{:,.0f}'.format(rate|float) }}</strong></div>
+<div class="row"><span class="muted">Duration</span><strong id="monthsSummary">1 month</strong></div>
+<div class="line"></div><div class="row"><span>Total before applicable taxes</span><strong id="subtotal">₦0</strong></div>
+<p class="notice">This is an estimate. Applicable taxes, if any, must be confirmed and shown in the final checkout total. Payment is verified by Paystack. Paid listings remain subject to admin review.</p>
+<button class="btn" type="submit">Continue to secure payment</button>
+<a class="btn" style="display:block;text-align:center;background:transparent;color:white;border:1px solid var(--line);text-decoration:none" href="{{ url_for('business_dashboard') }}">Cancel</a>
+<p class="footer-note">Do not refresh or close the page while submitting large media uploads.</p>
+</aside>
+</div>
+</form>
+</main>
+<script>
+(() => {
+ const rate = Number({{ rate|tojson }});
+ const checkboxes = [...document.querySelectorAll('input[name="states"]')];
+ const durationInputs = [...document.querySelectorAll('input[name="duration_months"]')];
+ const count = document.getElementById('selectionCount');
+ const total = document.getElementById('totalPrice');
+ const subtotal = document.getElementById('subtotal');
+ const stateSummary = document.getElementById('stateSummary');
+ const monthsSummary = document.getElementById('monthsSummary');
+ const durationLabel = document.getElementById('durationLabel');
+ const money = n => '₦' + Math.round(n).toLocaleString('en-NG');
+ function update() {
+   const selected = checkboxes.filter(x => x.checked).length;
+   const months = Number(durationInputs.find(x => x.checked)?.value || 1);
+   const amount = selected * rate * months;
+   count.textContent = `${selected} ${selected === 1 ? 'state' : 'states'} selected`;
+   stateSummary.textContent = selected;
+   monthsSummary.textContent = `${months} ${months === 1 ? 'month' : 'months'}`;
+   durationLabel.textContent = `${selected} × ₦${rate.toLocaleString('en-NG')} × ${months} month${months === 1 ? '' : 's'}`;
+   total.textContent = money(amount);
+   subtotal.textContent = money(amount);
+ }
+ checkboxes.forEach(x => x.addEventListener('change', update));
+ durationInputs.forEach(x => x.addEventListener('change', update));
+ document.getElementById('selectAll').addEventListener('click', () => { checkboxes.forEach(x => x.checked = true); update(); });
+ document.getElementById('clearAll').addEventListener('click', () => { checkboxes.forEach(x => x.checked = false); update(); });
+ const primary = document.getElementById('primary_state');
+ const lga = document.getElementById('lga');
+ const existingLga = {{ f.get('lga','')|tojson }};
+ async function loadLgas() {
+   const state = primary.value;
+   lga.innerHTML = '<option value="">Loading LGAs…</option>';
+   lga.disabled = true;
+   if (!state) { lga.innerHTML = '<option value="">Choose state first</option>'; return; }
+   try {
+     const response = await fetch('{{ url_for("nigeria_locations_api") }}');
+     if (!response.ok) throw new Error('Location data unavailable');
+     const data = await response.json();
+     const normalise = s => String(s || '').toLowerCase().replace(/[^a-z0-9]/g,'');
+     let key = Object.keys(data.lgas || {}).find(k => normalise(k) === normalise(state));
+     if (!key && state === 'Federal Capital Territory') key = Object.keys(data.lgas || {}).find(k => ['fct','abuja','federalcapitalterritory'].includes(normalise(k)));
+     const options = key ? data.lgas[key] : [];
+     lga.innerHTML = '<option value="">Select your LGA</option>';
+     (options || []).forEach(item => {
+       const value = typeof item === 'string' ? item : (item.name || item.lga || '');
+       if (!value) return;
+       const option = document.createElement('option'); option.value = value; option.textContent = value;
+       if (value === existingLga) option.selected = true;
+       lga.appendChild(option);
+     });
+     if (!options || !options.length) { lga.innerHTML = '<option value="">LGA list unavailable</option>'; }
+     else lga.disabled = false;
+   } catch (e) { lga.innerHTML = '<option value="">Could not load LGAs</option>'; }
+ }
+ primary.addEventListener('change', loadLgas);
+ document.getElementById('listingForm').addEventListener('submit', e => {
+   if (!checkboxes.some(x => x.checked)) { e.preventDefault(); alert('Select at least one state or the FCT.'); return; }
+   if (!checkboxes.some(x => x.checked && x.value === primary.value)) { e.preventDefault(); alert("Include your business's primary state in the selected coverage."); return; }
+   if (!lga.value) { e.preventDefault(); alert('Select your primary LGA.'); }
+ });
+ if (primary.value) loadLgas();
+ update();
+})();
+</script>
+</body>
+</html>

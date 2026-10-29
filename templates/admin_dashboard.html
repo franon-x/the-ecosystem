@@ -1,0 +1,1037 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — THE ECOSYSTEM</title>
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #080808;
+            --card: #111111;
+            --card-hover: #151515;
+            --border: #242424;
+            --red: #43d98b;
+            --red-light: #80c995;
+            --text: #ffffff;
+            --muted: #777777;
+            --soft: #aaaaaa;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .header {
+            min-height: 72px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(8,8,8,.94);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(15px);
+        }
+
+        .brand {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: -.8px;
+        }
+
+        .brand span { color: var(--red); }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .admin-badge {
+            color: #aaa;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .logout {
+            text-decoration: none;
+            color: #aaa;
+            border: 1px solid #292929;
+            border-radius: 9px;
+            padding: 9px 13px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .logout:hover { color: white; border-color: #444; }
+
+        .container {
+            width: min(1200px, 90%);
+            margin: 0 auto;
+            padding: 55px 0 80px;
+        }
+
+        .hero { margin-bottom: 38px; }
+
+        .eyebrow {
+            color: var(--red-light);
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 13px;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 5vw, 58px);
+            line-height: .95;
+            letter-spacing: -3px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            max-width: 620px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .stat-number { font-size: 35px; font-weight: 900; }
+        .claim-stat .stat-number { color: var(--red-light); }
+        .competition-stat .stat-number { color: #ff7777; }
+
+        .section { margin-top: 50px; }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 20px;
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            font-size: 23px;
+            letter-spacing: -.7px;
+        }
+
+        .section-description {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.5;
+            margin-top: 5px;
+        }
+
+        .count {
+            color: var(--muted);
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .request-list { display: grid; gap: 14px; }
+
+        .request-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px;
+            transition: .2s ease;
+        }
+
+        .request-card:hover {
+            background: var(--card-hover);
+            border-color: #303030;
+        }
+
+        .request-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .business-name {
+            font-size: 19px;
+            font-weight: 800;
+            margin-bottom: 7px;
+        }
+
+        .business-meta { color: var(--muted); font-size: 11px; }
+
+        .status {
+            display: inline-flex;
+            padding: 6px 9px;
+            border-radius: 7px;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: .8px;
+            white-space: nowrap;
+        }
+
+        .status.pending {
+            color: #ffd45a;
+            background: rgba(229,168,0,.10);
+            border: 1px solid rgba(229,168,0,.18);
+        }
+
+        .status.open {
+            color: #70e6a0;
+            background: rgba(30,180,90,.10);
+            border: 1px solid rgba(30,180,90,.2);
+        }
+
+        .status.closed {
+            color: #ff8585;
+            background: rgba(224,0,0,.10);
+            border: 1px solid rgba(224,0,0,.2);
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .detail {
+            background: #0b0b0b;
+            border: 1px solid #1d1d1d;
+            border-radius: 10px;
+            padding: 13px;
+        }
+
+        .detail-label {
+            color: #777;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .detail-value {
+            color: #ccc;
+            font-size: 12px;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .message {
+            background: #0b0b0b;
+            border: 1px solid #1d1d1d;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 18px;
+        }
+
+        .message-label {
+            color: #777;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 800;
+            margin-bottom: 7px;
+        }
+
+        .message p { color: #aaa; font-size: 12px; line-height: 1.6; }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            padding-top: 4px;
+        }
+
+        .action-form { margin: 0; }
+
+        .action-button {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 9px;
+            padding: 11px 17px;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .8px;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .approve { background: var(--red); color: white; }
+        .approve:hover { background: #ff1515; transform: translateY(-1px); }
+
+        .reject {
+            background: transparent;
+            color: #999;
+            border: 1px solid #303030;
+        }
+
+        .reject:hover { color: white; border-color: #555; }
+
+        /* BUSINESS & REVIEW MODERATION */
+        .moderation-panel {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            padding: 28px;
+            border: 1px solid rgba(224,0,0,.35);
+            border-radius: 18px;
+            background:
+                radial-gradient(circle at 100% 0%, rgba(18,100,62,.08), transparent 45%),
+                linear-gradient(135deg, #151010, #0d0d0d 70%);
+        }
+
+        .moderation-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .moderation-icon {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .moderation-panel h2 {
+            font-size: 22px;
+            letter-spacing: -.5px;
+            margin-bottom: 10px;
+        }
+
+        .moderation-panel p {
+            max-width: 620px;
+            color: #999;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .moderation-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .moderation-tag {
+            padding: 7px 10px;
+            color: #d2d2d2;
+            background: rgba(255,255,255,.035);
+            border: 1px solid #303030;
+            border-radius: 7px;
+            font-size: 10px;
+        }
+
+        .moderation-button {
+            flex-shrink: 0;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            min-height: 48px;
+            padding: 14px 19px;
+            color: #fff;
+            background: var(--red);
+            border: 1px solid #ff3030;
+            border-radius: 10px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: .6px;
+            transition: .2s ease;
+        }
+
+        .moderation-button:hover {
+            background: #ff1717;
+            box-shadow: 0 8px 25px rgba(224,0,0,.2);
+            transform: translateY(-2px);
+        }
+
+        .info-box {
+            background: rgba(224,0,0,.05);
+            border: 1px solid rgba(224,0,0,.14);
+            border-radius: 13px;
+            padding: 17px;
+            margin-top: 18px;
+        }
+
+        .info-box strong {
+            display: block;
+            color: #ddd;
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+
+        .info-box p { color: #999; font-size: 11px; line-height: 1.6; }
+
+        .empty {
+            border: 1px dashed #292929;
+            border-radius: 15px;
+            padding: 40px 25px;
+            text-align: center;
+        }
+
+        .empty-icon { font-size: 25px; margin-bottom: 12px; opacity: .6; }
+        .empty h3 { font-size: 15px; margin-bottom: 7px; }
+        .empty p { color: var(--muted); font-size: 12px; }
+
+        .competition-panel {
+            background: linear-gradient(135deg, rgba(18,100,62,.08), rgba(17,17,17,.96) 60%);
+            border: 1px solid rgba(224,0,0,.25);
+            border-radius: 18px;
+            padding: 26px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .competition-panel h3 { font-size: 20px; margin-bottom: 9px; }
+
+        .competition-panel p {
+            max-width: 600px;
+            color: #999;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .competition-panel .action-button { flex-shrink: 0; }
+
+        .flash-messages { margin-bottom: 25px; }
+
+        .flash-message {
+            padding: 13px 16px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(224,0,0,.25);
+            border-radius: 10px;
+            background: rgba(224,0,0,.08);
+            color: #eee;
+            font-size: 12px;
+        }
+
+        .footer {
+            border-top: 1px solid var(--border);
+            margin-top: 70px;
+            padding-top: 25px;
+            color: #555;
+            font-size: 10px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        @media (max-width: 700px) {
+            .header { padding: 14px 5%; }
+            .admin-badge { display: none; }
+            .container { width: 92%; padding-top: 40px; }
+            .hero h1 { letter-spacing: -2px; }
+            .stats, .details { grid-template-columns: 1fr; }
+            .request-top { flex-direction: column; gap: 12px; }
+            .actions { flex-direction: column; }
+            .action-form, .action-button { width: 100%; }
+
+            .moderation-panel {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 22px;
+            }
+
+            .moderation-button { width: 100%; }
+
+            .competition-panel {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .footer { flex-direction: column; }
+        }
+    
+/* THE ECOSYSTEM — unified faint-green theme */
+:root {
+  --green: #80C995; --green-soft: rgba(128,201,149,.12);
+  --line: rgba(255,255,255,.11); --panel: #111413;
+  --panel-soft: #171b18; --muted: #A9B0AA;
+  --red: #80C995; --red-light: #80C995;
+  --border: rgba(255,255,255,.11); --card: #111413;
+}
+html, body { background: #080909 !important; color: #fff; }
+body::before, body::after { content: none !important; display: none !important; }
+
+.brand span, .eyebrow { color:#80C995 !important; }
+.stat-card, .request-card { background:#111413 !important; border-color:rgba(255,255,255,.11) !important; }
+.request-card:hover { background:#171b18 !important; border-color:rgba(128,201,149,.30) !important; }
+.detail, .message { background:#0b0e0c !important; border-color:rgba(255,255,255,.09) !important; }
+.approve, .moderation-button { background:#80C995 !important; color:#080909 !important; border-color:#80C995 !important; }
+.approve:hover, .moderation-button:hover { background:#80C995 !important; color:#080909 !important; box-shadow:none !important; }
+.moderation-panel, .competition-panel { background:#111413 !important; border-color:rgba(128,201,149,.24) !important; }
+.moderation-tag { background:rgba(128,201,149,.06) !important; border-color:rgba(255,255,255,.12) !important; }
+.info-box, .flash-message { background:rgba(128,201,149,.06) !important; border-color:rgba(128,201,149,.22) !important; }
+.header { background:#080909 !important; border-color:rgba(255,255,255,.11) !important; }
+.logout, .reject { border-color:rgba(255,255,255,.14) !important; }
+.status.open { color:#80C995 !important; background:rgba(128,201,149,.10) !important; border-color:rgba(128,201,149,.25) !important; }
+
+    </style>
+
+<style id="ecosystem-admin-premium-theme">
+:root{--eco-bg:#070d0b;--eco-panel:#101a15;--eco-line:#263b30;--eco-green:#43d98b;--eco-green-soft:#80c995;--eco-red:#f04444;--eco-white:#f7faf8;--eco-muted:#9aa99f}html{background:var(--eco-bg)}body{background-color:var(--eco-bg)!important;color:var(--eco-white)}h1,h2,h3,h4,.section-title,.panehead h2,.hero h1,.business-name{font-weight:900!important;color:#fff}h1 span,h2 span,.brand span{color:var(--eco-red)}a{transition:color .18s ease}button,.btn,.action{font-weight:850!important}input,select,textarea{color:#f7faf8}table th{font-weight:900}::selection{background:#145b3a;color:white}@media(max-width:650px){body{overflow-x:hidden}}
+</style>
+
+<style id="ecosystem-unified-admin-shell">:root{--eco-bg:#06100d;--eco-panel:#0d1914;--eco-line:#20372b;--eco-green:#43d98b;--eco-green-soft:#80c995;--eco-red:#f04444;--eco-text:#f5faf7;--eco-muted:#98aaa0}html{background:var(--eco-bg)}body{background:var(--eco-bg)!important;color:var(--eco-text)!important;font-family:Inter,Segoe UI,Arial,sans-serif!important}.eco-admin-sidebar{position:fixed;inset:0 auto 0 0;width:236px;z-index:100;display:flex;flex-direction:column;gap:16px;padding:20px 12px 14px;background:#07110d;border-right:1px solid #1b3427;overflow-y:auto}.eco-admin-brand{display:flex;align-items:center;gap:10px;padding:2px 7px 22px;border-bottom:1px solid #1b3025;color:#fff;text-decoration:none}.eco-admin-mark{width:39px;height:39px;display:grid;place-items:center;border:1px solid #1f9e62;border-radius:50%;color:#43d98b;font-size:25px;box-shadow:0 0 18px #0b58324a}.eco-admin-brand b{font-size:12px;display:block;letter-spacing:.1px}.eco-admin-brand small{display:block;font-size:8px;color:#8fa499;letter-spacing:1.1px;margin-top:5px}.eco-admin-nav{display:grid;gap:4px}.eco-admin-nav a{display:flex;align-items:center;gap:11px;min-height:38px;padding:9px 10px;border:1px solid transparent;border-radius:9px;color:#b3c0b8;text-decoration:none;font-size:11px;font-weight:700;transition:.18s}.eco-admin-nav a i{width:18px;text-align:center;color:#91a99a;font-style:normal;font-size:16px}.eco-admin-nav a:hover,.eco-admin-nav a.active{background:#103c29;border-color:#176a43;color:#effff5}.eco-admin-nav a.active i{color:#43d98b}.eco-admin-status{margin-top:auto;border:1px solid #203b2c;background:#0c1912;border-radius:12px;padding:12px;font-size:10px;color:#d9e8de}.eco-admin-status span{display:inline-block;width:7px;height:7px;background:#43d98b;border-radius:50%;margin-right:6px;box-shadow:0 0 10px #43d98b}.eco-admin-status small{display:block;color:#81958a;margin:7px 0}.eco-admin-status a{color:#43d98b;text-decoration:none;font-weight:800}.eco-admin-sidebar~*{ }body{padding-left:236px!important}body>header,body>.header,body>.navbar{margin-left:0!important;padding-left:clamp(18px,3vw,42px)!important}main,.container,.wrap{width:auto!important;max-width:1600px!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(16px,2.5vw,36px)!important;padding-right:clamp(16px,2.5vw,36px)!important}h1,h2,h3,h4,.section-title,.panehead h2{color:#fff;font-weight:900}a{transition:color .18s ease}button,.btn,.action{font-weight:800!important}input,select,textarea{background-color:#08130e!important;color:#f5faf7!important;border-color:#294234!important}::selection{background:#145b3a;color:white}@media(max-width:800px){.eco-admin-sidebar{width:68px;padding:12px 7px}.eco-admin-brand{justify-content:center;padding:0 0 14px}.eco-admin-brand>span:last-child,.eco-admin-nav a:not(i),.eco-admin-status b,.eco-admin-status small,.eco-admin-status a{font-size:0}.eco-admin-nav a{justify-content:center;padding:10px 0;font-size:0}.eco-admin-nav a i{font-size:17px}.eco-admin-status{text-align:center;padding:8px 2px}body{padding-left:68px!important}}@media(max-width:520px){body>header,body>.header,body>.navbar{padding-right:12px!important;padding-left:12px!important}main,.container,.wrap{padding-left:12px!important;padding-right:12px!important}}
+/* Collapsible dashboard sections — matching the Moderator dropdowns */
+.admin-dropdown-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left;padding:18px 20px;background:#0d1914;border:1px solid #263b30;border-radius:13px;color:#f5faf7;cursor:pointer;transition:background .18s,border-color .18s;margin-bottom:12px}
+.admin-dropdown-toggle:hover,.admin-dropdown-toggle[aria-expanded="true"]{background:#10251a;border-color:#43d98b}
+.admin-dropdown-heading{display:flex;align-items:center;gap:12px;min-width:0}
+.admin-dropdown-heading .section-header{display:block;margin:0;min-width:0}
+.admin-dropdown-heading .section-title{font-size:19px}
+.admin-dropdown-heading .section-description{max-width:760px}
+.admin-dropdown-chevron{color:#43d98b;font-size:20px;flex-shrink:0;transition:transform .2s}
+.admin-dropdown-toggle[aria-expanded="true"] .admin-dropdown-chevron{transform:rotate(180deg)}
+.admin-dropdown-content{padding:2px 0 8px}
+.admin-dropdown-content[hidden]{display:none!important}
+@media(max-width:700px){.admin-dropdown-toggle{padding:15px 12px}.admin-dropdown-heading .section-title{font-size:16px}.admin-dropdown-heading .section-description{font-size:11px}}
+</style>
+
+
+<style id="admin-notification-force-visible-fix">
+/* Keep the notification control visibly anchored in the dashboard header. */
+header.header .header-right{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:14px!important;position:relative!important;z-index:10001!important;min-width:max-content!important;overflow:visible!important}
+header.header .admin-notify-wrap{display:inline-flex!important;visibility:visible!important;opacity:1!important;position:relative!important;z-index:10002!important;flex:0 0 44px!important;width:44px!important;height:44px!important;overflow:visible!important}
+header.header .admin-notify-wrap>.admin-notify-bell{display:inline-flex!important;visibility:visible!important;opacity:1!important;align-items:center!important;justify-content:center!important;position:relative!important;width:44px!important;min-width:44px!important;height:44px!important;min-height:44px!important;padding:0!important;margin:0!important;background:#123a27!important;border:2px solid #43d98b!important;border-radius:12px!important;color:#ffffff!important;font-size:21px!important;line-height:1!important;cursor:pointer!important;box-shadow:0 0 0 3px rgba(67,217,139,.10)!important;z-index:10003!important}
+header.header .admin-notify-wrap>.admin-notify-bell:hover,header.header .admin-notify-wrap>.admin-notify-bell:focus-visible{background:#1a5136!important;outline:2px solid #80c995!important;outline-offset:2px!important}
+header.header #adminNotifyCount{position:absolute!important;display:grid!important;place-items:center!important;top:-7px!important;right:-7px!important;z-index:10004!important}
+header.header #adminNotifyCount[hidden]{display:none!important}
+header.header #adminNotifyPanel{z-index:10005!important}
+@media(max-width:700px){header.header .header-right{gap:8px!important;min-width:0!important}header.header .admin-badge{display:none!important}header.header .admin-notify-wrap{flex-basis:40px!important;width:40px!important;height:40px!important}header.header .admin-notify-wrap>.admin-notify-bell{width:40px!important;min-width:40px!important;height:40px!important;min-height:40px!important}}
+</style>
+
+<style id="ecosystem-admin-notification-bell-style">
+.admin-notify-wrap{position:relative;display:inline-flex;align-items:center;flex:0 0 auto;z-index:1200}
+.admin-notify-wrap>.admin-notify-bell{position:relative;width:42px;height:42px;display:grid;place-items:center;background:#101b15;border:1px solid #315440;border-radius:11px;color:#fff!important;cursor:pointer;font-size:21px;line-height:1;transition:background .18s,border-color .18s,transform .18s;box-shadow:0 3px 12px #0004}
+.admin-notify-wrap>.admin-notify-bell:hover{background:#173322;border-color:#43d98b;transform:translateY(-1px)}
+.admin-notify-wrap>.admin-notify-bell:focus-visible{outline:2px solid #43d98b;outline-offset:3px}
+.admin-notify-wrap>.admin-notify-bell.has-unread:after{content:"";position:absolute;top:3px;right:3px;width:10px;height:10px;border-radius:50%;background:#ff2638;border:2px solid #101b15;box-shadow:0 0 4px #ff2638,0 0 10px #ff2638,0 0 17px #ff2638;animation:adminBellGlow 1.2s ease-in-out infinite alternate}
+@keyframes adminBellGlow{from{box-shadow:0 0 3px #ff2638,0 0 7px #ff2638}to{box-shadow:0 0 7px #ff2638,0 0 14px #ff2638,0 0 22px #ff2638}}
+.admin-notify-wrap #adminNotifyCount{display:none!important}
+#adminNotifyPanel[hidden]{display:none!important}
+#adminNotifyPanel{position:absolute;top:calc(100% + 11px);right:0;width:min(390px,calc(100vw - 28px));max-height:min(580px,70vh);display:flex;flex-direction:column;overflow:hidden;background:#0c1510;border:1px solid #2b4c38;border-radius:14px;box-shadow:0 22px 65px #000c;z-index:1500;color:#f4fff7;text-align:left}
+.admin-notify-head,.admin-notify-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 15px;background:#101e16;border-bottom:1px solid #20372b}
+.admin-notify-head strong{font-size:13px;font-weight:900;color:#fff}
+.admin-notify-head button,.admin-notify-foot button{background:transparent;border:0;color:#8de2ad;cursor:pointer;font-weight:800;padding:5px 7px;border-radius:6px}
+.admin-notify-head button:hover,.admin-notify-foot button:hover{background:#1b3928;color:#fff}
+.admin-notify-head #adminNotifyClose{font-size:22px;line-height:1}
+.admin-notify-list{overflow:auto;overscroll-behavior:contain;min-height:70px}
+.admin-notify-item{padding:13px 15px;border-bottom:1px solid #203127;cursor:pointer;overflow-wrap:anywhere}
+.admin-notify-item.unread{background:#10291b;border-left:3px solid #43d98b;padding-left:12px}
+.admin-notify-item strong{display:block;font-size:12px;color:#f5fff8;line-height:1.45}
+.admin-notify-item p,.admin-notify-empty{font-size:11px;line-height:1.6;color:#a9b9af;margin-top:5px;overflow-wrap:anywhere;white-space:pre-wrap}
+.admin-notify-item small{display:block;font-size:9px;color:#7f9587;margin-top:7px}
+.admin-notify-item [data-delete]{margin-top:8px;background:transparent;border:1px solid #543237;border-radius:6px;padding:4px 8px;color:#ff9aa1;cursor:pointer;font-size:10px}
+.admin-notify-item [data-delete]:hover{background:#3a171b}
+.admin-notify-empty{padding:22px 16px;text-align:center;margin:0}
+.admin-notify-foot{border-top:1px solid #20372b;border-bottom:0;justify-content:space-between;font-size:10px;color:#8fa498}
+@media(max-width:600px){.admin-notify-wrap{position:relative}.admin-notify-wrap>.admin-notify-bell{width:39px;height:39px}#adminNotifyPanel{position:fixed;top:68px;right:12px;width:min(390px,calc(100vw - 24px));max-height:calc(100vh - 90px)}}
+</style>
+
+<style id="ecosystem-message-orb-notification-style">
+.admin-notify-wrap{position:relative;display:inline-flex!important;align-items:center;justify-content:center;flex:0 0 auto;z-index:1200;overflow:visible!important}
+.admin-notify-wrap>.admin-notify-bell{position:relative!important;width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;background:radial-gradient(circle at 35% 25%,#173c2b,#0b1911 72%)!important;border:1px solid #286c49!important;border-radius:14px!important;color:#80c995!important;cursor:pointer;font-size:21px;line-height:1;transition:background .18s,border-color .18s,transform .18s,box-shadow .18s;box-shadow:0 0 0 3px rgba(67,217,139,.06),0 4px 16px #0005!important;overflow:visible!important}
+.admin-notify-wrap>.admin-notify-bell:hover{background:radial-gradient(circle at 35% 25%,#20563a,#10251a 72%)!important;border-color:#43d98b!important;transform:translateY(-1px);box-shadow:0 0 18px rgba(67,217,139,.2),0 4px 16px #0005!important}
+.admin-notify-wrap>.admin-notify-bell:focus-visible{outline:2px solid #80c995!important;outline-offset:3px}
+.admin-notify-message-icon{display:block;width:23px;height:23px;fill:none;stroke:#80c995;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(67,217,139,.5));pointer-events:none}
+.admin-notify-message-dots{stroke-width:2.8}
+.admin-notify-wrap>.admin-notify-bell.has-unread:after{content:"";position:absolute;top:2px;right:2px;width:10px;height:10px;border-radius:50%;background:#ff2638;border:2px solid #0b1911;box-shadow:0 0 4px #ff2638,0 0 10px #ff2638,0 0 18px #ff2638;animation:adminMessageOrbGlow 1.15s ease-in-out infinite alternate;pointer-events:none}
+@keyframes adminMessageOrbGlow{from{box-shadow:0 0 3px #ff2638,0 0 7px #ff2638}to{box-shadow:0 0 8px #ff2638,0 0 15px #ff2638,0 0 23px #ff2638}}
+.admin-notify-wrap #adminNotifyCount{position:absolute!important;top:-7px!important;right:-7px!important;z-index:5;min-width:18px;height:18px;padding:0 4px;display:grid;place-items:center;background:#ff2638!important;color:#fff!important;border:2px solid #08110c!important;border-radius:999px;font-size:10px;font-weight:900;line-height:1;box-shadow:0 0 9px rgba(255,38,56,.45)}
+.admin-notify-wrap #adminNotifyCount[hidden],#adminNotifyPanel[hidden]{display:none!important}
+#adminNotifyPanel{z-index:10020!important}
+@media(max-width:600px){.admin-notify-wrap{position:relative!important}.admin-notify-wrap #adminNotifyPanel{right:-8px!important;width:min(360px,calc(100vw - 24px))!important}}
+@media(prefers-reduced-motion:reduce){.admin-notify-wrap>.admin-notify-bell.has-unread:after{animation:none}}
+</style>
+
+<style id="ecosystem-brand-wordmark-standard">.brand,.logo{color:#fff!important}.brand>span,.logo>strong,.logo .eco-word-ecosystem{color:#f04444!important}.logo>span{color:#fff!important}.brand .eco-word-the{color:#fff!important}.brand .eco-word-ecosystem{color:#f04444!important}</style></head>
+
+<body>
+<aside class="eco-admin-sidebar"><a class="eco-admin-brand" href="{{ url_for('admin_dashboard') }}"><span class="eco-admin-mark">✳</span><span><b>THE ECOSYSTEM</b><small>ADMIN CONTROL CENTER</small></span></a><nav class="eco-admin-nav"><a data-eco="admin_dashboard" href="{{ url_for('admin_dashboard') }}"><i>⌂</i>Dashboard</a><a data-eco="admin_revenue" href="{{ url_for('admin_revenue') }}"><i>↗</i>Revenue</a><a href="{{ url_for('admin_dashboard') }}#admin-jump-businesses"><i>▣</i>Businesses</a><a href="{{ url_for('admin_dashboard') }}#admin-jump-users"><i>♟</i>Users</a><a data-eco="admin_events_review" href="{{ url_for('admin_events_review') }}"><i>▦</i>Events</a><a data-eco="admin_marketplace_ad" href="{{ url_for('admin_marketplace_ad') }}"><i>▧</i>Marketplace</a><a href="{{ url_for('admin_dashboard') }}#admin-jump-premium"><i>✦</i>Premium Listings</a><a data-eco="admin_moderator" href="{{ url_for('admin_moderator') }}"><i>▣</i>Moderator</a><a href="{{ url_for('admin_dashboard') }}#admin-jump-reviews"><i>☆</i>Reviews</a><a href="{{ url_for('admin_dashboard') }}#admin-jump-reports"><i>⚑</i>Reports &amp; Moderation</a><a data-eco="admin_competition_entries" href="{{ url_for('admin_competition_entries') }}"><i>♜</i>Competition</a><a data-eco="admin_activity_history" href="{{ url_for('admin_activity_history') }}"><i>⌁</i>Activity History</a><a data-eco="admin_system_health" href="{{ url_for('admin_system_health') }}"><i>♡</i>System Health</a><a data-eco="admin_deleted_items" href="{{ url_for('admin_deleted_items') }}"><i>▤</i>Deleted Items</a><a href="{{ url_for('admin_dashboard') }}#admin-jump-settings"><i>⚙</i>Settings</a></nav><div class="eco-admin-status"><span></span><b>Admin workspace</b><small>Secure control center</small><a href="{{ url_for('admin_logout') }}">Log out ↗</a></div></aside>
+<header class="header">
+    <a href="{{ url_for('home') }}" class="brand">
+        THE <span>ECOSYSTEM</span>
+    </a>
+
+    <div class="header-right">
+        <div class="admin-notify-wrap">
+<button type="button" class="admin-notify-bell" id="adminNotifyBell" aria-label="Open admin notifications" aria-expanded="false" aria-controls="adminNotifyPanel" title="Notifications"><svg class="admin-notify-message-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.3 11.6a8.2 8.2 0 0 1-8.6 8.2 8.7 8.7 0 0 1-3.6-.8L3 20l1.1-4.5a8.1 8.1 0 1 1 16.2-3.9Z"/><path d="M8 11.5h.01M12 11.5h.01M16 11.5h.01" class="admin-notify-message-dots"/></svg><span id="adminNotifyCount" hidden>0</span></button>
+<section id="adminNotifyPanel" hidden aria-label="Admin notifications">
+<div class="admin-notify-head"><strong>Admin notifications</strong><button type="button" id="adminNotifyClose" aria-label="Close notifications">×</button></div>
+<div id="adminNotifyList" class="admin-notify-list"><p class="admin-notify-empty">Loading notifications…</p></div>
+<div class="admin-notify-foot"><span id="adminNotifySummary">Your latest admin messages</span><button type="button" id="adminNotifyClear">Clear all</button></div>
+</section></div>
+        <span class="admin-badge">Admin Panel</span>
+        <a href="{{ url_for('admin_logout') }}" class="logout">LOG OUT</a>
+    </div>
+</header>
+
+<main class="container">
+    <section class="hero">
+        <div class="eyebrow">Platform Control</div>
+        <h1>Admin<br>Dashboard.</h1>
+        <p>
+            Manage business submissions, review ownership claims,
+            approve competition nominations, control voting, and protect
+            the integrity of THE ECOSYSTEM.
+        </p>
+    </section>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <div class="flash-message">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <section class="stats">
+        <div class="stat-card"><div class="stat-label">Registered Users</div><div class="stat-number">{{ dashboard_stats.users }}</div></div>
+        <div class="stat-card"><div class="stat-label">All Businesses</div><div class="stat-number">{{ dashboard_stats.businesses }}</div></div>
+        <div class="stat-card"><div class="stat-label">Public Businesses</div><div class="stat-number">{{ dashboard_stats.public_businesses }}</div></div>
+        <div class="stat-card"><div class="stat-label">Event Submissions</div><div class="stat-number">{{ dashboard_stats.events }}</div></div>
+        <div class="stat-card"><div class="stat-label">Marketplace Listings</div><div class="stat-number">{{ dashboard_stats.marketplace_listings }}</div></div>
+        <div class="stat-card"><div class="stat-label">Marketplace Reviews</div><div class="stat-number">{{ dashboard_stats.reviews }}</div></div>
+        <div class="stat-card"><div class="stat-label">Open Reports</div><div class="stat-number">{{ dashboard_stats.open_reports }}</div></div>
+        <div class="stat-card"><div class="stat-label">Spotlight Awaiting Review</div><div class="stat-number">{{ dashboard_stats.pending_spotlight }}</div></div>
+        <div class="stat-card"><div class="stat-label">Active Spotlight</div><div class="stat-number">{{ dashboard_stats.active_spotlight }}</div></div>
+        <div class="stat-card"><div class="stat-label">Verified Spotlight Payments</div><div class="stat-number">{{ dashboard_stats.successful_spotlight_payments }}</div></div>
+    </section>
+
+    <section class="moderation-panel">
+        <div class="moderation-content"><div class="moderation-icon">◈</div><h2>Central Moderator Workspace</h2>
+        <p>One review desk for business listings, community events, paid Spotlight campaigns, Marketplace listings, reviews and user reports. Open each tab to inspect details and take action.</p>
+        <div class="moderation-features"><span class="moderation-tag">Business &amp; reviews</span><span class="moderation-tag">Events</span><span class="moderation-tag">Paid Spotlight</span><span class="moderation-tag">Marketplace</span><span class="moderation-tag">Reports</span></div></div>
+        <a href="{{ url_for('admin_moderator') }}" class="moderation-button">OPEN MODERATOR →</a>
+    </section>
+
+    <section class="stats">
+        <div class="stat-card">
+            <div class="stat-label">Pending Business Submissions</div>
+            <div class="stat-number">{{ pending_submissions|length }}</div>
+        </div>
+
+        <div class="stat-card claim-stat">
+            <div class="stat-label">Pending Claims</div>
+            <div class="stat-number">{{ pending_claims|length }}</div>
+        </div>
+
+        <div class="stat-card competition-stat">
+            <div class="stat-label">Pending Competition Nominations</div>
+            <div class="stat-number">{{ pending_competition_entries|length }}</div>
+        </div>
+    </section>
+
+    <!-- BUSINESS & REVIEW MODERATION BUTTON -->
+    <section class="moderation-panel">
+        <div class="moderation-content">
+            <div class="moderation-icon">🛡️</div>
+            <h2>Business &amp; Review Moderation</h2>
+            <p>
+                Protect the platform from fake businesses, fraudulent activity,
+                abusive comments, and suspicious reviews. Review reports, hide
+                or restore businesses, and remove fraudulent businesses or reviews.
+            </p>
+
+            <div class="moderation-features">
+                <span class="moderation-tag">🚩 Fraud Reports</span>
+                <span class="moderation-tag">👁️ Hide / Restore Businesses</span>
+                <span class="moderation-tag">🗑️ Remove Fraudulent Content</span>
+            </div>
+        </div>
+
+        <a href="{{ url_for('admin_moderation') }}" class="moderation-button">
+            🛡️ OPEN MODERATION →
+        </a>
+    </section>
+
+    <section class="moderation-panel">
+      <div class="moderation-content"><div class="moderation-icon">✦</div><h2>Paid Spotlight Campaigns</h2><p>Review paid business promotions, verify payment details, inspect campaign creatives, and approve or reject campaigns.</p></div>
+      <a href="{{ url_for('admin_spotlight_review') }}" class="moderation-button">REVIEW SPOTLIGHT →</a>
+    </section>
+
+    <!-- EVENT MANAGEMENT -->
+    <section class="section">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">Event Management</h2>
+                <p class="section-description">Approve community events, hide expired or unsuitable listings, restore events, or delete fraudulent submissions.</p>
+            </div>
+        </div>
+        <div class="competition-panel">
+            <div>
+                <h3>Event Review Centre</h3>
+                <p>Review submitted event details and flyers. Approved events appear in public event listings; expired events are removed from public discovery but retained for admin review.</p>
+            </div>
+            <a href="{{ url_for('admin_events_review') }}" class="action-button approve">MANAGE EVENTS →</a>
+        </div>
+    </section>
+
+    <!-- COMPETITION NOMINATIONS -->
+    <section class="section">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">Competition Nominations</h2>
+                <p class="section-description">
+                    Review nominations before they become visible to the public.
+                </p>
+            </div>
+            <div class="count">{{ pending_competition_entries|length }} pending</div>
+        </div>
+
+        <div class="competition-panel">
+            <div>
+                <h3>Competition Review Centre</h3>
+                <p>
+                    Review submitted nominees and approve or reject nominations.
+                    Only approved entries should appear in public listings.
+                </p>
+            </div>
+
+            <a href="{{ url_for('admin_competition_entries') }}"
+               class="action-button approve">
+                REVIEW NOMINATIONS →
+            </a>
+        </div>
+    </section>
+
+    <!-- COMPETITION VOTING CONTROLS -->
+    <section class="section">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">Competition Voting Control</h2>
+                <p class="section-description">
+                    Open voting when you're ready, or close it to stop further votes.
+                </p>
+            </div>
+        </div>
+
+        {% if competitions %}
+            <div class="request-list">
+                {% for competition in competitions %}
+                    <article class="request-card">
+                        <div class="request-top">
+                            <div>
+                                <div class="business-name">{{ competition.title }}</div>
+                                <div class="business-meta">
+                                    Competition ID: {{ competition.id }}
+                                </div>
+                            </div>
+
+                            {% if competition.get('voting_status', 'CLOSED') == 'OPEN' %}
+                                <span class="status open">VOTING OPEN</span>
+                            {% else %}
+                                <span class="status closed">VOTING CLOSED</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="actions">
+                            {% if competition.get('voting_status', 'CLOSED') == 'OPEN' %}
+                                <form method="POST"
+                                      action="{{ url_for('admin_competition_voting', competition_id=competition.id) }}"
+                                      class="action-form">
+                                    <input type="hidden" name="voting_status" value="CLOSED">
+                                    <button type="submit" class="action-button reject">
+                                        CLOSE VOTING
+                                    </button>
+                                </form>
+                            {% else %}
+                                <form method="POST"
+                                      action="{{ url_for('admin_competition_voting', competition_id=competition.id) }}"
+                                      class="action-form">
+                                    <input type="hidden" name="voting_status" value="OPEN">
+                                    <button type="submit" class="action-button approve">
+                                        OPEN VOTING
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty">
+                <div class="empty-icon">⚙</div>
+                <h3>No competitions supplied</h3>
+                <p>Your app.py must pass competitions=competitions_data to this template.</p>
+            </div>
+        {% endif %}
+
+        <div class="info-box">
+            <strong>Before opening voting</strong>
+            <p>
+                Make sure nominations have been reviewed and approved.
+                These controls require a matching admin voting route in app.py.
+            </p>
+        </div>
+    </section>
+
+    <!-- BUSINESS SUBMISSIONS -->
+    <section class="section">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">Business Submissions</h2>
+                <p class="section-description">
+                    Businesses recently submitted to THE ECOSYSTEM.
+                </p>
+            </div>
+            <div class="count">{{ pending_submissions|length }} pending</div>
+        </div>
+
+        {% if pending_submissions %}
+            <div class="request-list">
+                {% for item in pending_submissions %}
+                    <article class="request-card">
+                        <div class="request-top">
+                            <div>
+                                <div class="business-name">{{ item.business.name }}</div>
+                                <div class="business-meta">
+                                    {{ item.business.category }} · {{ item.business.location }}
+                                </div>
+                            </div>
+                            <span class="status pending">PENDING REVIEW</span>
+                        </div>
+
+                        <div class="details">
+                            <div class="detail">
+                                <div class="detail-label">Submitted By</div>
+                                <div class="detail-value">
+                                    {% if item.user %}{{ item.user.name }}{% else %}Unknown user{% endif %}
+                                </div>
+                            </div>
+
+                            <div class="detail">
+                                <div class="detail-label">Email</div>
+                                <div class="detail-value">
+                                    {% if item.user %}{{ item.user.email }}{% else %}—{% endif %}
+                                </div>
+                            </div>
+
+                            <div class="detail">
+                                <div class="detail-label">Category</div>
+                                <div class="detail-value">{{ item.business.category }}</div>
+                            </div>
+                        </div>
+
+                        {% if item.submission.message %}
+                            <div class="message">
+                                <div class="message-label">Submission Message</div>
+                                <p>{{ item.submission.message }}</p>
+                            </div>
+                        {% endif %}
+
+                        <div class="info-box">
+                            <strong>Business review</strong>
+                            <p>
+                                This business is awaiting platform review.
+                                Ownership claim controls are available below.
+                            </p>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty">
+                <div class="empty-icon">✓</div>
+                <h3>No pending submissions</h3>
+                <p>New business submissions will appear here.</p>
+            </div>
+        {% endif %}
+    </section>
+
+    <!-- BUSINESS CLAIMS -->
+    <section class="section">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">Business Claims</h2>
+                <p class="section-description">
+                    Review people requesting ownership or management access to businesses.
+                </p>
+            </div>
+            <div class="count">{{ pending_claims|length }} pending</div>
+        </div>
+
+        {% if pending_claims %}
+            <div class="request-list">
+                {% for item in pending_claims %}
+                    <article class="request-card">
+                        <div class="request-top">
+                            <div>
+                                <div class="business-name">{{ item.claim.business_name }}</div>
+
+                                {% if item.business %}
+                                    <div class="business-meta">
+                                        {{ item.business.category }} · {{ item.business.location }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <span class="status pending">CLAIM PENDING</span>
+                        </div>
+
+                        <div class="details">
+                            <div class="detail">
+                                <div class="detail-label">Claimant</div>
+                                <div class="detail-value">
+                                    {% if item.user %}{{ item.user.name }}{% else %}Unknown user{% endif %}
+                                </div>
+                            </div>
+
+                            <div class="detail">
+                                <div class="detail-label">Email</div>
+                                <div class="detail-value">
+                                    {% if item.user %}{{ item.user.email }}{% else %}—{% endif %}
+                                </div>
+                            </div>
+
+                            <div class="detail">
+                                <div class="detail-label">Role</div>
+                                <div class="detail-value">{{ item.claim.role }}</div>
+                            </div>
+                        </div>
+
+                        {% if item.claim.message %}
+                            <div class="message">
+                                <div class="message-label">Claimant Message</div>
+                                <p>{{ item.claim.message }}</p>
+                            </div>
+                        {% endif %}
+
+                        <div class="actions">
+                            <form method="POST"
+                                  action="{{ url_for('approve_claim', claim_id=item.claim.id) }}"
+                                  class="action-form">
+                                <button type="submit" class="action-button approve">
+                                    APPROVE CLAIM
+                                </button>
+                            </form>
+
+                            <form method="POST"
+                                  action="{{ url_for('reject_claim', claim_id=item.claim.id) }}"
+                                  class="action-form">
+                                <button type="submit" class="action-button reject">
+                                    REJECT
+                                </button>
+                            </form>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty">
+                <div class="empty-icon">✓</div>
+                <h3>No pending claims</h3>
+                <p>Business ownership claims will appear here.</p>
+            </div>
+        {% endif %}
+    </section>
+
+    <footer class="footer">
+        <span>THE ECOSYSTEM — ADMIN</span>
+        <span>NIGERIA</span>
+    </footer>
+</main>
+<script id="eco-admin-active-nav">document.addEventListener('DOMContentLoaded',()=>{const endpoint={{ request.endpoint|tojson }};document.querySelectorAll('.eco-admin-nav a[data-eco]').forEach(a=>{if(a.dataset.eco===endpoint)a.classList.add('active')})});</script>
+
+<script id="admin-dashboard-dropdowns">
+(function(){
+  function setupDashboardDropdowns(){
+    document.querySelectorAll('main.container > section.section').forEach(function(section,index){
+      if(section.dataset.dropdownReady==='1') return;
+      var header=section.querySelector(':scope > .section-header');
+      if(!header) return;
+      var title=header.querySelector('.section-title');
+      if(!title) return;
+      section.dataset.dropdownReady='1';
+      var content=document.createElement('div');
+      content.className='admin-dropdown-content';
+      content.id='admin-dashboard-dropdown-content-'+index;
+      while(header.nextSibling){ content.appendChild(header.nextSibling); }
+      var toggle=document.createElement('button');
+      toggle.type='button'; toggle.className='admin-dropdown-toggle';
+      toggle.setAttribute('aria-expanded','false'); toggle.setAttribute('aria-controls',content.id);
+      var heading=document.createElement('div'); heading.className='admin-dropdown-heading';
+      heading.appendChild(header);
+      var chevron=document.createElement('span'); chevron.className='admin-dropdown-chevron'; chevron.setAttribute('aria-hidden','true'); chevron.textContent='⌄';
+      toggle.appendChild(heading); toggle.appendChild(chevron);
+      content.hidden=true;
+      toggle.addEventListener('click',function(){
+        var expanded=toggle.getAttribute('aria-expanded')==='true';
+        toggle.setAttribute('aria-expanded',String(!expanded)); content.hidden=expanded;
+      });
+      section.insertBefore(toggle,section.firstChild); section.appendChild(content);
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',setupDashboardDropdowns); else setupDashboardDropdowns();
+})();
+</script>
+
+
+
+
+<script id="ecosystem-admin-notification-bell-script">
+(()=>{
+ const bell=document.getElementById('adminNotifyBell'),panel=document.getElementById('adminNotifyPanel'),count=document.getElementById('adminNotifyCount'),list=document.getElementById('adminNotifyList'),summary=document.getElementById('adminNotifySummary');
+ if(!bell||!panel||!list)return;
+ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ async function request(url,options={}){const r=await fetch(url,{credentials:'same-origin',headers:{'Accept':'application/json',...(options.headers||{})},...options});if(!r.ok)throw new Error('Notification request failed ('+r.status+')');return r.json().catch(()=>({}));}
+ async function load(){
+  try{const d=await request('/api/admin/notifications');const notifications=Array.isArray(d.notifications)?d.notifications:[];const unread=Number(d.unread||0);bell.classList.toggle('has-unread',unread>0);bell.setAttribute('aria-label',unread?`Open admin notifications, ${unread} unread`:'Open admin notifications');if(count){count.textContent=unread>99?'99+':String(unread);count.hidden=true;}if(summary)summary.textContent=unread?`${unread} unread message${unread===1?'':'s'}`:'Your latest admin messages';
+   if(!notifications.length){list.innerHTML='<p class="admin-notify-empty">No admin messages yet.</p>';return;}
+   list.innerHTML=notifications.map(n=>`<article class="admin-notify-item ${n.read?'':'unread'}" data-id="${Number(n.id)}"><strong>${esc(n.title||'Admin notification')}</strong><p>${esc(n.message||'')}</p><small>${esc(n.created_at||'')}</small><button type="button" data-delete="${Number(n.id)}" aria-label="Delete notification">Delete</button></article>`).join('');
+  }catch(e){list.innerHTML='<p class="admin-notify-empty">Could not load notifications. Check the admin notification API and try again.</p>';if(summary)summary.textContent='Notifications unavailable';}
+ }
+ function setOpen(open){panel.hidden=!open;bell.setAttribute('aria-expanded',String(open));if(open)load();}
+ bell.addEventListener('click',()=>setOpen(panel.hidden));document.getElementById('adminNotifyClose')?.addEventListener('click',()=>setOpen(false));
+ list.addEventListener('click',async e=>{const del=e.target.closest('[data-delete]');if(del){e.stopPropagation();try{await request('/api/admin/notifications/'+del.dataset.delete,{method:'DELETE'});await load();}catch(_){if(summary)summary.textContent='Could not delete notification';}return;}const row=e.target.closest('[data-id]');if(row&&!e.target.closest('button')){try{await request('/api/admin/notifications/'+row.dataset.id+'/read',{method:'POST'});await load();}catch(_){if(summary)summary.textContent='Could not mark as read';}}});
+ document.getElementById('adminNotifyClear')?.addEventListener('click',async()=>{try{await request('/api/admin/notifications/clear',{method:'POST'});await load();}catch(_){if(summary)summary.textContent='Could not clear notifications';}});
+ document.addEventListener('click',e=>{if(!e.target.closest('.admin-notify-wrap'))setOpen(false)});document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false)});load();setInterval(()=>{if(!document.hidden)load();},30000);
+})();
+</script>
+</body>
+</html>

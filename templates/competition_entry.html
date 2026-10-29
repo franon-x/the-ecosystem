@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Entry | THE ECOSYSTEM</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #050505;
+            --panel: #101010;
+            --red: #ff3030;
+            --text: #f5f5f5;
+            --muted: #999;
+            --border: rgba(255,255,255,.09);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Inter, Arial, sans-serif;
+            background:
+                radial-gradient(ellipse at 10% 0%, rgba(255,25,25,.12), transparent 38%),
+                radial-gradient(ellipse at 90% 100%, rgba(170,0,0,.10), transparent 40%),
+                var(--bg);
+            color: var(--text);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .navbar {
+            min-height: 76px;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(5,5,5,.85);
+        }
+
+        .brand {
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .brand span,
+        h1 span,
+        .footer span {
+            color: var(--red);
+        }
+
+        .back-link {
+            color: #ddd;
+            font-size: 12px;
+            font-weight: 600;
+            transition: color .2s;
+        }
+
+        .back-link:hover,
+        .cancel-link:hover {
+            color: var(--red);
+        }
+
+        .page {
+            width: min(760px, 92%);
+            margin: 48px auto 70px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #ff6969;
+            background: rgba(255,48,48,.09);
+            border: 1px solid rgba(255,48,48,.23);
+            border-radius: 30px;
+            padding: 8px 13px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--red);
+            box-shadow: 0 0 10px var(--red);
+        }
+
+        h1 {
+            font-size: clamp(30px, 6vw, 47px);
+            line-height: 1.1;
+            letter-spacing: -1.8px;
+            margin-bottom: 15px;
+        }
+
+        .intro {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 28px;
+        }
+
+        .competition-info {
+            background: linear-gradient(
+                120deg,
+                rgba(255,48,48,.11),
+                rgba(255,255,255,.025)
+            );
+            border: 1px solid rgba(255,48,48,.2);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .competition-info small {
+            display: block;
+            color: #ff7777;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 9px;
+        }
+
+        .competition-info h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .competition-info p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .form-card {
+            background: rgba(16,16,16,.96);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: clamp(20px, 5vw, 34px);
+            box-shadow: 0 20px 80px rgba(0,0,0,.3);
+        }
+
+        .form-heading {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .form-subheading {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+            margin-bottom: 27px;
+        }
+
+        .field {
+            margin-bottom: 21px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 9px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #e7e7e7;
+        }
+
+        label .optional {
+            color: #777;
+            font-weight: 400;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 14px 15px;
+            background: #090909;
+            border: 1px solid #303030;
+            border-radius: 10px;
+            color: white;
+            font: inherit;
+            font-size: 13px;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--red);
+            box-shadow: 0 0 0 3px rgba(255,48,48,.09);
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #666;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        select option {
+            background: #101010;
+            color: white;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.7;
+        }
+
+        .field-help {
+            color: #777;
+            font-size: 11px;
+            line-height: 1.6;
+            margin-top: 7px;
+        }
+
+        .notice {
+            border: 1px solid rgba(255,190,70,.25);
+            background: rgba(255,190,70,.06);
+            color: #d5bd91;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 12px;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .flash-message,
+        .error-message {
+            padding: 13px 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            line-height: 1.6;
+            background: rgba(255,48,48,.09);
+            border: 1px solid rgba(255,48,48,.25);
+            color: #ffaaaa;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(110deg, #ff3030, #c30d0d);
+            color: white;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: .4px;
+            cursor: pointer;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255,48,48,.22);
+        }
+
+        .cancel-link {
+            display: block;
+            width: fit-content;
+            margin: 18px auto 0;
+            color: #999;
+            font-size: 12px;
+            transition: color .2s;
+        }
+
+        .previous-entries {
+            margin-top: 25px;
+        }
+
+        .previous-entries h2 {
+            font-size: 17px;
+            margin-bottom: 12px;
+        }
+
+        .entry-item {
+            background: #111;
+            border: 1px solid var(--border);
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .entry-item p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 6px;
+            line-height: 1.6;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 9px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .status-pending {
+            color: #e8c36a;
+        }
+
+        .status-approved {
+            color: #75df9a;
+        }
+
+        .status-rejected {
+            color: #ff7777;
+        }
+
+        .footer {
+            padding: 25px 7%;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: #666;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        .footer span {
+            font-weight: 800;
+        }
+
+        @media (max-width: 520px) {
+            .navbar {
+                padding: 17px 5%;
+            }
+
+            .brand {
+                font-size: 15px;
+            }
+
+            .back-link {
+                font-size: 11px;
+            }
+
+            .page {
+                margin-top: 32px;
+            }
+
+            .competition-info h2 {
+                font-size: 18px;
+            }
+        }
+    
+
+        /* THE ECOSYSTEM nomination form palette */
+        :root { --eco-red:#e6333e; --eco-green:#80c995; --eco-line:rgba(255,255,255,.10); }
+        body { background:radial-gradient(ellipse at 8% 0%,rgba(230,51,62,.12),transparent 36%),radial-gradient(ellipse at 95% 85%,rgba(70,145,88,.09),transparent 34%),#080909; color:#f7f7f5; font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+        .navbar { position:sticky;top:0;z-index:10; padding:17px max(5%,calc((100% - 1100px)/2)); background:rgba(8,9,9,.9);backdrop-filter:blur(16px);border-bottom-color:var(--eco-line); }
+        .brand { font-weight:800; letter-spacing:.16em; }
+        .back-link { color:#c5cbc6; }
+        .back-link:hover,.cancel-link:hover { color:var(--eco-green); }
+        .eyebrow { color:var(--eco-green); background:rgba(128,201,149,.07); border-color:rgba(128,201,149,.25); }
+        .eyebrow::before { background:var(--eco-green); box-shadow:0 0 10px rgba(128,201,149,.5); }
+        h1 { font-weight:780; letter-spacing:-.05em; }
+        h1 span,.footer span { color:var(--eco-red); }
+        .intro { color:#aab1ab; }
+        .competition-info { border-color:rgba(230,51,62,.3); border-radius:15px; background:radial-gradient(ellipse at 90% 15%,rgba(128,201,149,.08),transparent 38%),linear-gradient(120deg,rgba(230,51,62,.10),rgba(255,255,255,.02)); }
+        .competition-info small { color:var(--eco-green); }
+        .competition-info p { color:#aab1ab; }
+        .form-card { border-color:var(--eco-line); border-radius:18px; background:linear-gradient(145deg,#141715,#0e100f); box-shadow:0 22px 70px #0004; }
+        .form-heading { font-weight:750; }
+        .form-subheading { color:#aab1ab; }
+        label { color:#e7ebe8; }
+        input,select,textarea { background:#090b0a; border-color:#343a35; border-radius:10px; }
+        input:focus,select:focus,textarea:focus { border-color:var(--eco-green); box-shadow:0 0 0 3px rgba(128,201,149,.10); }
+        .field-help { color:#9aa29b; }
+        .notice { border-color:rgba(128,201,149,.25); background:rgba(128,201,149,.06); color:#bde5c8; }
+        .flash-message,.error-message { background:rgba(230,51,62,.09); border-color:rgba(230,51,62,.3); color:#ffb1b5; }
+        .submit-btn { border-radius:10px; background:linear-gradient(110deg,#e6333e,#b8202b); }
+        .submit-btn:hover { box-shadow:0 8px 25px rgba(230,51,62,.2); }
+        .entry-item { background:#111413; border-color:var(--eco-line); border-radius:12px; }
+        .entry-item p { color:#aab1ab; }
+        .status-approved { color:var(--eco-green); }
+        .footer { border-top-color:var(--eco-line); color:#89918b; }
+
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}" class="brand">
+            THE <span>ECOSYSTEM</span>
+        </a>
+
+        <a
+            href="{{ url_for('competition_detail', competition_id=competition.id) }}"
+            class="back-link"
+        >
+            ← Back to Competition
+        </a>
+    </nav>
+
+    <main class="page">
+        <div class="eyebrow">Competition Entry</div>
+
+        <h1>
+            Put your name<br>
+            in the <span>spotlight.</span>
+        </h1>
+
+        <p class="intro">
+            Nominate yourself, your business, a creator, or someone doing
+            something remarkable in Nigeria. Tell us why they deserve recognition.
+        </p>
+
+        <section class="competition-info">
+            <small>You're entering</small>
+            <h2>{{ competition.icon }} {{ competition.title }}</h2>
+            <p>{{ competition.description }}</p>
+        </section>
+
+        <section class="form-card">
+            <h2 class="form-heading">Entry details</h2>
+
+            <p class="form-subheading">
+                Fields marked with * are required. Make your entry clear and honest.
+            </p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {% if error %}
+                <div class="error-message">{{ error }}</div>
+            {% endif %}
+
+            <form
+                method="POST"
+                action="{{ url_for('competition_entry', competition_id=competition.id) }}"
+            >
+                <div class="field">
+                    <label for="entrant_type">Entry category *</label>
+                    {% set selected_type = request.form.get('entrant_type', 'business') %}
+                    <select id="entrant_type" name="entrant_type" required>
+                        <option value="business" {% if selected_type == 'business' %}selected{% endif %}>Business</option>
+                        <option value="creator" {% if selected_type == 'creator' %}selected{% endif %}>Content Creator</option>
+                        <option value="individual" {% if selected_type == 'individual' %}selected{% endif %}>Individual</option>
+                        <option value="startup" {% if selected_type == 'startup' %}selected{% endif %}>Startup</option>
+                        <option value="other" {% if selected_type == 'other' %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
+
+                <div class="field" id="businessNomineeField">
+                    <label for="business_id">Nominee / business *</label>
+                    <select id="business_id" name="business_id" {% if selected_type == 'business' %}required{% endif %}>
+                        <option value="">Select a registered business</option>
+                        {% for business in eligible_businesses %}
+                            <option value="{{ business.id }}" {% if request.form.get('business_id', '')|string == business.id|string %}selected{% endif %}>
+                                {{ business.name }}{% if business.city %} — {{ business.city }}{% endif %}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    {% if not eligible_businesses %}
+                        <p class="field-help">No approved registered businesses are available in {{ selected_state_label }} yet.</p>
+                    {% endif %}
+                </div>
+
+                <div class="field" id="manualNomineeField" {% if selected_type == 'business' %}hidden{% endif %}>
+                    <label for="entrant_name">Name of nominee *</label>
+                    <input
+                        type="text"
+                        id="entrant_name"
+                        name="entrant_name"
+                        placeholder="Enter the nominee's name"
+                        value="{{ request.form.get('entrant_name', '') }}"
+                        maxlength="120"
+                        {% if selected_type != 'business' %}required{% endif %}
+                        {% if selected_type == 'business' %}disabled{% endif %}
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="description">About the nominee *</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        maxlength="1500"
+                        placeholder="What do they do, and what makes them special?"
+                        required
+                    >{{ request.form.get('description', '') }}</textarea>
+                    <p class="field-help">Maximum 1,500 characters.</p>
+                </div>
+
+                <div class="field">
+                    <label for="reason">Why do they deserve to win? *</label>
+                    <textarea
+                        id="reason"
+                        name="reason"
+                        maxlength="1500"
+                        placeholder="Explain why this nominee deserves recognition..."
+                        required
+                    >{{ request.form.get('reason', '') }}</textarea>
+                    <p class="field-help">
+                        Share achievements, quality, impact, or community support.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="contact">
+                        Contact information <span class="optional">(optional)</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="contact"
+                        name="contact"
+                        maxlength="150"
+                        placeholder="Phone number or email"
+                        value="{{ request.form.get('contact', '') }}"
+                    >
+                    <p class="field-help">
+                        Give organisers a way to contact you if needed.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="supporting_link">
+                        Supporting link <span class="optional">(optional)</span>
+                    </label>
+                    <input
+                        type="url"
+                        id="supporting_link"
+                        name="supporting_link"
+                        maxlength="500"
+                        placeholder="https://instagram.com/yourpage"
+                        value="{{ request.form.get('supporting_link', '') }}"
+                    >
+                    <p class="field-help">
+                        Website, Instagram page, portfolio, or another relevant link.
+                    </p>
+                </div>
+
+                <div class="notice">
+                    <strong>What happens next?</strong><br>
+                    Your entry will be marked as pending while the team reviews it.
+                    It will only appear publicly after approval. Submission does not
+                    automatically guarantee a place in the competition.
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    SUBMIT FOR REVIEW →
+                </button>
+
+                <a
+                    href="{{ url_for('competition_detail', competition_id=competition.id) }}"
+                    class="cancel-link"
+                >
+                    Cancel and return to competition
+                </a>
+            </form>
+        </section>
+
+        {% if existing_entries %}
+            <section class="previous-entries">
+                <h2>Your previous entries</h2>
+
+                {% for entry in existing_entries %}
+                    <div class="entry-item">
+                        <strong>{{ entry.entrant_name }}</strong>
+
+                        <p>Submitted: {{ entry.submitted_at }}</p>
+
+                        <span class="status status-{{ entry.status|lower }}">
+                            {{ entry.status }}
+                        </span>
+                    </div>
+                {% endfor %}
+            </section>
+        {% endif %}
+    </main>
+
+    <footer class="footer">
+        Discover what's happening. Recognise what's great.<br>
+        Built for <span>Ibadan.</span> Powered by THE ECOSYSTEM.
+    </footer>
+
+<script>
+(function () {
+    const typeSelect = document.getElementById("entrant_type");
+    const businessField = document.getElementById("businessNomineeField");
+    const businessSelect = document.getElementById("business_id");
+    const manualField = document.getElementById("manualNomineeField");
+    const manualInput = document.getElementById("entrant_name");
+
+    if (!typeSelect || !businessField || !businessSelect || !manualField || !manualInput) return;
+
+    function updateNomineeField() {
+        const isBusiness = typeSelect.value === "business";
+        businessField.hidden = !isBusiness;
+        businessSelect.disabled = !isBusiness;
+        businessSelect.required = isBusiness;
+        manualField.hidden = isBusiness;
+        manualInput.disabled = isBusiness;
+        manualInput.required = !isBusiness;
+    }
+
+    typeSelect.addEventListener("change", updateNomineeField);
+    updateNomineeField();
+})();
+</script>
+
+</body>
+</html>

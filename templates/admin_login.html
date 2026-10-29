@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login — THE ECOSYSTEM</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background:
+                radial-gradient(circle at top right, rgba(190, 0, 0, 0.18), transparent 35%),
+                radial-gradient(circle at bottom left, rgba(190, 0, 0, 0.10), transparent 30%),
+                #080808;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 430px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo h1 {
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+        }
+
+        .logo span {
+            color: #e00000;
+        }
+
+        .logo p {
+            margin-top: 8px;
+            color: #777;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .login-card {
+            background: #111111;
+            border: 1px solid #242424;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
+        }
+
+        .admin-label {
+            display: inline-block;
+            padding: 7px 11px;
+            border-radius: 8px;
+            background: rgba(224, 0, 0, 0.12);
+            border: 1px solid rgba(224, 0, 0, 0.25);
+            color: #ff4b4b;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-bottom: 18px;
+        }
+
+        .login-card h2 {
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        .error {
+            background: rgba(224, 0, 0, 0.10);
+            border: 1px solid rgba(224, 0, 0, 0.30);
+            color: #ff5a5a;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 8px;
+            color: #cfcfcf;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 14px 15px;
+            background: #080808;
+            border: 1px solid #292929;
+            border-radius: 11px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        .field input:focus {
+            border-color: #e00000;
+            box-shadow: 0 0 0 3px rgba(224, 0, 0, 0.08);
+        }
+
+        .login-button {
+            width: 100%;
+            border: none;
+            border-radius: 11px;
+            padding: 15px;
+            background: #e00000;
+            color: white;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.2s ease;
+            margin-top: 5px;
+        }
+
+        .login-button:hover {
+            background: #ff1616;
+            transform: translateY(-1px);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 22px;
+            color: #777;
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        .security-note {
+            margin-top: 22px;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+            color: #555;
+            font-size: 11px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 25px 20px;
+            }
+
+            .logo h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+
+<style id="ecosystem-admin-premium-theme">
+:root{--eco-bg:#070d0b;--eco-panel:#101a15;--eco-line:#263b30;--eco-green:#43d98b;--eco-green-soft:#80c995;--eco-red:#f04444;--eco-white:#f7faf8;--eco-muted:#9aa99f}html{background:var(--eco-bg)}body{background-color:var(--eco-bg)!important;color:var(--eco-white)}h1,h2,h3,h4,.section-title,.panehead h2,.hero h1,.business-name{font-weight:900!important;color:#fff}h1 span,h2 span,.brand span{color:var(--eco-red)}a{transition:color .18s ease}button,.btn,.action{font-weight:850!important}input,select,textarea{color:#f7faf8}table th{font-weight:900}::selection{background:#145b3a;color:white}@media(max-width:650px){body{overflow-x:hidden}}
+</style>
+
+<style id="ecosystem-brand-wordmark-standard">.brand,.logo{color:#fff!important}.brand>span,.logo>strong,.logo .eco-word-ecosystem{color:#f04444!important}.logo>span{color:#fff!important}.brand .eco-word-the{color:#fff!important}.brand .eco-word-ecosystem{color:#f04444!important}</style></head>
+
+<body>
+
+    <main class="login-container">
+
+        <div class="logo">
+            <h1>THE <span>ECOSYSTEM</span></h1>
+            <p>Ibadan's Local Discovery Platform</p>
+        </div>
+
+        <div class="login-card">
+
+            <div class="admin-label">
+                ADMIN ACCESS
+            </div>
+
+            <h2>Welcome back.</h2>
+
+            <p class="subtitle">
+                Sign in to manage business submissions, claims and platform activity.
+            </p>
+
+            {% if error %}
+                <div class="error">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            <form method="POST" action="{{ url_for('admin_login') }}">
+
+                <div class="field">
+                    <label for="email">Admin Email</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter admin email"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="password">Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter password"
+                        required
+                        autocomplete="current-password"
+                    >
+                </div>
+
+                <button type="submit" class="login-button">
+                    ENTER ADMIN PANEL
+                </button>
+
+            </form>
+
+            <a href="{{ url_for('home') }}" class="back-link">
+                ← Back to THE ECOSYSTEM
+            </a>
+
+            <div class="security-note">
+                Administrative access only. Keep your login credentials private.
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

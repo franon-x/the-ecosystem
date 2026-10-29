@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Profile | THE ECOSYSTEM</title>
+<style>
+:root{--bg:#080909;--panel:#111713;--panel2:#14251a;--green:#80C995;--green-dark:#237744;--white:#fff;--muted:#a9b0aa;--line:rgba(128,201,149,.22)}
+*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 10% 0,rgba(128,201,149,.11),transparent 35%),var(--bg);color:var(--white);font-family:Inter,Arial,sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}.shell{width:min(1120px,92%);margin:auto;padding:24px 0 70px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0 22px;border-bottom:1px solid var(--line)}
+.brand{font-size:12px;font-weight:900;letter-spacing:3px}.brand span{color:var(--green)}.nav{display:flex;gap:10px;flex-wrap:wrap}.nav a,.button{display:inline-flex;align-items:center;justify-content:center;padding:11px 14px;border:1px solid var(--line);background:#101511;color:#eaf4ec;font-size:12px;font-weight:800;border-radius:9px}.nav a:hover,.button:hover{border-color:var(--green);background:var(--panel2)}.button.primary{background:#fff;color:#237744;border-color:var(--green)}
+.hero{padding:42px 0 24px}.eyebrow{font-size:10px;font-weight:900;letter-spacing:2.5px;text-transform:uppercase;color:var(--green);margin:0 0 12px}h1{font-size:clamp(34px,6vw,60px);line-height:1;letter-spacing:-2px;margin:0}h1 span{color:var(--green)}.lead{max-width:650px;color:var(--muted);font-size:14px;line-height:1.75;margin:16px 0 0}
+.profile-banner{display:flex;align-items:center;gap:20px;padding:24px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(120deg,rgba(128,201,149,.09),transparent 70%),var(--panel);margin:12px 0 24px}
+.avatar{width:72px;height:72px;flex:0 0 72px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:#102417;font-size:28px;font-weight:900;border:3px solid rgba(255,255,255,.14)}
+.profile-name{font-size:23px;font-weight:900;margin:0 0 6px;overflow-wrap:anywhere}.profile-email{color:var(--muted);font-size:13px;overflow-wrap:anywhere}.member-tag{display:inline-block;margin-top:10px;border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:var(--green);font-size:9px;font-weight:900;letter-spacing:1px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 30px}.stat{padding:17px;border:1px solid var(--line);border-radius:13px;background:var(--panel)}.stat strong{display:block;font-size:27px;line-height:1.1;color:var(--green)}.stat span{display:block;margin-top:7px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.section{margin-top:30px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}.section-head h2{font-size:22px;letter-spacing:-.5px;margin:0}.section-head p{font-size:12px;color:var(--muted);margin:6px 0 0}
+.form-card,.empty,.item{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:22px}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.field label{display:block;font-size:11px;font-weight:800;color:#d5e0d7;margin-bottom:8px}.field input{width:100%;min-height:46px;padding:12px;border:1px solid #344138;border-radius:9px;background:#080d09;color:#fff;font:inherit;outline:none}.field input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(128,201,149,.1)}.full{grid-column:1/-1}.submit{border:1px solid var(--green);border-radius:9px;padding:13px 18px;background:#fff;color:#237744;font-weight:900;cursor:pointer}.form-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px}.message{padding:12px 14px;border-radius:9px;font-size:13px;line-height:1.5;margin:0 0 16px}.error{background:rgba(230,51,62,.1);border:1px solid rgba(230,51,62,.35);color:#ffb4b8}.flash{background:rgba(128,201,149,.1);border:1px solid var(--line);color:#c9f3d4}
+.list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.item h3{margin:0 0 7px;font-size:16px}.item p{color:var(--muted);font-size:12px;line-height:1.65;margin:0 0 12px;overflow-wrap:anywhere}.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:5px 8px;color:var(--green);font-size:9px;font-weight:900;letter-spacing:.6px;text-transform:uppercase}.item-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.small-link{display:inline-flex;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-size:11px;font-weight:800}.empty{color:var(--muted);font-size:13px;line-height:1.7}.footer{border-top:1px solid var(--line);margin-top:42px;padding-top:20px;color:#68716a;font-size:11px;letter-spacing:1px}
+@media(max-width:700px){.shell{width:92%;padding-top:14px}.nav a{padding:9px 10px}.hero{padding-top:32px}.profile-banner{align-items:flex-start;padding:18px;gap:14px}.avatar{width:58px;height:58px;flex-basis:58px;font-size:23px}.profile-name{font-size:19px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.form-grid,.list{grid-template-columns:1fr}.form-card{padding:17px}.section-head{align-items:flex-start;flex-direction:column}.submit{width:100%}.form-actions{align-items:stretch;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header>
+  <a class="brand" href="{{ url_for('account') }}">THE <span>ECOSYSTEM</span></a>
+  <nav class="nav" aria-label="Profile navigation">
+    <a href="{{ url_for('account') }}">Account Dashboard</a>
+    <a href="{{ url_for('account_awards') }}">Awards</a>
+  </nav>
+</header>
+<section class="hero">
+  <p class="eyebrow">Your member space</p>
+  <h1>MY <span>PROFILE</span></h1>
+  <p class="lead">Manage your account details and keep track of your businesses, Showcase activity, reviews and awards across THE ECOSYSTEM.</p>
+</section>
+<section class="profile-banner">
+  <div class="avatar">{{ (user.name or 'M')[0]|upper }}</div>
+  <div>
+    <h2 class="profile-name">{{ user.name }}</h2>
+    <div class="profile-email">{{ user.email }}</div>
+    <span class="member-tag">ECOSYSTEM MEMBER</span>
+  </div>
+</section>
+<section class="stats" aria-label="Profile activity summary">
+  <div class="stat"><strong>{{ owned_businesses|length }}</strong><span>Your businesses</span></div>
+  <div class="stat"><strong>{{ showcase_posts|length }}</strong><span>Showcase posts</span></div>
+  <div class="stat"><strong>{{ user_reviews|length }}</strong><span>Reviews written</span></div>
+  <div class="stat"><strong>{{ award_winners|length }}</strong><span>Awards</span></div>
+</section>
+<section class="section" id="account-details">
+  <div class="section-head"><div><h2>Account details</h2><p>Update the name and email linked to your account.</p></div></div>
+  <div class="form-card">
+    {% if error %}<p class="message error">{{ error }}</p>{% endif %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}<p class="message flash">{{ message }}</p>{% endfor %}
+    {% endwith %}
+    <form method="POST" action="{{ url_for('edit_profile') }}">
+      <div class="form-grid">
+        <div class="field"><label for="name">FULL NAME</label><input id="name" name="name" maxlength="100" value="{{ user.name }}" autocomplete="name" required></div>
+        <div class="field"><label for="email">EMAIL ADDRESS</label><input id="email" name="email" type="email" value="{{ user.email }}" autocomplete="email" required></div>
+      </div>
+      <div class="form-actions"><span style="color:var(--muted);font-size:11px">Your changes are saved to your account.</span><button class="submit" type="submit">Save Profile Changes</button></div>
+    </form>
+  </div>
+</section>
+<section class="section">
+  <div class="section-head"><div><h2>Your businesses</h2><p>Business listings connected to your account.</p></div><a class="button" href="{{ url_for('account') }}">Manage listings</a></div>
+  {% if owned_businesses %}
+  <div class="list">
+    {% for item in owned_businesses %}
+    <article class="item">
+      <h3>{{ item.business.name }}</h3>
+      <p>{{ item.business.category or 'Business' }}{% if item.business.location %} · {{ item.business.location }}{% endif %}</p>
+      <span class="pill">{{ item.status|replace('_',' ')|title }}</span>
+      {% if item.is_verified %}<span class="pill">Verified</span>{% endif %}
+      <div class="item-actions"><a class="small-link" href="{{ url_for('business_profile', business_id=item.business.id) }}">View business</a></div>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}<div class="empty">No businesses are currently connected to your profile. You can submit a listing or claim an existing business from the account dashboard.</div>{% endif %}
+</section>
+<section class="section">
+  <div class="section-head"><div><h2>Showcase activity</h2><p>Your recent posts and creative contributions.</p></div></div>
+  {% if showcase_posts %}
+  <div class="list">
+    {% for post in showcase_posts[:4] %}
+    <article class="item"><h3>Showcase post</h3><p>{{ post.caption or 'Shared an update with the community.' }}</p><span class="pill">{{ post.created_at[:10] if post.created_at else 'Published' }}</span></article>
+    {% endfor %}
+  </div>
+  {% else %}<div class="empty">Your Showcase posts will appear here when you publish them through a business you manage.</div>{% endif %}
+</section>
+<section class="section">
+  <div class="section-head"><div><h2>Awards & certifications</h2><p>Recognitions published for your account.</p></div><a class="button" href="{{ url_for('account_awards') }}">Open awards</a></div>
+  {% if award_winners %}
+  <div class="list">
+    {% for winner in award_winners %}
+    <article class="item"><h3>{{ winner.competition.title }}</h3><p>{{ winner.entry.entrant_name }}{% if winner.state %} · {{ winner.state }}{% endif %}</p><span class="pill">Winner</span></article>
+    {% endfor %}
+  </div>
+  {% else %}<div class="empty">Awards and certificates will appear here when you have a published winning entry.</div>{% endif %}
+</section>
+<section class="section">
+  <div class="section-head"><div><h2>Your reviews</h2><p>Reviews you've submitted on THE ECOSYSTEM.</p></div></div>
+  {% if user_reviews %}
+  <div class="list">
+    {% for review in user_reviews[:4] %}
+    <article class="item"><h3>{{ review.business_name or 'Business review' }}</h3><p>{{ review.comment or review.text or 'You left a rating for this business.' }}</p>{% if review.rating %}<span class="pill">{{ review.rating }} / 5 rating</span>{% endif %}</article>
+    {% endfor %}
+  </div>
+  {% else %}<div class="empty">Reviews you submit for businesses will be collected here.</div>{% endif %}
+</section>
+<div class="footer">THE ECOSYSTEM · DISCOVER YOUR WORLD</div>
+</div>
+</body>
+</html>

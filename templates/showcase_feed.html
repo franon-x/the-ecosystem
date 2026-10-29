@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Showcase | THE ECOSYSTEM</title>
+<style>
+:root{--bg:#f5faf6;--surface:#ffffff;--surface2:#eef7f0;--line:rgba(26,90,49,.14);--muted:#647568;--red:#e6333e;--white:#173323;--green:#238447}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit;text-decoration:none}button,input{font:inherit}
+.topbar{height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,5vw,72px);border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.94);backdrop-filter:blur(18px);z-index:20}
+.logo{font-weight:850;letter-spacing:.055em;font-size:17px;white-space:nowrap}.logo .eco,.footer-logo .eco{color:#e6333e}.nav-right{display:flex;align-items:center;gap:10px}.nav-link,.share-cta{font-size:12px;border:1px solid var(--line);border-radius:9px;padding:10px 13px}.nav-link:hover{border-color:#238447}.share-cta{background:#238447;border-color:#238447;font-weight:750;color:#fff}.wrap{width:min(1360px,92%);margin:auto;padding:35px 0 70px}
+.hero{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(220px,.65fr);align-items:end;gap:28px;min-height:350px;padding:clamp(28px,5vw,58px);margin:0 0 26px;overflow:hidden;border:1px solid rgba(35,132,71,.18);border-radius:20px;background:#123d27;box-shadow:0 24px 70px rgba(18,61,39,.12)}
+.hero-video,.hero-shade{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.hero-video{z-index:-3;object-fit:cover;opacity:.78}.hero-shade{z-index:-2;background:linear-gradient(90deg,rgba(10,48,27,.86) 0%,rgba(10,48,27,.60) 48%,rgba(10,48,27,.18) 100%),linear-gradient(0deg,rgba(10,48,27,.58),transparent 70%)}.hero:before,.hero:after{content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(3px);animation:heroDrift 13s ease-in-out infinite alternate}.hero:before{width:290px;height:290px;right:8%;top:-130px;background:radial-gradient(circle,rgba(255,255,255,.035),transparent 70%)}.hero:after{width:340px;height:340px;right:28%;bottom:-250px;background:radial-gradient(circle,rgba(255,255,255,.13),transparent 70%);animation-delay:-5s}.hero-copy,.hero-note{position:relative;z-index:1}.hero h1{max-width:760px;text-shadow:0 3px 25px rgba(0,0,0,.38)}.hero p{color:#f1f8f3}.hero-note{background:rgba(15,66,36,.50);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.28);border-left:2px solid #8fe0a9;border-radius:0 12px 12px 0;padding:17px 18px;color:#f1f8f3}.hero-note strong{font-size:14px}@keyframes heroDrift{from{transform:translate3d(-12px,0,0) scale(.96)}to{transform:translate3d(18px,24px,0) scale(1.08)}}
+.eyebrow{color:#ffffff;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase}.hero h1{font-size:clamp(40px,6vw,72px);line-height:.98;letter-spacing:-.055em;margin:13px 0 14px;font-weight:850}.hero p{max-width:610px;color:#e1eee5;font-size:14px;line-height:1.8;margin:0}.hero-note{border-left:2px solid #8fe0a9;padding:5px 0 5px 17px;color:#e1eee5;font-size:12px;line-height:1.75}.hero-note strong{display:block;color:#fff;font-size:14px;margin-bottom:4px}
+.toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:24px 0 16px}.filters{display:flex;gap:7px;flex-wrap:wrap}.filter{background:transparent;border:1px solid var(--line);color:#526b59;border-radius:999px;padding:9px 14px;font-size:11px;cursor:pointer;transition:.18s}.filter:hover,.filter.active{background:#238447;color:#fff;border-color:#238447}.search{width:min(290px,100%);background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 13px;color:#173323;font-size:12px;outline:none}.search:focus{border-color:#777}
+.content{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:22px;align-items:start}.feed-heading{display:flex;align-items:center;justify-content:space-between;margin:8px 0 15px}.feed-heading h2{font-size:17px;letter-spacing:-.02em;margin:0}.count{color:var(--muted);font-size:11px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.post{min-width:0;background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden;transition:transform .2s,border-color .2s}.post:hover{border-color:rgba(35,132,71,.35);transform:translateY(-2px)}
+.business{display:flex;align-items:center;gap:11px;padding:15px 15px 13px}.avatar{height:38px;width:38px;border-radius:50%;background:#e5f2e8;display:grid;place-items:center;color:#23643b;font-weight:800;font-size:13px;flex:0 0 auto;border:1px solid #d3e6d8}.biz-copy{min-width:0;flex:1}.biz-name{font-size:12px;font-weight:750;display:flex;align-items:center;gap:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.verified{display:inline-grid;place-items:center;background:#238447;border-radius:50%;width:13px;height:13px;font-size:9px;color:#fff}.biz-sub{color:var(--muted);font-size:10px;margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.profile{font-size:10px;color:#23643b;border:1px solid #d4e5d8;border-radius:7px;padding:8px 9px;white-space:nowrap}.profile:hover{border-color:#238447;color:#173323}
+.media-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;background:#eaf4ed}.media-grid img,.media-grid video{display:block;width:100%;height:190px;object-fit:cover;background:#eaf4ed}.media-grid.single{grid-template-columns:1fr}.media-grid.single img,.media-grid.single video{height:auto;max-height:430px;aspect-ratio:4/3}.media-grid img:first-child:nth-last-child(3){grid-row:span 2;height:100%}.media-grid img:first-child:nth-last-child(3),.media-grid img:first-child:nth-last-child(3)~img{min-height:90px}
+.body{padding:15px}.meta{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:10px;margin-bottom:10px}.caption{font-size:13px;line-height:1.75;white-space:pre-wrap;overflow-wrap:anywhere;margin:0 0 15px;color:#243d2d}.actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px}.btn{display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid transparent;border-radius:8px;padding:8px 9px;color:#526b59;cursor:pointer;font-size:11px}.btn:hover{background:#e8f4eb;color:#173323}.btn.liked{color:#238447}.comment-count{margin-left:auto;color:var(--muted);font-size:10px}.comments{padding:0 15px 15px}.comments-title{font-size:11px;font-weight:750;color:#d7d7d7;margin:0 0 8px}.comment{padding:9px 0;border-top:1px solid rgba(255,255,255,.055)}.comment strong{font-size:10px}.comment p{font-size:11px;line-height:1.6;color:#526b59;margin:4px 0}.reply{margin:7px 0 0 8px;border-left:2px solid #238447;padding-left:9px;color:#c5c5c5;font-size:11px}.comment-form{display:flex;gap:7px;margin-top:10px}.comment-form input{min-width:0;flex:1;background:#fff;border:1px solid #cfe1d3;border-radius:8px;padding:10px;color:#fff;font-size:11px}.comment-form input:focus{outline:none;border-color:#777}.comment-form button{background:#f3f3f3;color:#111;border:0;border-radius:8px;padding:0 12px;font-size:11px;font-weight:750;cursor:pointer}.login-note{font-size:11px;color:var(--muted);margin:10px 0 0}.login-note a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.sidebar{position:sticky;top:92px;display:grid;gap:14px}.side-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px}.side-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.side-title h3{font-size:13px;margin:0}.side-title span{font-size:10px;color:var(--muted)}.side-intro{font-size:11px;color:var(--muted);line-height:1.7;margin:0 0 13px}.side-action{display:block;text-align:center;background:#edf7ef;border:1px solid #d4e5d8;border-radius:8px;padding:11px;font-size:11px;font-weight:700}.side-action:hover{border-color:#238447}.business-list{display:grid;gap:13px}.business-mini{display:flex;gap:10px;align-items:center}.mini-avatar{width:32px;height:32px;border-radius:9px;background:#e5f2e8;display:grid;place-items:center;font-size:11px;font-weight:800;flex:0 0 auto}.mini-name{font-size:11px;font-weight:700}.mini-sub{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4}.empty{padding:60px 20px;text-align:center;border:1px dashed #b9d4c0;border-radius:14px;color:var(--muted);grid-column:1/-1}.empty strong{display:block;color:#fff;margin-bottom:8px;font-size:18px}.empty p{font-size:12px;line-height:1.7}.footer{display:flex;justify-content:space-between;border-top:1px solid var(--line);margin-top:48px;padding-top:19px;color:#6b7e70;font-size:10px;letter-spacing:.1em}.footer-logo{color:#fff;font-weight:800}
+
+/* THE ECOSYSTEM green-and-white page theme; preserve the red wordmark. */
+.topbar{color:#173323;border-bottom-color:#dce9df}
+.nav-link{color:#28583a;border-color:#d4e5d8}
+.share-cta{background:#238447;border-color:#238447;color:#fff}
+.hero{color:#fff}
+.hero-note{color:#eaf5ed}
+.filter{color:#486652;border-color:#cfe1d3}
+.search{background:#fff;color:#173323;border-color:#d4e5d8}
+.post{background:#fff;border-color:#dce9df}
+.avatar,.mini-avatar{background:#e6f3e9;color:#23643b;border-color:#d4e5d8}
+.profile{color:#28583a;border-color:#d4e5d8}
+.media-grid{background:#eaf4ed}
+.body,.caption{color:#263d2d}
+.actions{border-top-color:#e3eee5}
+.btn{color:#526b59}
+.btn:hover{background:#edf7ef;color:#173323}
+.comment strong,.comments-title{color:#28583a}
+.comment p,.reply{color:#526b59}
+.comment-form input{background:#fff;color:#173323;border-color:#d4e5d8}
+.comment-form button{background:#238447;color:#fff}
+.side-card{background:#fff;border-color:#dce9df}
+.side-action{background:#edf7ef;border-color:#d4e5d8;color:#28583a}
+.empty{border-color:#b9d4c0;color:#647568}
+.empty strong{color:#173323}
+.footer{color:#6b7e70}
+@media(max-width:980px){.content{grid-template-columns:minmax(0,1fr) 220px;gap:14px}.grid{gap:12px}.media-grid img,.media-grid video{height:160px}.hero{grid-template-columns:1fr .6fr}}
+@media(max-width:760px){.hero{min-height:420px;padding:25px 20px;align-content:end}.hero-video{opacity:.62}.hero-shade{background:linear-gradient(0deg,rgba(5,5,5,.94) 0%,rgba(5,5,5,.72) 60%,rgba(5,5,5,.25) 100%)}.hero-note{max-width:520px}.topbar{height:62px;padding:0 4%}.logo{font-size:14px}.nav-link{display:none}.wrap{width:92%;padding-top:23px}.hero{grid-template-columns:1fr;padding:17px 0 22px;gap:17px}.hero h1{font-size:clamp(42px,12vw,62px)}.hero p{font-size:13px}.hero-note{font-size:11px}.toolbar{align-items:stretch;flex-direction:column}.search{width:100%}.content{grid-template-columns:1fr}.sidebar{position:static;grid-template-columns:1fr 1fr;order:2}.grid{grid-template-columns:1fr}.media-grid img,.media-grid video{height:220px}.media-grid.single img,.media-grid.single video{height:auto}.feed-heading{margin-top:5px}.footer{flex-direction:column;gap:12px}}
+@media(max-width:440px){.sidebar{grid-template-columns:1fr}.filter{padding:8px 11px}.business{padding:13px}.media-grid img,.media-grid video{height:175px}.body{padding:13px}.comments{padding:0 13px 13px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}.hero-video{display:none}}
+/* THE ECOSYSTEM green theme; preserve the top-left wordmark colors */
+.share-cta{background:var(--green);border-color:var(--green);color:#07110a}
+.eyebrow{color:var(--green)}
+.hero-note{border-left-color:var(--green)}
+.verified{background:var(--green);color:#07110a}
+.profile:hover{border-color:var(--green);color:#fff}
+.reply{border-left-color:var(--green)}
+.side-action:hover{border-color:var(--green)}
+.btn.liked{color:var(--green)}
+.comment-form button{background:var(--green);color:#07110a}
+.filter:hover,.filter.active{background:var(--green);color:#07110a;border-color:var(--green)}
+.search:focus,.comment-form input:focus{border-color:var(--green)}
+
+/* ACCOUNT-MATCHED THE ECOSYSTEM THEME */
+:root{
+  --bg:#080909;
+  --surface:#111413;
+  --surface2:#0b0e0c;
+  --line:rgba(255,255,255,.11);
+  --muted:#A9B0AA;
+  --red:#e6333e;
+  --white:#f5f7f5;
+  --green:#80c995;
+}
+body{background:var(--bg);color:#f5f7f5}
+.topbar{background:rgba(8,9,9,.94);color:#f5f7f5;border-bottom:1px solid rgba(255,255,255,.11)}
+.logo{color:#fff}
+.logo .eco,.footer-logo .eco{color:#e6333e}
+.nav-link{color:#f0f3f0;border-color:rgba(255,255,255,.14)}
+.nav-link:hover{border-color:var(--green)}
+.share-cta{background:var(--green);border-color:var(--green);color:#080909}
+.hero{border-color:rgba(128,201,149,.2);background:#080909}
+.hero-shade{background:linear-gradient(90deg,rgba(5,8,6,.82) 0%,rgba(5,8,6,.58) 48%,rgba(5,8,6,.2) 100%),linear-gradient(0deg,rgba(5,8,6,.62),transparent 70%)}
+.hero:before{background:radial-gradient(circle,rgba(128,201,149,.06),transparent 70%)}
+.hero:after{background:radial-gradient(circle,rgba(128,201,149,.10),transparent 70%)}
+.eyebrow{color:var(--green)}
+.hero h1,.hero p{color:#fff}
+.hero-note{background:rgba(11,14,12,.72);border-color:rgba(255,255,255,.17);border-left-color:var(--green);color:#dce5de}
+.hero-note strong{color:#fff}
+.filter{color:#d1d8d2;border-color:rgba(255,255,255,.14)}
+.filter:hover,.filter.active{background:var(--green);color:#08100a;border-color:var(--green)}
+.search{background:#111413;color:#fff;border-color:rgba(255,255,255,.14)}
+.search::placeholder{color:#929b94}
+.search:focus,.comment-form input:focus{border-color:var(--green);outline:none}
+.feed-heading h2{color:#fff}
+.count{color:var(--muted)}
+.post,.side-card{background:#111413;border-color:rgba(255,255,255,.10)}
+.post:hover{border-color:rgba(128,201,149,.4)}
+.avatar,.mini-avatar{background:#18251c;color:var(--green);border-color:rgba(128,201,149,.2)}
+.verified{background:var(--green);color:#07110a}
+.biz-name,.side-title h3,.empty strong{color:#f5f7f5}
+.biz-sub,.side-title span,.side-intro,.meta,.comment-count{color:var(--muted)}
+.profile{color:var(--green);border-color:rgba(128,201,149,.25)}
+.profile:hover{border-color:var(--green);color:#fff}
+.media-grid{background:#080909}
+.media-grid img,.media-grid video{background:#080909}
+.body{color:#f5f7f5}
+.caption{color:#e4e9e5}
+.actions{border-top-color:rgba(255,255,255,.10)}
+.btn{color:#c4ccc5}
+.btn:hover{background:rgba(128,201,149,.12);color:#fff}
+.btn.liked{color:var(--green)}
+.comments-title,.comment strong{color:var(--green)}
+.comment{border-top-color:rgba(255,255,255,.08)}
+.comment p,.reply{color:#c4ccc5}
+.reply{border-left-color:var(--green)}
+.comment-form input{background:#0b0e0c;color:#fff;border-color:rgba(255,255,255,.14)}
+.comment-form button{background:var(--green);color:#07110a}
+.login-note{color:var(--muted)}
+.login-note a{color:var(--green)}
+.side-action{background:#18251c;border-color:rgba(128,201,149,.2);color:#dff3e4}
+.side-action:hover{border-color:var(--green)}
+.empty{border-color:rgba(128,201,149,.25);color:var(--muted)}
+.empty strong{color:#fff}
+.footer{border-top-color:rgba(255,255,255,.11);color:var(--muted)}
+.footer-logo{color:#fff}
+@media(max-width:760px){
+ .hero-shade{background:linear-gradient(0deg,rgba(5,8,6,.94) 0%,rgba(5,8,6,.72) 60%,rgba(5,8,6,.25) 100%)}
+}
+
+
+/* THREE-COLUMN SHOWCASE: community on the left, scrollable trending in the middle,
+   and the existing sidebar retained on the right. */
+.content{
+  display:grid;
+  grid-template-columns:minmax(260px,1.05fr) minmax(230px,.82fr) 270px;
+  gap:18px;
+  align-items:start;
+}
+.community-column{min-width:0}
+.community-column .grid{grid-template-columns:minmax(0,1fr);gap:15px}
+.trending-column{min-width:0;position:sticky;top:92px}
+.trending-panel{
+  max-height:calc(100vh - 115px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  scrollbar-color:var(--green) rgba(255,255,255,.06);
+  padding:0 4px 5px 0;
+}
+.trending-panel::-webkit-scrollbar{width:5px}
+.trending-panel::-webkit-scrollbar-thumb{background:var(--green);border-radius:20px}
+.trending-card{
+  display:grid;grid-template-columns:76px minmax(0,1fr);gap:11px;
+  padding:11px;margin-bottom:10px;background:var(--surface);
+  border:1px solid var(--line);border-radius:13px;cursor:pointer;
+  transition:border-color .18s,transform .18s;
+}
+.trending-card:hover{border-color:var(--green);transform:translateY(-1px)}
+.trending-thumb{width:76px;height:82px;object-fit:cover;border-radius:9px;background:var(--surface2)}
+.trending-thumb-placeholder{display:grid;place-items:center;color:var(--green);font-size:22px}
+.trending-copy{min-width:0;display:flex;flex-direction:column;gap:6px}
+.trending-business{font-size:11px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--white)}
+.trending-caption{font-size:11px;line-height:1.55;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.trending-stats{font-size:10px;color:var(--green);margin-top:auto}
+.trending-tag{display:inline-flex;align-items:center;gap:5px;color:var(--green);font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.trending-tag:before{content:"";width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 0 3px rgba(128,201,149,.12)}
+.trending-empty{padding:25px 14px;text-align:center;border:1px dashed var(--line);border-radius:13px;color:var(--muted);font-size:11px;line-height:1.6}
+.trend-categories{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;margin-bottom:5px;scrollbar-width:thin}
+.trend-category{flex:0 0 auto;border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:var(--surface);color:var(--muted);font-size:10px;font-weight:750;cursor:pointer;white-space:nowrap}
+.trend-category.active,.trend-category:hover{background:var(--green);border-color:var(--green);color:#fff}
+.football-score{display:flex;flex-direction:column;gap:8px}
+.football-score .score-top{display:flex;justify-content:space-between;gap:8px;align-items:center;color:var(--green);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.football-score .score-teams{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 10px;align-items:center;font-size:11px;font-weight:750}
+.football-score .score-num{grid-column:2;grid-row:1/3;text-align:center;font-size:17px;font-weight:850;letter-spacing:.04em}
+.football-score .score-team{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.football-note{font-size:10px;line-height:1.5;color:var(--muted);padding:11px 12px;border:1px dashed var(--line);border-radius:10px;margin-bottom:8px}
+.trending-card[hidden]{display:none}
+@media(max-width:1100px){
+  .content{grid-template-columns:minmax(0,1fr) minmax(240px,.85fr)}
+  .sidebar{grid-column:1/-1;position:static;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .trending-column{position:static}
+  .trending-panel{max-height:700px}
+}
+@media(max-width:760px){
+  .content{grid-template-columns:minmax(0,1fr)}
+  .community-column,.trending-column,.sidebar{grid-column:auto}
+  .trending-column{order:0;position:static}
+  .community-column{order:1}
+  .sidebar{order:2;grid-template-columns:1fr 1fr}
+  .trending-panel{display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;max-height:none;padding:0 0 8px;scroll-snap-type:x mandatory}
+  .trending-card{flex:0 0 min(82%,310px);margin:0;scroll-snap-align:start}
+  .trending-thumb{height:86px}
+}
+@media(max-width:440px){.sidebar{grid-template-columns:1fr}.trending-card{flex-basis:88%}}
+
+</style>
+</head>
+<body>
+<nav class="topbar">
+  <a class="logo" href="{{ url_for('home') }}">THE <span class="eco">ECOSYSTEM</span></a>
+  <div class="nav-right"><a class="nav-link" href="{{ url_for('home') }}">← Home</a><a class="share-cta" href="{{ url_for('home') }}#showcase">Explore THE ECOSYSTEM</a></div>
+</nav>
+<main class="wrap">
+  <header class="hero">
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" poster="{{ url_for('static', filename='images/showcase-hero-poster.jpg') }}">
+      <source src="{{ url_for('static', filename='videos/showcase-hero.mp4') }}" type="video/mp4">
+    </video>
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="hero-copy"><div class="eyebrow">THE ECOSYSTEM / SHOWCASE</div><h1>Ideas worth<br>discovering.</h1><p>A closer look at the businesses, people and projects shaping what comes next. Discover the work. Meet the makers. Find your next favourite.</p></div>
+    <div class="hero-note"><strong>Made here. Moving us forward.</strong>A community space for real business updates, new products, creative work and milestones from across Nigeria.</div>
+  </header>
+  <div class="toolbar">
+    <div class="filters" role="group" aria-label="Filter Showcase posts">
+      <button class="filter active" type="button" data-filter="all">Everything</button>
+      <button class="filter" type="button" data-filter="products">Products</button>
+      <button class="filter" type="button" data-filter="food">Food</button>
+      <button class="filter" type="button" data-filter="fashion">Fashion</button>
+      <button class="filter" type="button" data-filter="tech">Technology</button>
+      <button class="filter" type="button" data-filter="services">Services</button>
+    </div>
+    <input id="showcase-search" class="search" type="search" placeholder="Search posts or businesses…" aria-label="Search Showcase">
+  </div>
+  <div class="content">
+    <section class="community-column">
+      <div class="feed-heading"><h2>From the community</h2><span class="count" id="post-count">{{ posts|length }} posts</span></div>
+      <section class="grid" id="showcase-grid">
+      {% for post in posts %}
+      {% set business = post.business %}
+      {% set category = business.category|default('Business', true) %}
+      {% set business_initial = business.name|default('B', true) %}
+      <article class="post" id="post-{{ post.id }}" data-category="{{ category|lower }}" data-search="{{ (business.name ~ ' ' ~ category ~ ' ' ~ (business.location|default('Nigeria', true)) ~ ' ' ~ (post.caption|default('', true)))|lower }}">
+        <div class="business">
+          <div class="avatar">{{ business_initial[:1]|upper }}</div>
+          <div class="biz-copy"><div class="biz-name">{{ business.name|default('Business', true) }}{% if business.is_verified %}<span class="verified" title="Verified business">✓</span>{% endif %}</div><div class="biz-sub">{{ category }} · {{ business.location|default('Nigeria', true) }}</div></div>
+          <a class="profile" href="{{ url_for('business_profile', business_id=business.id) }}">Profile ↗</a>
+        </div>
+        {% if post.media %}
+        <div class="media-grid {{ 'single' if post.media|length == 1 else '' }}">
+          {% for media in post.media %}
+            {% if media.type == 'video' or (media.url and media.url.rsplit('.',1)[-1].lower() in ['mp4','webm','mov']) %}<video src="{{ media.url }}" controls preload="metadata" playsinline aria-label="Video posted by {{ business.name }}"></video>
+            {% else %}<img src="{{ media.url }}" alt="Showcase post by {{ business.name }}" loading="lazy">{% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
+        <div class="body">
+          <div class="meta"><span>{{ post.author|default(business.name, true) }}</span><time>{{ post.created_at[:10] if post.created_at else '' }}</time></div>
+          {% if post.caption %}<p class="caption">{{ post.caption }}</p>{% endif %}
+          <div class="actions">
+            <button class="btn like-button {{ 'liked' if post.liked_by_me else '' }}" type="button" data-url="{{ url_for('showcase_like', business_id=business.id, post_id=post.id) }}" aria-label="Like post">♥ <span>{{ post.likes_count }}</span></button>
+            <button class="btn comment-jump" type="button" data-target="comments-{{ post.id }}">◯ Comment</button>
+            <button class="btn share-button" type="button" data-url="{{ url_for('showcase_share', business_id=business.id, post_id=post.id) }}">↗ Share</button>
+            <span class="comment-count">{{ post.comments|length }} comment{% if post.comments|length != 1 %}s{% endif %}</span>
+          </div>
+        </div>
+        <div class="comments" id="comments-{{ post.id }}">
+          <div class="comments-title">Conversation</div>
+          {% for comment in post.comments %}
+          <div class="comment"><strong>{{ comment.author|default('Community member', true) }}</strong><p>{{ comment.content }}</p>{% if comment.reply %}<div class="reply"><strong>Business reply · {{ comment.reply_by|default(business.name, true) }}</strong><p>{{ comment.reply }}</p></div>{% endif %}</div>
+          {% else %}<p class="side-intro">Start a thoughtful conversation about this post.</p>{% endfor %}
+          {% if is_logged_in %}<form class="comment-form" method="post" action="{{ url_for('showcase_comment', business_id=business.id, post_id=post.id) }}"><input name="comment" maxlength="1000" placeholder="Add to the conversation…" required><button type="submit">Send</button></form>
+          {% else %}<p class="login-note"><a href="{{ url_for('login') }}">Log in</a> to join the conversation.</p>{% endif %}
+        </div>
+      </article>
+      {% else %}
+      <div class="empty"><strong>The next great story starts here.</strong><p>There are no Showcase posts yet. When businesses share their work, products and progress, you’ll find them here.</p></div>
+      {% endfor %}
+      <div class="empty" id="no-results" hidden><strong>No matching posts</strong><p>Try another search or choose a different category.</p></div>
+      </section>
+    </section>
+    <section class="trending-column" aria-labelledby="trending-heading">
+      <div class="feed-heading">
+        <h2 id="trending-heading">Trending now</h2>
+        <span class="count">Across Nigeria</span>
+      </div>
+      <div class="trend-categories" id="trend-categories" aria-label="Trending categories">
+        <button class="trend-category active" type="button" data-trend-category="all">✨ For you</button>
+        <button class="trend-category" type="button" data-trend-category="football">⚽ Football live</button>
+        <button class="trend-category" type="button" data-trend-category="nigeria">🔥 Nigeria</button>
+        <button class="trend-category" type="button" data-trend-category="fashion">👗 Fashion</button>
+        <button class="trend-category" type="button" data-trend-category="food">🍲 Food & culture</button>
+        <button class="trend-category" type="button" data-trend-category="politics">🏛️ Politics</button>
+        <button class="trend-category" type="button" data-trend-category="entertainment">🎵 Entertainment</button>
+        <button class="trend-category" type="button" data-trend-category="business-tech">💼 Business & tech</button>
+      </div>
+      <div class="trending-panel" id="trending-panel" aria-live="polite">
+        <div class="trending-empty">Trending posts will appear here as businesses share updates with the community.</div>
+      </div>
+    </section>
+    <aside class="sidebar">
+      <section class="side-card"><div class="side-title"><h3>What is Showcase?</h3><span>01 / Discover</span></div><p class="side-intro">A living window into the work happening across THE ECOSYSTEM. Explore launches, behind-the-scenes moments, new services and business milestones.</p><a class="side-action" href="{{ url_for('home') }}">Explore businesses ↗</a></section>
+      <section class="side-card"><div class="side-title"><h3>Make a connection</h3><span>02 / Connect</span></div><p class="side-intro">Found a business you like? Visit its profile to learn more, explore its details and find the right way to connect.</p><a class="side-action" href="{{ url_for('home') }}">Discover the community ↗</a></section>
+      <section class="side-card"><div class="side-title"><h3>Show up for local work</h3><span>03 / Support</span></div><p class="side-intro">A thoughtful like, useful comment or shared post can help good work reach more people.</p></section>
+    </aside>
+  </div>
+  <footer class="footer"><div class="footer-logo">THE <span class="eco">ECOSYSTEM</span></div><div>DISCOVER · CONNECT · GROW</div></footer>
+</main>
+<script id="national-trends-data" type="application/json">{{ national_trends|default([], true)|tojson }}</script>
+<script id="live-football-data" type="application/json">{{ live_football|default({'configured': false, 'items': [], 'error': 'Live scores are not configured.'}, true)|tojson }}</script>
+<script>
+const cards=[...document.querySelectorAll('.post')], filters=[...document.querySelectorAll('.filter')], search=document.getElementById('showcase-search'), count=document.getElementById('post-count'), noResults=document.getElementById('no-results');
+let selected='all';
+
+const trendingPanel=document.getElementById('trending-panel');
+let selectedTrendCategory='all';
+function buildTrending(){
+  if(!trendingPanel)return;
+  trendingPanel.replaceChildren();
+
+  let nationalTrends=[];
+  try{nationalTrends=JSON.parse(document.getElementById('national-trends-data')?.textContent||'[]')}catch(e){nationalTrends=[]}
+
+  let footballData={configured:false,items:[],error:'Live scores are not configured.'};
+  try{footballData=JSON.parse(document.getElementById('live-football-data')?.textContent||'{}')}catch(e){}
+  const visibleTrends=nationalTrends.filter(trend=>selectedTrendCategory==='all'||(trend.category||'nigeria')===selectedTrendCategory);
+
+  if(selectedTrendCategory==='all'||selectedTrendCategory==='football'){
+    if(footballData.items&&footballData.items.length){
+      footballData.items.forEach(match=>{
+        const card=document.createElement('article');card.className='trending-card football-score';
+        const top=document.createElement('div');top.className='score-top';
+        const league=document.createElement('span');league.textContent=(match.league||'Football')+(match.country?' · '+match.country:'');
+        const status=document.createElement('span');status.textContent=match.is_live?'● LIVE':(match.status||'Update');top.append(league,status);
+        const teams=document.createElement('div');teams.className='score-teams';
+        const home=document.createElement('div');home.className='score-team';home.textContent=match.home||'Home';
+        const away=document.createElement('div');away.className='score-team';away.textContent=match.away||'Away';
+        const score=document.createElement('div');score.className='score-num';score.textContent=(match.home_goals==null?'–':match.home_goals)+' : '+(match.away_goals==null?'–':match.away_goals);
+        teams.append(home,away,score);card.append(top,teams);
+        const minute=document.createElement('div');minute.className='trending-stats';minute.textContent=match.minute!=null?match.status+' · '+match.minute+"'":(match.status||'Match update');card.append(minute);trendingPanel.appendChild(card);
+      });
+    }else{
+      const note=document.createElement('div');note.className='football-note';
+      note.textContent=footballData.configured?(footballData.error||'No live fixtures are available right now.'):'Live scores are ready to connect. Add API_FOOTBALL_KEY to your .env file to show verified live scores.';
+      if(selectedTrendCategory==='football')trendingPanel.appendChild(note);
+    }
+  }
+
+  visibleTrends.forEach((trend,index)=>{
+    const card=document.createElement('article');
+    card.className='trending-card';
+    card.tabIndex=0;
+    card.setAttribute('role','link');
+    card.setAttribute('aria-label','Read Nigeria trend: '+(trend.title||'Trending topic'));
+    const thumb=document.createElement('div');
+    thumb.className='trending-thumb trending-thumb-placeholder';
+    thumb.textContent='↗';
+    card.appendChild(thumb);
+    const copy=document.createElement('div');copy.className='trending-copy';
+    const tag=document.createElement('div');tag.className='trending-tag';
+    tag.textContent=trend.source_type==='Google Trends'?'Search trend':(trend.category==='football'?'Football news':(trend.category==='politics'?'Politics':(trend.category==='fashion'?'Fashion & lifestyle':(trend.category==='food'?'Food & culture':(trend.category==='entertainment'?'Entertainment':(trend.category==='business-tech'?'Business & tech':'Nigeria trending'))))));
+    const title=document.createElement('div');title.className='trending-business';
+    title.textContent=trend.title||'Trending topic';
+    const summary=document.createElement('div');summary.className='trending-caption';
+    summary.textContent=trend.summary||'Open the source to read the latest update.';
+    const stats=document.createElement('div');stats.className='trending-stats';
+    stats.textContent=trend.source||'Nigeria-wide source';
+    copy.append(tag,title,summary,stats);card.appendChild(copy);
+    const openTrend=()=>window.open(trend.url,'_blank','noopener,noreferrer');
+    card.addEventListener('click',openTrend);
+    card.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openTrend();}});
+    trendingPanel.appendChild(card);
+  });
+
+  if(selectedTrendCategory!=='all'){
+    if(!visibleTrends.length && !(selectedTrendCategory==='football'&&footballData.items&&footballData.items.length)){
+      const empty=document.createElement('div');empty.className='trending-empty';empty.textContent='No '+selectedTrendCategory.replace('-', ' ')+' updates are available right now. Check back soon.';trendingPanel.appendChild(empty);
+    }
+    return;
+  }
+
+  const ranked=[...cards].sort((a,b)=>{
+    const likesA=parseInt(a.querySelector('.like-button span')?.textContent||'0',10);
+    const likesB=parseInt(b.querySelector('.like-button span')?.textContent||'0',10);
+    if(likesB!==likesA)return likesB-likesA;
+    const commentsA=a.querySelectorAll('.comment').length;
+    const commentsB=b.querySelectorAll('.comment').length;
+    return commentsB-commentsA;
+  });
+
+  if(ranked.length){
+    const heading=document.createElement('div');
+    heading.className='trending-tag';
+    heading.style.cssText='flex:0 0 100%;padding:5px 2px 3px;margin-top:5px';
+    heading.textContent='From the community';
+    trendingPanel.appendChild(heading);
+  }
+  if(!ranked.length&&!nationalTrends.length){
+    const empty=document.createElement('div');
+    empty.className='trending-empty';
+    empty.textContent='Nigeria-wide trends are temporarily unavailable. Community trends will appear as businesses share updates.';
+    trendingPanel.appendChild(empty);
+    return;
+  }
+  ranked.forEach((post,index)=>{
+    const name=post.querySelector('.biz-name')?.textContent.trim()||'Community post';
+    const caption=post.querySelector('.caption')?.textContent.trim()||'Explore this update from the community.';
+    const likes=parseInt(post.querySelector('.like-button span')?.textContent||'0',10);
+    const comments=post.querySelectorAll('.comment').length;
+    const media=post.querySelector('.media-grid img, .media-grid video');
+    const card=document.createElement('article');
+    card.className='trending-card';card.tabIndex=0;card.setAttribute('role','link');
+    card.setAttribute('aria-label','Open trending post by '+name);
+    if(media&&media.tagName==='IMG'&&media.getAttribute('src')){
+      const thumb=document.createElement('img');thumb.className='trending-thumb';thumb.src=media.getAttribute('src');thumb.alt='';thumb.loading='lazy';card.appendChild(thumb);
+    }else{
+      const thumb=document.createElement('div');thumb.className='trending-thumb trending-thumb-placeholder';thumb.textContent='✦';card.appendChild(thumb);
+    }
+    const copy=document.createElement('div');copy.className='trending-copy';
+    const tag=document.createElement('div');tag.className='trending-tag';tag.textContent=index===0&&!nationalTrends.length?'Popular now':'Community trending';
+    const business=document.createElement('div');business.className='trending-business';business.textContent=name;
+    const summary=document.createElement('div');summary.className='trending-caption';summary.textContent=caption;
+    const stats=document.createElement('div');stats.className='trending-stats';stats.textContent='♥ '+likes+'  ·  '+comments+' comment'+(comments===1?'':'s');
+    copy.append(tag,business,summary,stats);card.appendChild(copy);
+    const openPost=()=>post.scrollIntoView({behavior:'smooth',block:'start'});
+    card.addEventListener('click',openPost);
+    card.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openPost();}});
+    trendingPanel.appendChild(card);
+  });
+}
+document.querySelectorAll('.trend-category').forEach(btn=>btn.addEventListener('click',()=>{selectedTrendCategory=btn.dataset.trendCategory||'all';document.querySelectorAll('.trend-category').forEach(item=>item.classList.toggle('active',item===btn));buildTrending()}));
+function updateFeed(){const term=(search?.value||'').trim().toLowerCase();let shown=0;cards.forEach(card=>{const cat=card.dataset.category||'', text=card.dataset.search||'';const categoryMatch=selected==='all'||(selected==='food'&&/food|drink|restaurant|dining|catering/.test(cat))||(selected==='fashion'&&/fashion|beauty|clothing|style/.test(cat))||(selected==='tech'&&/tech|technology|software|digital|innovation/.test(cat))||(selected==='services'&&/service|repair|professional|logistics/.test(cat))||(selected==='products'&&/shop|retail|product|market|manufactur/.test(cat));const match=categoryMatch&&text.includes(term);card.hidden=!match;if(match)shown++;});if(count)count.textContent=shown+' post'+(shown===1?'':'s');if(noResults)noResults.hidden=shown!==0;}
+filters.forEach(btn=>btn.addEventListener('click',()=>{selected=btn.dataset.filter;filters.forEach(item=>item.classList.toggle('active',item===btn));updateFeed()}));search?.addEventListener('input',updateFeed);
+document.querySelectorAll('.like-button').forEach(button=>button.addEventListener('click',async()=>{try{const response=await fetch(button.dataset.url,{method:'POST',headers:{'X-Requested-With':'XMLHttpRequest'}});const data=await response.json();if(response.status===401){window.location.href=data.login_url;return}if(!data.ok){alert(data.error||'Could not update like.');return}button.classList.toggle('liked',data.liked);button.querySelector('span').textContent=data.count;buildTrending()}catch(e){alert('Could not update like. Please try again.')}}));
+document.querySelectorAll('.share-button').forEach(button=>button.addEventListener('click',async()=>{try{const response=await fetch(button.dataset.url,{method:'POST',headers:{'X-Requested-With':'XMLHttpRequest'}});const data=await response.json();if(!data.ok)throw new Error(data.error||'Share failed');if(navigator.share){await navigator.share({title:'THE ECOSYSTEM Showcase',url:data.url})}else if(navigator.clipboard){await navigator.clipboard.writeText(data.url);button.textContent='✓ Link copied'}else{window.prompt('Copy this link:',data.url)}}catch(e){if(e.name!=='AbortError')alert('Could not share this post right now.')}}));
+document.querySelectorAll('.comment-jump').forEach(button=>button.addEventListener('click',()=>{const target=document.getElementById(button.dataset.target);target?.scrollIntoView({behavior:'smooth',block:'center'});target?.querySelector('input')?.focus()}));
+updateFeed();
+buildTrending();
+</script>
+</body>
+</html>

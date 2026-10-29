@@ -1,0 +1,1956 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505">
+    <meta name="description" content="Discover businesses, brands, restaurants, services and places across Nigeria.">
+
+    <title>Businesses | THE ECOSYSTEM</title>
+
+    <style>
+        :root {
+            --bg: #050505;
+            --panel: rgba(255, 255, 255, 0.025);
+            --red: #e00000;
+            --red-bright: #ff3030;
+            --text: #ffffff;
+            --muted: rgba(255, 255, 255, 0.45);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 25px;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            border-radius: 50%;
+            filter: blur(90px);
+        }
+
+        body::before {
+            width: 750px;
+            height: 750px;
+            top: -320px;
+            right: -250px;
+            background: radial-gradient(
+                circle,
+                rgba(150, 0, 0, 0.22),
+                transparent 70%
+            );
+        }
+
+        body::after {
+            width: 600px;
+            height: 600px;
+            bottom: -300px;
+            left: -250px;
+            background: radial-gradient(
+                circle,
+                rgba(100, 0, 0, 0.14),
+                transparent 70%
+            );
+        }
+
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button,
+        a,
+        select {
+            touch-action: manipulation;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            width: 100%;
+            min-height: 76px;
+            padding: 22px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.08);
+        }
+
+        .logo {
+            color: var(--red);
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .location {
+            color: rgba(255, 80, 80, 0.65);
+            font-size: 10px;
+            letter-spacing: 0.2em;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.65);
+            text-decoration: none;
+            font-size: 10px;
+            letter-spacing: 0.17em;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--red-bright);
+        }
+
+        /* MAIN */
+
+        main {
+            width: min(1200px, 88%);
+            margin: auto;
+            padding: 75px 0 100px;
+        }
+
+        /* PAGE HEADER */
+
+        .page-label {
+            margin-bottom: 22px;
+            color: rgba(255, 70, 70, 0.75);
+            font-size: 10px;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 300;
+            line-height: 1.03;
+            letter-spacing: -0.055em;
+        }
+
+        .page-title span {
+            background: linear-gradient(
+                120deg,
+                #680000,
+                #ff2525,
+                #9d0000,
+                #ff4444,
+                #580000
+            );
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: redFlow 7s linear infinite;
+        }
+
+        .description {
+            max-width: 650px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        /* SEARCH */
+
+        .search {
+            display: flex;
+            align-items: stretch;
+            width: min(800px, 100%);
+            min-height: 58px;
+            margin-top: 38px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.025);
+            transition: border-color 0.3s;
+        }
+
+        .search:focus-within {
+            border-color: rgba(255, 35, 35, 0.6);
+        }
+
+        .search input[type="search"] {
+            flex: 1;
+            width: 0;
+            min-width: 0;
+            padding: 18px;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: white;
+            font-size: 13px;
+        }
+
+        .search input[type="search"]::placeholder {
+            color: rgba(255, 255, 255, 0.32);
+        }
+
+        .search input[type="search"]::-webkit-search-cancel-button {
+            cursor: pointer;
+        }
+
+        .search-button {
+            flex-shrink: 0;
+            padding: 0 28px;
+            border: none;
+            background: #8d0000;
+            color: white;
+            cursor: pointer;
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            transition: background 0.3s;
+        }
+
+        .search-button:hover {
+            background: #b00000;
+        }
+
+        .clear-search {
+            display: inline-flex;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: center;
+            padding: 0 14px;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-size: 9px;
+            letter-spacing: 0.08em;
+            transition: color 0.25s;
+        }
+
+        .clear-search:hover {
+            color: #ff5555;
+        }
+
+        .search input:focus-visible,
+        .search-button:focus-visible,
+        .clear-search:focus-visible {
+            outline: 2px solid #ff3030;
+            outline-offset: -3px;
+        }
+
+        /* ACTIVE SEARCH INFORMATION */
+
+        .active-search-info {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .active-search-label {
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 9px;
+            letter-spacing: 0.12em;
+        }
+
+        .active-search-term {
+            max-width: 100%;
+            padding: 7px 10px;
+            overflow-wrap: anywhere;
+            border: 1px solid rgba(255, 40, 40, 0.2);
+            background: rgba(130, 0, 0, 0.12);
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 10px;
+        }
+
+        .clear-all-link {
+            color: #ff6565;
+            text-decoration: none;
+            font-size: 9px;
+            letter-spacing: 0.08em;
+            transition: color 0.25s;
+        }
+
+        .clear-all-link:hover {
+            color: white;
+        }
+
+        /* FILTERS AND SORTING */
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 24px;
+            margin-top: 28px;
+        }
+
+        .filters {
+            display: flex;
+            flex: 1;
+            flex-wrap: wrap;
+            gap: 9px;
+            min-width: 0;
+        }
+
+        .filter {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 38px;
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: rgba(255, 255, 255, 0.55);
+            text-decoration: none;
+            font-size: 9px;
+            letter-spacing: 0.08em;
+            transition:
+                color 0.25s,
+                background 0.25s,
+                border-color 0.25s;
+        }
+
+        .filter:hover,
+        .filter.active {
+            border-color: rgba(220, 0, 0, 0.5);
+            background: rgba(140, 0, 0, 0.15);
+            color: white;
+        }
+
+        .filter.active {
+            box-shadow: inset 0 -2px 0 rgba(255, 45, 45, 0.65);
+        }
+
+        .sort-wrap {
+            display: flex;
+            flex-shrink: 0;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sort-label {
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 9px;
+            letter-spacing: 0.15em;
+        }
+
+        .sort-select {
+            max-width: 190px;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            outline: none;
+            background: #0c0c0c;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .sort-select:focus {
+            border-color: rgba(220, 0, 0, 0.5);
+        }
+
+        .sort-select option {
+            background: #0c0c0c;
+            color: white;
+        }
+
+        /* DIRECTORY */
+
+        .section {
+            margin-top: 70px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            letter-spacing: 0.23em;
+            text-transform: uppercase;
+        }
+
+        .section-note {
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .business-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        /* BUSINESS CARDS */
+
+        .business-card {
+            position: relative;
+            display: flex;
+            min-width: 0;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            background: #090909;
+            color: white;
+            text-decoration: none;
+            isolation: isolate;
+            transform: translateY(0);
+            transition:
+                transform 0.35s ease,
+                border-color 0.35s ease,
+                box-shadow 0.35s ease;
+            animation: cardReveal 0.6s both;
+        }
+
+        .business-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255, 30, 30, 0.48);
+            box-shadow: 0 15px 45px rgba(150, 0, 0, 0.13);
+        }
+
+        .business-card:focus-visible,
+        .filter:focus-visible,
+        .nav-link:focus-visible,
+        .logo:focus-visible,
+        .cta-button:focus-visible,
+        .reset-link:focus-visible {
+            outline: 2px solid #ff3030;
+            outline-offset: 4px;
+        }
+
+        /* IMAGE AREA */
+
+        .business-visual {
+            position: relative;
+            height: 225px;
+            overflow: hidden;
+            background:
+                radial-gradient(
+                    ellipse at 80% 15%,
+                    rgba(255, 25, 25, 0.25),
+                    transparent 45%
+                ),
+                linear-gradient(
+                    145deg,
+                    #260707,
+                    #100909 55%,
+                    #050505
+                );
+            isolation: isolate;
+        }
+
+        .business-visual::before {
+            content: "";
+            position: absolute;
+            width: 210px;
+            height: 210px;
+            top: -95px;
+            right: -65px;
+            border: 1px solid rgba(255, 80, 80, 0.16);
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 25px rgba(255, 50, 50, 0.025),
+                0 0 0 55px rgba(255, 50, 50, 0.025);
+            transition: transform 0.6s ease;
+            pointer-events: none;
+        }
+
+        .business-card:hover .business-visual::before {
+            transform: scale(1.12) rotate(12deg);
+        }
+
+        .business-visual::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0.02) 30%,
+                rgba(0, 0, 0, 0.62) 100%
+            );
+            pointer-events: none;
+        }
+
+        .business-photo {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.88;
+            transform: scale(1);
+            transition:
+                transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+                opacity 0.4s ease;
+        }
+
+        .business-card:hover .business-photo {
+            transform: scale(1.07);
+            opacity: 1;
+        }
+
+        .business-number {
+            position: absolute;
+            top: 17px;
+            right: 17px;
+            z-index: 2;
+            padding: 8px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.48);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 9px;
+            letter-spacing: 0.13em;
+            backdrop-filter: blur(8px);
+        }
+
+        .visual-category {
+            position: absolute;
+            bottom: 17px;
+            left: 19px;
+            z-index: 2;
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        /* PHOTO-LESS FALLBACK */
+
+        .visual-fallback {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .fallback-orbit {
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            border: 1px solid rgba(255, 60, 60, 0.2);
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 22px rgba(255, 50, 50, 0.025),
+                0 0 0 45px rgba(255, 50, 50, 0.025);
+            transition: transform 0.6s ease;
+        }
+
+        .business-card:hover .fallback-orbit {
+            transform: scale(1.12) rotate(15deg);
+        }
+
+        .fallback-letter {
+            position: relative;
+            z-index: 1;
+            color: rgba(255, 255, 255, 0.88);
+            font-size: clamp(4rem, 7vw, 6rem);
+            font-weight: 300;
+            letter-spacing: -0.08em;
+            text-shadow: 0 0 40px rgba(255, 0, 0, 0.25);
+        }
+
+        .fallback-accent {
+            position: absolute;
+            width: 90px;
+            height: 2px;
+            bottom: 57px;
+            left: 19px;
+            z-index: 2;
+            background: linear-gradient(
+                90deg,
+                #ff3030,
+                transparent
+            );
+        }
+
+        /* BUSINESS DETAILS */
+
+        .business-content {
+            position: relative;
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 23px;
+            background: linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.015),
+                rgba(100, 0, 0, 0.055)
+            );
+        }
+
+        .business-tag {
+            margin-bottom: 11px;
+            color: rgba(255, 75, 75, 0.85);
+            font-size: 9px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .business-card h3 {
+            margin-bottom: 9px;
+            overflow-wrap: anywhere;
+            font-size: 23px;
+            font-weight: 400;
+            line-height: 1.25;
+            transition: color 0.3s;
+        }
+
+        .business-card:hover h3 {
+            color: #ff5555;
+        }
+
+        .business-location {
+            margin-bottom: 13px;
+            color: rgba(255, 255, 255, 0.42);
+            font-size: 10px;
+            letter-spacing: 0.07em;
+            line-height: 1.6;
+        }
+
+        .business-description {
+            display: -webkit-box;
+            min-height: 40px;
+            overflow: hidden;
+            max-width: 300px;
+            color: rgba(255, 255, 255, 0.53);
+            font-size: 12px;
+            line-height: 1.7;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        /* RATINGS */
+
+        .business-rating {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .stars {
+            color: #ff4545;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .rating-number {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .rating-count {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 9px;
+        }
+
+        .no-rating {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 9px;
+            letter-spacing: 0.08em;
+        }
+
+        .view-business {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 22px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            color: rgba(255, 70, 70, 0.9);
+            font-size: 9px;
+            letter-spacing: 0.16em;
+            transition:
+                color 0.3s,
+                letter-spacing 0.3s;
+        }
+
+        .view-business-arrow {
+            font-size: 15px;
+            transition: transform 0.3s;
+        }
+
+        .business-card:hover .view-business {
+            color: #ff5555;
+            letter-spacing: 0.2em;
+        }
+
+        .business-card:hover .view-business-arrow {
+            transform: translateX(4px);
+        }
+
+        /* EMPTY RESULTS */
+
+        .no-results {
+            padding: 65px 22px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.015);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.45);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .no-results strong {
+            display: block;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        .reset-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #ff5555;
+            text-decoration: none;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            transition: color 0.25s;
+        }
+
+        .reset-link:hover {
+            color: white;
+        }
+
+        /* BUSINESS SUBMISSION CTA */
+
+        .business-cta {
+            position: relative;
+            margin-top: 80px;
+            padding: 44px;
+            overflow: hidden;
+            border: 1px solid rgba(170, 0, 0, 0.27);
+            background: linear-gradient(
+                120deg,
+                rgba(100, 0, 0, 0.18),
+                rgba(255, 255, 255, 0.015)
+            );
+        }
+
+        .business-cta::after {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            top: -150px;
+            right: -70px;
+            border-radius: 50%;
+            background: radial-gradient(
+                circle,
+                rgba(220, 0, 0, 0.17),
+                transparent 70%
+            );
+            pointer-events: none;
+        }
+
+        .cta-label {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 15px;
+            color: rgba(255, 70, 70, 0.8);
+            font-size: 10px;
+            letter-spacing: 0.27em;
+        }
+
+        .business-cta h2 {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 15px;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            line-height: 1.15;
+        }
+
+        .business-cta p {
+            position: relative;
+            z-index: 1;
+            max-width: 650px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        .cta-button {
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            margin-top: 25px;
+            padding: 15px 22px;
+            background: #8d0000;
+            color: white;
+            text-decoration: none;
+            font-size: 10px;
+            letter-spacing: 0.13em;
+            transition:
+                background 0.3s,
+                transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            background: #b00000;
+        }
+
+        /* FOOTER */
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 100px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 10px;
+            letter-spacing: 0.1em;
+        }
+
+        /* ANIMATIONS */
+
+        @keyframes redFlow {
+            0% {
+                background-position: 0% center;
+            }
+
+            50% {
+                background-position: 100% center;
+            }
+
+            100% {
+                background-position: 0% center;
+            }
+        }
+
+        @keyframes cardReveal {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        {% for business in businesses %}
+        .business-card:nth-child({{ loop.index }}) {
+            animation-delay: {{ (loop.index0 * 0.07)|round(2) }}s;
+        }
+        {% endfor %}
+
+        /* TABLET */
+
+        @media (max-width: 1000px) {
+            .business-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .sort-wrap {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .sort-select {
+                flex: 1;
+                max-width: 280px;
+            }
+
+            .business-visual {
+                height: 215px;
+            }
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+            nav {
+                min-height: 65px;
+                padding: 19px 5%;
+            }
+
+            .logo {
+                font-size: 12px;
+                letter-spacing: 0.13em;
+            }
+
+            .nav-right {
+                gap: 15px;
+            }
+
+            .location {
+                display: none;
+            }
+
+            .nav-link {
+                font-size: 9px;
+            }
+
+            main {
+                width: 90%;
+                padding-top: 52px;
+            }
+
+            .page-label {
+                font-size: 9px;
+                letter-spacing: 0.24em;
+            }
+
+            .page-title {
+                font-size: clamp(2.8rem, 13vw, 4.5rem);
+            }
+
+            .description {
+                font-size: 13px;
+            }
+
+            .search {
+                flex-direction: row;
+                flex-wrap: wrap;
+                overflow: visible;
+                border: none;
+                background: transparent;
+                gap: 9px;
+            }
+
+            .search input[type="search"] {
+                flex: 1 1 100%;
+                width: 100%;
+                min-height: 53px;
+                border: 1px solid rgba(255, 0, 0, 0.2);
+                background: rgba(255, 255, 255, 0.025);
+            }
+
+            .search-button {
+                flex: 1;
+                min-height: 49px;
+            }
+
+            .clear-search {
+                min-height: 49px;
+                padding: 0 17px;
+                border: 1px solid var(--border);
+                background: rgba(255, 255, 255, 0.025);
+            }
+
+            .active-search-info {
+                align-items: flex-start;
+            }
+
+            .filters {
+                gap: 8px;
+            }
+
+            .filter {
+                min-height: 36px;
+                padding: 10px 12px;
+                font-size: 9px;
+            }
+
+            .sort-wrap {
+                gap: 12px;
+            }
+
+            .sort-select {
+                max-width: none;
+                min-height: 42px;
+            }
+
+            .section {
+                margin-top: 52px;
+            }
+
+            .section-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .business-grid {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 16px;
+            }
+
+            .business-visual {
+                height: 230px;
+            }
+
+            .business-content {
+                padding: 23px;
+            }
+
+            .business-card h3 {
+                font-size: 22px;
+            }
+
+            .fallback-letter {
+                font-size: 5rem;
+            }
+
+            .no-results {
+                padding: 48px 18px;
+            }
+
+            .business-cta {
+                margin-top: 60px;
+                padding: 28px 23px;
+            }
+
+            .business-cta p {
+                font-size: 12px;
+            }
+
+            .cta-button {
+                width: 100%;
+                padding: 16px;
+                text-align: center;
+                line-height: 1.5;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 12px;
+                margin-top: 75px;
+                font-size: 9px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    
+
+/* DISCOVER-MATCHED VISUAL SYSTEM: bold white type, green ambience, restrained red accent. */
+:root {
+  --bg: #080909 !important;
+  --panel: #111413 !important;
+  --panel-soft: #171b18 !important;
+  --green: #80C995 !important;
+  --red: #E6333E !important;
+  --white: #FFFFFF !important;
+  --muted: #A9B0AA !important;
+  --line: rgba(255,255,255,.11) !important;
+  --text: #FFFFFF !important;
+  --border: rgba(255,255,255,.11) !important;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg) !important; }
+body {
+  background-color: var(--bg) !important;
+  background-image:
+    radial-gradient(ellipse at 8% 4%, rgba(128,201,149,.13) 0, rgba(128,201,149,.045) 23%, transparent 48%),
+    radial-gradient(ellipse at 94% 32%, rgba(128,201,149,.085) 0, transparent 38%),
+    radial-gradient(ellipse at 50% 100%, rgba(230,51,62,.035) 0, transparent 48%) !important;
+  color: var(--white) !important;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif !important;
+}
+/* No fixed pseudo-element layers: nothing can cover or block the interface. */
+body::before, body::after { content: none !important; display: none !important; }
+nav, header { border-color: var(--line) !important; }
+.logo, .ecosystem-link { color: var(--white) !important; font-weight: 850 !important; letter-spacing: .16em !important; }
+.logo span, .ecosystem-link span { color: var(--green) !important; }
+.nav-link, .back, .home-link, .forgot-link, .register-link, .admin-link { transition: color .2s ease, border-color .2s ease !important; }
+.nav-link:hover, .back:hover, .home-link:hover, .forgot-link:hover, .register-link:hover, .admin-link:hover { color: var(--green) !important; }
+.page-label, .eyebrow, .intro .eyebrow, .about-label, .coming-label, .entry-tag, .entry-type, .label, .pending-label, .info-label, .nav-location, .location {
+  color: var(--green) !important; font-weight: 850 !important; letter-spacing: .15em !important; text-transform: uppercase;
+}
+h1, h2, h3, .page-title, .hero h1, .hero-title, .section-title, .business-name, .pending-title, .about-card h2, .entry-card h3 {
+  color: var(--white); font-weight: 850 !important; letter-spacing: -.04em !important;
+}
+.page-title span, .hero h1 span, .hero-title span, .accent, .red, .highlight, .competition-id {
+  color: var(--red) !important; background: none !important; -webkit-text-fill-color: var(--red) !important;
+  text-shadow: 0 0 24px rgba(230,51,62,.12);
+}
+.description, .intro p, .hint, .pending-text, .business-description, .about-card p, .entry-meta, .section-note, .info-value, .field small {
+  color: var(--muted) !important; line-height: 1.8;
+}
+.panel, .container, .form-card, .about-card, .about, .claim-details, .pending-card, .user-info, .entry-card, .business-card, .hero, .coming-soon, .info-box, .steps, .controls, .search, .filters, .sort-wrap {
+  border-color: var(--line) !important; border-radius: 14px !important;
+}
+.panel, .container, .form-card, .about-card, .claim-details, .pending-card, .user-info, .entry-card, .business-card, .coming-soon, .info-box, .steps {
+  background-color: rgba(17,20,19,.94) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025), 0 12px 38px rgba(0,0,0,.16) !important;
+}
+.business-card:hover, .entry-card:hover, .about-card:hover { border-color: rgba(128,201,149,.48) !important; transform: translateY(-2px); }
+input, select, textarea, .field input, .field select, .field textarea {
+  background: #0b0e0c !important; color: var(--white) !important; border: 1px solid var(--line) !important; border-radius: 9px !important;
+}
+input::placeholder, textarea::placeholder { color: #737b75 !important; }
+input:focus, select:focus, textarea:focus { outline: none !important; border-color: var(--green) !important; box-shadow: 0 0 0 3px rgba(128,201,149,.09) !important; }
+button, .submit-btn, .login-button, .action-button, .cta-button, .vote-button, .view-business, .business-cta {
+  border: 1px solid rgba(128,201,149,.65) !important; border-radius: 9px !important;
+  background: var(--white) !important; color: #237744 !important; font-weight: 850 !important; transition: background .2s ease, color .2s ease, transform .2s ease !important;
+}
+button:hover, .submit-btn:hover, .login-button:hover, .action-button:hover, .cta-button:hover, .vote-button:hover, .view-business:hover, .business-cta:hover {
+  background: var(--green) !important; color: #08100b !important; transform: translateY(-1px);
+}
+button:disabled, .disabled-button, .coming-soon button { opacity: .55; cursor: not-allowed; }
+.filter, .category, .status, .business-tag, .visual-category, .rank, .step {
+  border-color: rgba(128,201,149,.22) !important; background: rgba(128,201,149,.075) !important; color: #dff2e4 !important;
+}
+.filter:hover, .filter.active, .status.active { border-color: rgba(128,201,149,.6) !important; background: rgba(128,201,149,.14) !important; color: var(--white) !important; }
+.stars, .rating-number, .business-rating, .vote-count { color: var(--green) !important; }
+.error { border-color: rgba(230,51,62,.35) !important; background: rgba(230,51,62,.075) !important; color: #ff9da3 !important; }
+.info-box, .hint { border-color: rgba(128,201,149,.2) !important; }
+::selection { background: rgba(128,201,149,.3); color: white; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--green) !important; outline-offset: 3px !important; }
+@media (max-width: 650px) {
+  body { background-image: radial-gradient(ellipse at 5% 0%, rgba(128,201,149,.11), transparent 45%), radial-gradient(ellipse at 95% 45%, rgba(128,201,149,.06), transparent 38%) !important; }
+  .page-title, h1 { font-weight: 850 !important; }
+}
+
+/* FIX: keep the View Business action and submission panel on the standard green. */
+.business-content .view-business {
+  display: flex !important;
+  width: 100% !important;
+  min-height: 44px !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-top: 22px !important;
+  padding: 12px 14px !important;
+  border: 1px solid #80C995 !important;
+  border-radius: 8px !important;
+  border-top: 1px solid #80C995 !important;
+  background: #80C995 !important;
+  color: #08100b !important;
+  font-weight: 850 !important;
+  letter-spacing: .12em !important;
+  transition: none !important;
+}
+.business-content .view-business:hover,
+.business-card:hover .view-business {
+  background: #80C995 !important;
+  color: #08100b !important;
+  border-color: #80C995 !important;
+  letter-spacing: .12em !important;
+  transform: none !important;
+}
+.business-content .view-business-arrow,
+.business-card:hover .view-business-arrow {
+  color: #08100b !important;
+  transform: none !important;
+  transition: none !important;
+}
+.business-cta {
+  border: 1px solid rgba(128,201,149,.45) !important;
+  background: linear-gradient(135deg, rgba(128,201,149,.13), rgba(17,20,19,.96) 72%) !important;
+  box-shadow: inset 0 1px 0 rgba(128,201,149,.08) !important;
+  transition: none !important;
+}
+.business-cta:hover {
+  border-color: rgba(128,201,149,.45) !important;
+  background: linear-gradient(135deg, rgba(128,201,149,.13), rgba(17,20,19,.96) 72%) !important;
+  color: inherit !important;
+  transform: none !important;
+}
+
+
+
+/* DISCOVER PAGE DESIGN SYSTEM — final consistent overrides */
+:root {
+  --eco-bg: #080909;
+  --eco-panel: #111413;
+  --eco-panel-soft: #171b18;
+  --eco-green: #80C995;
+  --eco-red: #E6333E;
+  --eco-white: #FFFFFF;
+  --eco-muted: #A9B0AA;
+  --eco-line: rgba(255,255,255,.11);
+}
+html { background: var(--eco-bg) !important; scroll-behavior: smooth; }
+body {
+  background-color: var(--eco-bg) !important;
+  background-image:
+    radial-gradient(ellipse at 8% 3%, rgba(128,201,149,.105) 0, rgba(128,201,149,.035) 24%, transparent 48%),
+    radial-gradient(ellipse at 94% 34%, rgba(128,201,149,.065) 0, transparent 39%) !important;
+  color: var(--eco-white) !important;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif !important;
+}
+body::before, body::after { pointer-events:none !important; }
+nav, header, footer { border-color: var(--eco-line) !important; }
+.logo, .ecosystem-link { color: var(--eco-white) !important; font-weight: 850 !important; letter-spacing: .16em !important; }
+.logo span, .ecosystem-link span { color: var(--eco-green) !important; }
+.location, .nav-location, .page-label, .eyebrow, .label, .about-label, .coming-label,
+.featured-label, .business-category, .card-tag, .entry-tag, .pending-label, .info-label,
+.form-section-title span, .business-category, .category-label {
+  color: var(--eco-green) !important; font-weight: 800 !important;
+}
+h1, h2, h3, h4, .page-title, .section-title, .hero-title, .business-name, .pending-title,
+.about-card h2, .entry-card h3, .card-title, .form-section-title {
+  color: var(--eco-white) !important; font-weight: 850 !important; letter-spacing: -.035em !important;
+}
+.page-title span, .hero h1 span, .hero-title span, .accent, .highlight, .competition-id {
+  color: var(--eco-red) !important; background: none !important; -webkit-text-fill-color: var(--eco-red) !important;
+}
+p, .description, .intro, .hero p, .business-location, .hint, .field-note, .pending-text,
+.about-card p, .coming-soon p, .entry-card p { color: var(--eco-muted) !important; }
+a { -webkit-tap-highlight-color: transparent; }
+.nav-link, .back, .quick-link, .clear-search, .clear-all-link { transition: color .2s ease, border-color .2s ease !important; }
+.nav-link:hover, .back:hover, .quick-link:hover, .clear-search:hover, .clear-all-link:hover { color: var(--eco-green) !important; }
+/* Cards stay near-black, not saturated green gradients. */
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card, .creator-card,
+.event-card, .plan, .stat, .success-card, .featured, .featured-creator, .profile-card,
+.content-card, .result-card, .local-card, .business-card, .place-card, .service-card,
+.listing-card, .meta-item, .dashboard-card, .about-card, .entry-card, .pending-card,
+.business-preview, .business-cta, .location-banner, .coming-soon, .hero, .form-card {
+  background-color: var(--eco-panel) !important;
+  background-image: linear-gradient(145deg, rgba(128,201,149,.035), rgba(17,20,19,.98) 70%) !important;
+  border-color: var(--eco-line) !important;
+  color: var(--eco-white) !important;
+  box-shadow: none;
+}
+.local-card:hover, .card:hover, .business-card:hover, .entry-card:hover, .quick-link:hover {
+  border-color: rgba(128,201,149,.45) !important;
+}
+input, select, textarea {
+  background-color: #0b0e0c !important; color: var(--eco-white) !important;
+  border-color: rgba(255,255,255,.14) !important;
+}
+input::placeholder, textarea::placeholder { color: rgba(255,255,255,.38) !important; }
+input:focus, select:focus, textarea:focus {
+  border-color: var(--eco-green) !important; outline: none !important;
+  box-shadow: 0 0 0 3px rgba(128,201,149,.09) !important;
+}
+select option { background: #0b0e0c !important; color: #fff !important; }
+/* Standard Discover-style action treatment. */
+button, .submit-btn, .login-button, .action-button, .save-button, .vote-button,
+.cta-button, .search-button, .quick-action, .form-button {
+  border: 1px solid rgba(128,201,149,.65) !important;
+  border-radius: 8px !important;
+  background: #FFFFFF !important; color: #237744 !important;
+  font-weight: 850 !important;
+  transition: background .2s ease, color .2s ease, border-color .2s ease !important;
+}
+button:hover, .submit-btn:hover, .login-button:hover, .action-button:hover, .save-button:hover,
+.vote-button:hover, .cta-button:hover, .search-button:hover, .quick-action:hover, .form-button:hover {
+  background: var(--eco-green) !important; color: #08100b !important;
+  border-color: var(--eco-green) !important; transform: none !important;
+}
+.filter, .category, .status, .business-tag, .entry-tag, .step, .number {
+  border-color: rgba(128,201,149,.24) !important;
+}
+.filter:hover, .filter.active, .status.active { border-color: rgba(128,201,149,.55) !important; background: rgba(128,201,149,.10) !important; }
+.error, .flash.error { border-color: rgba(230,51,62,.38) !important; background: rgba(230,51,62,.07) !important; color: #ff9da3 !important; }
+.flash.success, .success { border-color: rgba(128,201,149,.35) !important; color: #b8f0c8 !important; }
+::selection { background: rgba(128,201,149,.28); color: #fff; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--eco-green) !important; outline-offset: 3px !important; }
+@media (max-width: 700px) {
+  body { background-image: radial-gradient(ellipse at 5% 0%, rgba(128,201,149,.09), transparent 46%) !important; }
+  .page, main { max-width: 100%; }
+  .field-grid, .user-info { grid-template-columns: 1fr !important; }
+  .manage-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Keep View Business and its supporting CTA static, using the requested standard green. */
+.business-content .view-business, .view-business {
+  display:flex !important; width:100% !important; min-height:44px !important;
+  align-items:center !important; justify-content:space-between !important;
+  margin-top:22px !important; padding:12px 14px !important;
+  background:#008000 !important; color:#fff !important; border:1px solid #008000 !important;
+  border-radius:8px !important; font-weight:850 !important; transition:none !important;
+  transform:none !important;
+}
+.business-content .view-business:hover, .view-business:hover, .business-card:hover .view-business {
+  background:#008000 !important; color:#fff !important; border-color:#008000 !important;
+  transform:none !important; box-shadow:none !important;
+}
+.business-content .view-business-arrow, .business-card:hover .view-business-arrow { color:#fff !important; transform:none !important; transition:none !important; }
+.business-cta { background:#111413 !important; border:1px solid #008000 !important; color:#fff !important; }
+
+/* VIEW BUSINESS — clean rectangular button, no arrow */
+.business-content .view-business,
+.view-business {
+    display: flex !important;
+    width: 100% !important;
+    min-height: 46px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-top: 22px !important;
+    padding: 13px 18px !important;
+    border: 1px solid #80C995 !important;
+    border-radius: 4px !important;
+    border-top: 1px solid #80C995 !important;
+    background: #FFFFFF !important;
+    color: #237744 !important;
+    font-size: 10px !important;
+    font-weight: 850 !important;
+    letter-spacing: .12em !important;
+    line-height: 1.2 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    transition: background .2s ease, border-color .2s ease !important;
+}
+.business-content .view-business:hover,
+.view-business:hover,
+.business-card:hover .view-business {
+    background: #FFFFFF !important;
+    color: #237744 !important;
+    border-color: #80C995 !important;
+    letter-spacing: .12em !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+.view-business-arrow { display: none !important; }
+
+
+        /* MATURE ECOSYSTEM BUSINESS DIRECTORY THEME */
+        :root {
+            --eco-bg: #080d0a;
+            --eco-panel: #101813;
+            --eco-panel-soft: #141e17;
+            --eco-green: #77d69a;
+            --eco-green-strong: #35b96e;
+            --eco-red: #e6333e;
+            --eco-text: #f4f8f5;
+            --eco-muted: #a5b2a9;
+            --eco-line: rgba(174, 211, 187, .14);
+        }
+        html { background: var(--eco-bg) !important; }
+        body {
+            background-color: var(--eco-bg) !important;
+            background-image:
+                radial-gradient(ellipse at 9% 0%, rgba(53,185,110,.12), transparent 36%),
+                radial-gradient(ellipse at 95% 38%, rgba(53,185,110,.055), transparent 34%) !important;
+            color: var(--eco-text) !important;
+            font-family: Inter, "Segoe UI", Arial, sans-serif !important;
+        }
+        body::before, body::after { pointer-events: none !important; }
+        nav, footer { border-color: var(--eco-line) !important; }
+        nav { background: rgba(8,13,10,.88); backdrop-filter: blur(18px); }
+        .logo { color: var(--eco-text) !important; font-weight: 850; letter-spacing: .15em; }
+        .logo span, .location, .page-label, .section-title, .cta-label { color: var(--eco-green) !important; }
+        .nav-link { color: #c1cec5; }
+        .nav-link:hover { color: var(--eco-green) !important; }
+        .page-title { color: #f6faf7; font-weight: 800; letter-spacing: -.055em; }
+        .page-title span {
+            background: linear-gradient(120deg, #b7f1ca, #55cb85, #a1e8b8) !important;
+            background-size: 200% auto !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            animation: ecoGreenFlow 10s ease-in-out infinite !important;
+        }
+        .description, .section-note { color: var(--eco-muted) !important; }
+        .search { border-color: var(--eco-line) !important; border-radius: 12px; background: rgba(17,24,19,.88) !important; }
+        .search:focus-within { border-color: rgba(119,214,154,.72) !important; box-shadow: 0 0 0 4px rgba(119,214,154,.06); }
+        .search input[type="search"] { color: var(--eco-text) !important; }
+        .search input[type="search"]::placeholder { color: #78877d !important; }
+        .search-button, .cta-button {
+            background: linear-gradient(135deg, #78d69a, #38b66e) !important;
+            color: #07130b !important; border: 1px solid #78d69a !important;
+            border-radius: 9px !important; font-weight: 850;
+        }
+        .search-button:hover, .cta-button:hover { background: #a2e8b8 !important; color: #07130b !important; }
+        .clear-search, .clear-all-link, .reset-link { color: var(--eco-green) !important; }
+        .active-search-term { border-color: rgba(119,214,154,.24) !important; background: rgba(119,214,154,.07) !important; border-radius: 8px; }
+        .filter { border-color: var(--eco-line) !important; border-radius: 999px; background: rgba(255,255,255,.018) !important; color: #bdc9c0 !important; }
+        .filter:hover, .filter.active { border-color: rgba(119,214,154,.62) !important; background: rgba(119,214,154,.11) !important; color: #f7fff9 !important; box-shadow: none !important; }
+        .sort-select { border-color: var(--eco-line) !important; border-radius: 9px; background: #101813 !important; color: #e7f0e9 !important; }
+        .sort-select:focus { border-color: var(--eco-green) !important; }
+        .business-card {
+            border: 1px solid var(--eco-line) !important; border-radius: 15px !important;
+            background: linear-gradient(155deg, #121a15, #0c110e 82%) !important;
+            box-shadow: 0 10px 28px rgba(0,0,0,.13) !important;
+        }
+        .business-card:hover { border-color: rgba(119,214,154,.48) !important; box-shadow: 0 18px 42px rgba(0,0,0,.27) !important; }
+        .business-visual { background: radial-gradient(ellipse at 80% 15%, rgba(65,185,112,.20), transparent 45%), linear-gradient(145deg,#14271b,#0b100d 70%) !important; }
+        .business-visual::before { border-color: rgba(119,214,154,.2) !important; box-shadow: 0 0 0 25px rgba(119,214,154,.025), 0 0 0 55px rgba(119,214,154,.018) !important; }
+        .fallback-orbit { border-color: rgba(119,214,154,.25) !important; box-shadow: 0 0 0 22px rgba(119,214,154,.025), 0 0 0 45px rgba(119,214,154,.018) !important; }
+        .fallback-letter { text-shadow: 0 0 40px rgba(53,185,110,.18) !important; }
+        .fallback-accent { background: linear-gradient(90deg, var(--eco-green), transparent) !important; }
+        .business-content { background: linear-gradient(180deg, rgba(255,255,255,.012), rgba(0,0,0,.12)) !important; padding: 22px !important; }
+        .business-tag, .visual-category { color: var(--eco-green) !important; }
+        .business-card h3 { color: var(--eco-text) !important; font-weight: 750 !important; letter-spacing: -.025em; }
+        .business-card:hover h3 { color: #a9e9bd !important; }
+        .business-location, .business-description { color: var(--eco-muted) !important; }
+        .stars, .rating-number { color: #8fe0aa !important; }
+        .rating-count, .no-rating { color: #829087 !important; }
+        .business-content .view-business, .view-business {
+            display: flex !important; width: 100% !important; min-height: 44px !important;
+            align-items: center !important; justify-content: center !important; margin-top: 20px !important;
+            padding: 12px 14px !important; border: 1px solid rgba(119,214,154,.65) !important;
+            border-radius: 9px !important; background: rgba(119,214,154,.09) !important;
+            color: #a9e9bd !important; font-size: 10px !important; font-weight: 850 !important;
+            letter-spacing: .1em !important; box-shadow: none !important; transform: none !important;
+        }
+        .business-content .view-business:hover, .view-business:hover, .business-card:hover .view-business {
+            background: var(--eco-green) !important; color: #08130b !important; border-color: var(--eco-green) !important;
+        }
+        .view-business-arrow { display: none !important; }
+        .no-results { border-color: var(--eco-line) !important; border-radius: 15px; background: rgba(16,24,19,.75) !important; color: var(--eco-muted) !important; }
+        .no-results strong { color: var(--eco-text) !important; }
+        .business-cta {
+            border: 1px solid rgba(119,214,154,.28) !important; border-radius: 17px !important;
+            background: radial-gradient(ellipse at 95% 0%, rgba(53,185,110,.12), transparent 43%), linear-gradient(135deg,#111b14,#0d120e) !important;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.025) !important;
+        }
+        .business-cta::after { background: radial-gradient(circle, rgba(53,185,110,.14), transparent 70%) !important; }
+        .business-cta h2 { color: var(--eco-text) !important; font-weight: 800 !important; letter-spacing: -.045em; }
+        .business-cta p { color: var(--eco-muted) !important; }
+        footer { color: #7f8d83 !important; }
+        footer div:first-child { color: #e9f3ec !important; font-weight: 800; }
+        a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--eco-green) !important; outline-offset: 3px !important; }
+        ::selection { background: rgba(119,214,154,.28); color: white; }
+        @keyframes ecoGreenFlow { 0%,100% { background-position: 0% center; } 50% { background-position: 100% center; } }
+        @media (prefers-reduced-motion: reduce) { .page-title span { animation: none !important; } .business-card { animation: none !important; transition: none !important; } }
+        @media (max-width: 600px) { .business-cta { border-radius: 14px !important; } .business-content { padding: 20px !important; } }
+
+
+/* Consistent, always-visible return-to-home control */
+.ecosystem-home-link{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:36px;padding:9px 13px;border:1px solid rgba(128,201,149,.42);border-radius:7px;background:rgba(128,201,149,.08);color:#f4faf6!important;font-size:10px;font-weight:800;letter-spacing:.12em;text-decoration:none;white-space:nowrap;transition:background .2s,border-color .2s,color .2s}
+.ecosystem-home-link:hover{border-color:#80C995;background:#80C995;color:#07110c!important}
+@media(max-width:620px){.ecosystem-home-link{min-height:34px;padding:8px 10px;font-size:9px}}
+
+    </style>
+
+<!-- THE ECOSYSTEM WORDMARK STANDARD: THE white, ECOSYSTEM red -->
+<style id="ecosystem-wordmark-standard">
+  .brand, .logo, .ecosystem-link-wordmark {
+    color: #FFFFFF !important;
+  }
+  .brand span, .logo span, .ecosystem-link-wordmark span {
+    color: #E6333E !important;
+    -webkit-text-fill-color: #E6333E !important;
+    background: none !important;
+    background-image: none !important;
+  }
+</style>
+
+</head>
+
+<body>
+    {% set page_location = (selected_state|default('')) or (home_state|default('')) or 'Nigeria' %}
+
+    <!-- NAVIGATION -->
+
+    <nav>
+        <a href="{{ url_for('home') }}" class="logo">
+            THE <span>ECOSYSTEM</span>
+        </a>
+
+        <div class="nav-right">
+
+            <a href="{{ url_for('home') }}" class="ecosystem-home-link" aria-label="Return to THE ECOSYSTEM homepage">⌂ HOME</a>
+            <div class="location">
+                {{ page_location|upper }} · NIGERIA
+            </div>
+
+            <a href="{{ url_for('local') }}" class="nav-link">
+                LOCAL
+            </a>
+        </div>
+    </nav>
+
+    <main>
+
+        <!-- PAGE HEADER -->
+
+        <section>
+            <div class="page-label">
+                BUSINESSES · {{ page_location|upper }}
+            </div>
+
+            <h1 class="page-title">
+                Find somewhere
+                <br>
+                <span>worth going.</span>
+            </h1>
+
+            <p class="description">
+                Discover businesses, brands and places
+                worth knowing around {{ page_location }}. Find your next
+                favourite spot, service or local business.
+            </p>
+
+            <!-- SEARCH -->
+
+            <form
+                class="search"
+                method="GET"
+                action="{{ url_for('businesses_page') }}"
+                role="search"
+            >
+                <input
+                    type="search"
+                    name="q"
+                    value="{{ search_query }}"
+                    placeholder="Try restaurants in Ibadan, hotels in Abuja, or fashion in Lagos..."
+                    aria-label="Search businesses"
+                    autocomplete="off"
+                >
+
+                {% if selected_category != "all" %}
+                    <input
+                        type="hidden"
+                        name="category"
+                        value="{{ selected_category }}"
+                    >
+                {% endif %}
+
+                <input
+                    type="hidden"
+                    name="sort"
+                    value="{{ sort_by }}"
+                >
+
+                {% if search_query %}
+                    <a
+                        class="clear-search"
+                        href="{{ url_for(
+                            'businesses_page',
+                            category=selected_category if selected_category != 'all' else none,
+                            sort=sort_by
+                        ) }}"
+                        aria-label="Clear search keyword"
+                    >
+                        CLEAR ×
+                    </a>
+                {% endif %}
+
+                <button type="submit" class="search-button">
+                    SEARCH →
+                </button>
+            </form>
+
+            <!-- ACTIVE SEARCH AND FILTER INFORMATION -->
+
+            {% if search_query or selected_category != "all" %}
+
+                <div class="active-search-info" aria-live="polite">
+
+                    <span class="active-search-label">
+                        ACTIVE FILTERS
+                    </span>
+
+                    {% if search_query %}
+                        <span class="active-search-term">
+                            SEARCH: {{ search_query }}
+                        </span>
+                    {% endif %}
+
+                    {% if selected_category != "all" %}
+                        <span class="active-search-term">
+                            CATEGORY:
+                            {{ selected_category|replace("-", " ")|title }}
+                        </span>
+                    {% endif %}
+
+                    <a
+                        class="clear-all-link"
+                        href="{{ url_for('businesses_page', sort=sort_by) }}"
+                    >
+                        CLEAR FILTERS ×
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+            <!-- CATEGORY FILTERS AND SORTING -->
+
+            <div class="controls">
+
+                <div
+                    class="filters"
+                    aria-label="Filter businesses by category"
+                >
+
+                    <a
+                        href="{{ url_for(
+                            'businesses_page',
+                            sort=sort_by,
+                            q=search_query if search_query else none
+                        ) }}"
+                        class="filter {% if selected_category == 'all' %}active{% endif %}"
+                        {% if selected_category == 'all' %}aria-current="page"{% endif %}
+                    >
+                        ALL
+                    </a>
+
+                    {% for category in categories %}
+
+                        <a
+                            href="{{ url_for(
+                                'businesses_page',
+                                category=category.slug,
+                                sort=sort_by,
+                                q=search_query if search_query else none
+                            ) }}"
+                            class="filter {% if selected_category == category.slug %}active{% endif %}"
+                            {% if selected_category == category.slug %}aria-current="page"{% endif %}
+                        >
+                            {{ category.name }}
+                        </a>
+
+                    {% endfor %}
+
+                </div>
+
+                <div class="sort-wrap">
+
+                    <label for="sortSelect" class="sort-label">
+                        SORT BY
+                    </label>
+
+                    <select
+                        id="sortSelect"
+                        class="sort-select"
+                        aria-label="Sort businesses"
+                        onchange="changeSort(this.value)"
+                    >
+                        <option value="featured" {% if sort_by == "featured" %}selected{% endif %}>
+                            FEATURED
+                        </option>
+
+                        <option value="newest" {% if sort_by == "newest" %}selected{% endif %}>
+                            NEWEST
+                        </option>
+
+                        <option value="rating" {% if sort_by == "rating" %}selected{% endif %}>
+                            HIGHEST RATED
+                        </option>
+
+                        <option value="reviews" {% if sort_by == "reviews" %}selected{% endif %}>
+                            MOST REVIEWED
+                        </option>
+
+                        <option value="location" {% if sort_by == "location" %}selected{% endif %}>
+                            LOCATION
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- BUSINESS DIRECTORY -->
+
+        <section
+            class="section"
+            id="business-directory"
+            aria-labelledby="directory-heading"
+        >
+
+            <div class="section-header">
+
+                <div
+                    class="section-title"
+                    id="directory-heading"
+                >
+                    {% if search_query %}
+                        Search Results
+                    {% elif selected_category != "all" %}
+                        {{ selected_category|replace("-", " ")|title }}
+                    {% else %}
+                        Explore Businesses
+                    {% endif %}
+                </div>
+
+                <div class="section-note" aria-live="polite">
+                    Showing {{ result_count }} of {{ total_business_count }} businesses
+                </div>
+
+            </div>
+
+            {% if businesses %}
+
+                <div class="business-grid">
+
+                    {% for business in businesses %}
+
+                        <a
+                            href="{{ url_for('business_profile', business_id=business.id) }}"
+                            class="business-card"
+                            aria-label="View {{ business.name }} business profile"
+                        >
+
+                            <!-- VISUAL / BUSINESS PHOTO -->
+
+                            <div class="business-visual">
+
+                                {% if business|business_card_image %}
+
+                                    <img
+                                        class="business-photo"
+                                        src="{{ business|business_card_image|e }}"
+                                        alt="{{ business.name|e }}"
+                                        loading="lazy"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                                    >
+
+                                    <div class="visual-fallback" style="display: none;">
+                                        <div class="fallback-orbit"></div>
+
+                                        <div class="fallback-letter">
+                                            {{ business.name[:1]|upper }}
+                                        </div>
+
+                                        <div class="fallback-accent"></div>
+                                    </div>
+
+                                {% else %}
+
+                                    <div class="visual-fallback">
+                                        <div class="fallback-orbit"></div>
+
+                                        <div class="fallback-letter">
+                                            {{ business.name[:1]|upper }}
+                                        </div>
+
+                                        <div class="fallback-accent"></div>
+                                    </div>
+
+                                {% endif %}
+
+                                <div class="business-number">
+                                    {{ "%02d"|format(loop.index) }}
+                                </div>
+
+                                <div class="visual-category">
+                                    {{ business.category }}
+                                </div>
+
+                            </div>
+
+                            <!-- BUSINESS DETAILS -->
+
+                            <div class="business-content">
+
+                                <div class="business-tag">
+                                    {{ business.category }}
+                                </div>
+
+                                <h3>
+                                    {{ business.name }}
+                                </h3>
+
+                                <div class="business-location">
+                                    {{ business.location }}
+                                </div>
+
+                                <p class="business-description">
+                                    {{ business.description or "Discover this local business on THE ECOSYSTEM." }}
+                                </p>
+
+                                <!-- RATINGS -->
+
+                                {% if business.rating_count|default(0)|int > 0 %}
+
+                                    <div class="business-rating">
+
+                                        <span class="stars" aria-label="Customer rating">
+                                            {% for star in range(1, 6) %}
+                                                {% if star <= business.rating_average|default(0)|float|round(0, 'floor')|int %}
+                                                    ★
+                                                {% else %}
+                                                    ☆
+                                                {% endif %}
+                                            {% endfor %}
+                                        </span>
+
+                                        <span class="rating-number">
+                                            {{ "%.1f"|format(business.rating_average|default(0)|float) }}
+                                        </span>
+
+                                        <span class="rating-count">
+                                            · {{ business.rating_count }}
+
+                                            {% if business.rating_count|int == 1 %}
+                                                REVIEW
+                                            {% else %}
+                                                REVIEWS
+                                            {% endif %}
+                                        </span>
+
+                                    </div>
+
+                                {% else %}
+
+                                    <div class="business-rating">
+                                        <span class="no-rating">
+                                            NOT YET RATED
+                                        </span>
+                                    </div>
+
+                                {% endif %}
+
+                                <div class="view-business">
+                                    <span>VIEW BUSINESS</span>
+                                </div>
+
+                            </div>
+
+                        </a>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <!-- IMPROVED EMPTY STATE -->
+
+                <div class="no-results">
+
+                    <strong>
+                        {% if search_query and selected_category != "all" %}
+                            No businesses match your search.
+                        {% elif search_query %}
+                            No results for "{{ search_query }}".
+                        {% elif selected_category != "all" %}
+                            No businesses in this category yet.
+                        {% else %}
+                            No businesses to display right now.
+                        {% endif %}
+                    </strong>
+
+                    {% if search_query %}
+                        Try a different keyword, check your spelling,
+                        or remove the search to see more businesses.
+                    {% elif selected_category != "all" %}
+                        Try another category or browse all available
+                        businesses around {{ page_location }}.
+                    {% else %}
+                        Please check back later to discover more local businesses.
+                    {% endif %}
+
+                    <br>
+
+                    <a
+                        href="{{ url_for('businesses_page', sort=sort_by) }}"
+                        class="reset-link"
+                    >
+                        CLEAR SEARCH AND FILTERS →
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+        <!-- BUSINESS SUBMISSION CTA -->
+
+        <section class="business-cta">
+
+            <div class="cta-label">
+                FOR LOCAL BUSINESSES
+            </div>
+
+            <h2>
+                Your business
+                <br>
+                belongs here.
+            </h2>
+
+            <p>
+                Get discovered by people looking for places,
+                products and services around {{ page_location }}.
+                Submit your business and become part of
+                THE ECOSYSTEM.
+            </p>
+
+            <a
+                href="{{ url_for('submit_business') }}"
+                class="cta-button"
+            >
+                SUBMIT YOUR BUSINESS →
+            </a>
+
+        </section>
+
+        <!-- FOOTER -->
+
+        <footer>
+            <div>THE ECOSYSTEM</div>
+            <div>{{ page_location|upper }} · NIGERIA</div>
+        </footer>
+
+    </main>
+
+    <script>
+        function changeSort(sortValue) {
+            const params = new URLSearchParams(
+                window.location.search
+            );
+
+            params.set("sort", sortValue);
+
+            /*
+             * Keep the current keyword and category when sorting.
+             * Remove empty parameters so the URL stays clean.
+             */
+
+            for (const key of ["q", "category"]) {
+                if (!params.get(key)) {
+                    params.delete(key);
+                }
+            }
+
+            const baseUrl = "{{ url_for('businesses_page') }}";
+            const queryString = params.toString();
+
+            window.location.href =
+                baseUrl +
+                (queryString ? "?" + queryString : "") +
+                "#business-directory";
+        }
+    </script>
+
+</body>
+</html>

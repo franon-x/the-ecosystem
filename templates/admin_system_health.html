@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Health — THE ECOSYSTEM</title>
+<style>
+:root{color-scheme:dark;--bg:#080909;--panel:#111413;--line:rgba(255,255,255,.11);--green:#80C995;--muted:#a9b0aa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0%,rgba(128,201,149,.07),transparent 28%),var(--bg);color:#fff;font-family:Arial,Helvetica,sans-serif}
+header{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 5%;background:rgba(8,9,9,.96);border-bottom:1px solid var(--line)}
+.brand{color:#fff;text-decoration:none;font-weight:900;letter-spacing:-.5px}.brand span{color:var(--green)}.back{color:var(--green);text-decoration:none;font-size:12px;font-weight:800;border:1px solid rgba(128,201,149,.3);padding:10px 12px;border-radius:9px}
+main{width:min(1100px,92%);margin:0 auto;padding:42px 0 70px}.eyebrow{color:var(--green);font-size:10px;font-weight:900;letter-spacing:1.6px;margin-bottom:12px}
+h1{font-size:clamp(32px,5vw,48px);letter-spacing:-1.8px;margin:0 0 10px}.intro{color:var(--muted);font-size:13px;line-height:1.7;max-width:720px}
+.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:26px 0}
+.metric,.check,.queue{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:18px}
+.metric span{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1px;font-weight:800;margin-bottom:10px}.metric strong{font-size:25px;color:var(--green);overflow-wrap:anywhere}
+.section-title{font-size:19px;margin:32px 0 14px}.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.check-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}.check h3{font-size:14px;margin:0}
+.pill{font-size:9px;font-weight:900;letter-spacing:.7px;border-radius:7px;padding:6px 8px;text-transform:uppercase}
+.pill.healthy{color:#80C995;background:rgba(128,201,149,.1);border:1px solid rgba(128,201,149,.25)}
+.pill.warning{color:#ffd479;background:rgba(255,196,80,.08);border:1px solid rgba(255,196,80,.25)}
+.pill.error{color:#ff9696;background:rgba(255,90,90,.08);border:1px solid rgba(255,90,90,.25)}
+.check p{color:var(--muted);font-size:12px;line-height:1.65;overflow-wrap:anywhere}
+.queues{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.queue span{display:block;color:var(--muted);font-size:11px;margin-bottom:8px}.queue strong{font-size:23px;color:var(--green)}
+.notice{margin-top:18px;padding:14px 16px;border-radius:11px;border:1px solid rgba(128,201,149,.2);background:rgba(128,201,149,.05);color:var(--muted);font-size:12px;line-height:1.7;overflow-wrap:anywhere}
+footer{color:#667068;font-size:10px;margin-top:34px;border-top:1px solid var(--line);padding-top:18px}
+@media(max-width:650px){.summary,.checks,.queues{grid-template-columns:1fr}.metric{padding:15px}main{padding-top:30px}header{padding:13px 4%}}
+</style>
+
+<style id="ecosystem-admin-premium-theme">
+:root{--eco-bg:#070d0b;--eco-panel:#101a15;--eco-line:#263b30;--eco-green:#43d98b;--eco-green-soft:#80c995;--eco-red:#f04444;--eco-white:#f7faf8;--eco-muted:#9aa99f}html{background:var(--eco-bg)}body{background-color:var(--eco-bg)!important;color:var(--eco-white)}h1,h2,h3,h4,.section-title,.panehead h2,.hero h1,.business-name{font-weight:900!important;color:#fff}h1 span,h2 span,.brand span{color:var(--eco-red)}a{transition:color .18s ease}button,.btn,.action{font-weight:850!important}input,select,textarea{color:#f7faf8}table th{font-weight:900}::selection{background:#145b3a;color:white}@media(max-width:650px){body{overflow-x:hidden}}
+</style>
+
+<style id="ecosystem-unified-admin-shell">:root{--eco-bg:#06100d;--eco-panel:#0d1914;--eco-line:#20372b;--eco-green:#43d98b;--eco-green-soft:#80c995;--eco-red:#f04444;--eco-text:#f5faf7;--eco-muted:#98aaa0}html{background:var(--eco-bg)}body{background:var(--eco-bg)!important;color:var(--eco-text)!important;font-family:Inter,Segoe UI,Arial,sans-serif!important}.eco-admin-sidebar{position:fixed;inset:0 auto 0 0;width:236px;z-index:100;display:flex;flex-direction:column;gap:16px;padding:20px 12px 14px;background:#07110d;border-right:1px solid #1b3427;overflow-y:auto}.eco-admin-brand{display:flex;align-items:center;gap:10px;padding:2px 7px 22px;border-bottom:1px solid #1b3025;color:#fff;text-decoration:none}.eco-admin-mark{width:39px;height:39px;display:grid;place-items:center;border:1px solid #1f9e62;border-radius:50%;color:#43d98b;font-size:25px;box-shadow:0 0 18px #0b58324a}.eco-admin-brand b{font-size:12px;display:block;letter-spacing:.1px}.eco-admin-brand small{display:block;font-size:8px;color:#8fa499;letter-spacing:1.1px;margin-top:5px}.eco-admin-nav{display:grid;gap:4px}.eco-admin-nav a{display:flex;align-items:center;gap:11px;min-height:38px;padding:9px 10px;border:1px solid transparent;border-radius:9px;color:#b3c0b8;text-decoration:none;font-size:11px;font-weight:700;transition:.18s}.eco-admin-nav a i{width:18px;text-align:center;color:#91a99a;font-style:normal;font-size:16px}.eco-admin-nav a:hover,.eco-admin-nav a.active{background:#103c29;border-color:#176a43;color:#effff5}.eco-admin-nav a.active i{color:#43d98b}.eco-admin-status{margin-top:auto;border:1px solid #203b2c;background:#0c1912;border-radius:12px;padding:12px;font-size:10px;color:#d9e8de}.eco-admin-status span{display:inline-block;width:7px;height:7px;background:#43d98b;border-radius:50%;margin-right:6px;box-shadow:0 0 10px #43d98b}.eco-admin-status small{display:block;color:#81958a;margin:7px 0}.eco-admin-status a{color:#43d98b;text-decoration:none;font-weight:800}.eco-admin-sidebar~*{ }body{padding-left:236px!important}body>header,body>.header,body>.navbar{margin-left:0!important;padding-left:clamp(18px,3vw,42px)!important}main,.container,.wrap{width:auto!important;max-width:1600px!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(16px,2.5vw,36px)!important;padding-right:clamp(16px,2.5vw,36px)!important}h1,h2,h3,h4,.section-title,.panehead h2{color:#fff;font-weight:900}a{transition:color .18s ease}button,.btn,.action{font-weight:800!important}input,select,textarea{background-color:#08130e!important;color:#f5faf7!important;border-color:#294234!important}::selection{background:#145b3a;color:white}@media(max-width:800px){.eco-admin-sidebar{width:68px;padding:12px 7px}.eco-admin-brand{justify-content:center;padding:0 0 14px}.eco-admin-brand>span:last-child,.eco-admin-nav a:not(i),.eco-admin-status b,.eco-admin-status small,.eco-admin-status a{font-size:0}.eco-admin-nav a{justify-content:center;padding:10px 0;font-size:0}.eco-admin-nav a i{font-size:17px}.eco-admin-status{text-align:center;padding:8px 2px}body{padding-left:68px!important}}@media(max-width:520px){body>header,body>.header,body>.navbar{padding-right:12px!important;padding-left:12px!important}main,.container,.wrap{padding-left:12px!important;padding-right:12px!important}}</style>
+<style id="ecosystem-brand-wordmark-standard">.brand,.logo{color:#fff!important}.brand>span,.logo>strong,.logo .eco-word-ecosystem{color:#f04444!important}.logo>span{color:#fff!important}.brand .eco-word-the{color:#fff!important}.brand .eco-word-ecosystem{color:#f04444!important}</style></head>
+<body>
+<aside class="eco-admin-sidebar"><a class="eco-admin-brand" href="{{ url_for('admin_dashboard') }}"><span class="eco-admin-mark">✳</span><span><b>THE ECOSYSTEM</b><small>ADMIN CONTROL CENTER</small></span></a><nav class="eco-admin-nav"><a data-eco="admin_dashboard" href="{{ url_for('admin_dashboard') }}"><i>⌂</i>Dashboard</a><a data-eco="admin_revenue" href="{{ url_for('admin_revenue') }}"><i>↗</i>Revenue</a><a href="{{ url_for('admin_dashboard') }}#admin-jump-businesses"><i>▣</i>Businesses</a><a href="{{ url_for('admin_dashboard') }}#admin-jump-users"><i>♟</i>Users</a><a data-eco="admin_events_review" href="{{ url_for('admin_events_review') }}"><i>▦</i>Events</a><a data-eco="admin_marketplace_ad" href="{{ url_for('admin_marketplace_ad') }}"><i>▧</i>Marketplace</a><a href="{{ url_for('admin_dashboard') }}#admin-jump-premium"><i>✦</i>Premium Listings</a><a data-eco="admin_moderator" href="{{ url_for('admin_moderator') }}"><i>▣</i>Moderator</a><a href="{{ url_for('admin_dashboard') }}#admin-jump-reviews"><i>☆</i>Reviews</a><a href="{{ url_for('admin_dashboard') }}#admin-jump-reports"><i>⚑</i>Reports &amp; Moderation</a><a data-eco="admin_competition_entries" href="{{ url_for('admin_competition_entries') }}"><i>♜</i>Competition</a><a data-eco="admin_activity_history" href="{{ url_for('admin_activity_history') }}"><i>⌁</i>Activity History</a><a data-eco="admin_system_health" href="{{ url_for('admin_system_health') }}"><i>♡</i>System Health</a><a data-eco="admin_deleted_items" href="{{ url_for('admin_deleted_items') }}"><i>▤</i>Deleted Items</a><a href="{{ url_for('admin_dashboard') }}#admin-jump-settings"><i>⚙</i>Settings</a></nav><div class="eco-admin-status"><span></span><b>Admin workspace</b><small>Secure control center</small><a href="{{ url_for('admin_logout') }}">Log out ↗</a></div></aside>
+<header><a class="brand" href="{{ url_for('admin_dashboard') }}">THE <span>ECOSYSTEM</span></a><a class="back" href="{{ url_for('admin_dashboard') }}">← Admin Dashboard</a></header>
+<main>
+<p class="eyebrow">PLATFORM OPERATIONS</p>
+<h1>System Health Monitor</h1>
+<p class="intro">A live diagnostic snapshot of core application dependencies. Green means the check passed; warnings identify incomplete setup or data that needs attention. Email configuration does not guarantee that an email reaches an inbox.</p>
+<div class="summary">
+  <div class="metric"><span>Checks healthy</span><strong>{{ health.checks_healthy }} / {{ health.checks_total }}</strong></div>
+  <div class="metric"><span>Tracked moderation queue</span><strong>{{ health.total_pending }}</strong></div>
+  <div class="metric"><span>Saved state payload</span><strong>{{ (health.database_size / 1024)|round(1) }} KB</strong></div>
+</div>
+<h2 class="section-title">Core checks</h2>
+<div class="checks">
+{% for item in checks %}
+  <article class="check">
+    <div class="check-top"><h3>{{ item.name }}</h3><span class="pill {{ item.status }}">{{ item.status }}</span></div>
+    <p>{{ item.detail }}</p>
+  </article>
+{% endfor %}
+</div>
+<h2 class="section-title">Moderation queue snapshot</h2>
+<div class="queues">
+{% for label, count in health.pending_counts %}
+  <div class="queue"><span>{{ label }}</span><strong>{{ count }}</strong></div>
+{% endfor %}
+</div>
+<h2 class="section-title">Recent system signals</h2>
+<div class="notice">
+  <strong>Database file:</strong> {{ health.database_path }}<br>
+  <strong>Last successful state save in this process:</strong> {{ health.last_save_at or "No successful save timestamp recorded yet" }}<br>
+  <strong>Latest save issue:</strong> {{ health.last_save_error or "None recorded" }}<br>
+  <strong>Last successful email API response:</strong> {{ health.last_email_success_at or "No successful email recorded in this process" }}<br>
+  <strong>Latest email issue:</strong> {{ health.last_email_error or "None recorded" }}<br>
+  <strong>Platform records currently loaded:</strong> {{ health.users }} users, {{ health.businesses }} businesses, {{ health.reviews }} reviews.
+</div>
+<div class="notice">This page checks database connectivity, local upload-folder writability, email configuration, location data and moderation counts. It does not send a test email or modify user records.</div>
+<footer>THE ECOSYSTEM · Admin System Health</footer>
+</main>
+<script id="eco-admin-active-nav">document.addEventListener('DOMContentLoaded',()=>{const endpoint={{ request.endpoint|tojson }};document.querySelectorAll('.eco-admin-nav a[data-eco]').forEach(a=>{if(a.dataset.eco===endpoint)a.classList.add('active')})});</script>
+</body>
+</html>

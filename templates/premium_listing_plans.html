@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Premium Listing · THE ECOSYSTEM</title>
+<style>
+:root{--bg:#080909;--panel:#111413;--panel2:#171b19;--red:#E6333E;--green:#80C995;--white:#fff;--muted:#a7afaa;--line:#2a302c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:15px/1.6 Arial,Helvetica,sans-serif}
+a{color:inherit;text-decoration:none}.top{border-bottom:1px solid var(--line);padding:18px 5vw;display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{font-weight:900;letter-spacing:-.5px}.brand span{color:var(--red)}.top a:last-child{color:var(--muted);font-size:13px}
+main{width:min(1080px,92%);margin:0 auto;padding:54px 0 80px}.eyebrow{color:var(--green);font-weight:800;letter-spacing:1.8px;font-size:11px;text-transform:uppercase}.hero h1{font-size:clamp(36px,6vw,64px);line-height:1;letter-spacing:-2.8px;margin:12px 0}.hero p{color:var(--muted);max-width:650px;margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:34px}.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:25px}.card h2{font-size:20px;margin:0 0 6px}.card p{color:var(--muted);margin:0}.price{font-size:34px;font-weight:900;letter-spacing:-1.4px;margin:20px 0 2px}.price small{font-size:13px;color:var(--muted);font-weight:500;letter-spacing:0}.features{list-style:none;padding:0;margin:20px 0;display:grid;gap:10px}.features li:before{content:"✓";color:var(--green);font-weight:900;margin-right:10px}.btn{display:block;text-align:center;border:1px solid var(--white);background:var(--white);color:#111;font-weight:900;padding:13px 16px;border-radius:11px}.btn:hover{background:var(--green);border-color:var(--green)}.note{margin-top:22px;color:var(--muted);font-size:12px}.callout{margin-top:22px;border-left:3px solid var(--green);background:#101713;padding:15px 17px;border-radius:0 12px 12px 0;color:#d8e4dc}
+@media(max-width:700px){main{padding-top:36px}.grid{grid-template-columns:1fr}.card{padding:21px}.top{padding:15px 4vw}}
+</style>
+</head>
+<body>
+<header class="top"><a class="brand" href="{{ url_for('home') }}">THE <span>ECOSYSTEM</span></a><a href="{{ url_for('business_dashboard') }}">Business dashboard ↗</a></header>
+<main>
+<section class="hero"><div class="eyebrow">Grow beyond your home state</div><h1>More reach.<br>More opportunity.</h1><p>Promote your business in the Nigerian states where you want customers to discover you. Select your locations and subscription duration at checkout.</p></section>
+<section class="grid">
+<article class="card"><h2>Premium Business Listing</h2><p>Expand your business's discoverability across selected states.</p><div class="price">₦{{ '{:,.0f}'.format(rate|float) }} <small>/ state / month</small></div><ul class="features"><li>Choose from all 36 states and the FCT</li><li>Flexible multi-state coverage</li><li>Business profile with contact details</li><li>Optional business photos and videos</li><li>Payment verification and admin review</li></ul><a class="btn" href="{{ url_for('premium_listing_campaign_start') }}">Configure your listing</a></article>
+<article class="card"><h2>How it works</h2><p>Simple pricing that scales with your reach.</p><ul class="features"><li>₦{{ '{:,.0f}'.format(rate|float) }} per selected state for each month</li><li>Select 1, 3, 6 or 12 months</li><li>Review the total before paying</li><li>Pay securely through Paystack</li><li>Your paid listing goes live after approval</li></ul><div class="callout">Your home state must be included in your selected coverage. Your standard listing and premium state coverage may have different visibility rules.</div></article>
+</section>
+<p class="note">Prices shown are before any applicable taxes. Tax treatment and the final payable amount are determined at checkout.</p>
+</main>
+</body>
+</html>

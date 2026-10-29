@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Listing Status · THE ECOSYSTEM</title>
+<style>
+:root{--bg:#080909;--panel:#111413;--red:#E6333E;--green:#80C995;--white:#fff;--muted:#a7afaa;--line:#2a302c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:15px/1.6 Arial,Helvetica,sans-serif}a{text-decoration:none;color:inherit}.top{border-bottom:1px solid var(--line);padding:18px 5vw;display:flex;justify-content:space-between;align-items:center}.brand{font-weight:900}.brand span{color:var(--red)}.top a:last-child{font-size:13px;color:var(--muted)}main{width:min(760px,92%);margin:0 auto;padding:52px 0 80px}.eyebrow{color:var(--green);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}.card{margin-top:15px;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:28px}.status{display:inline-block;background:#18251c;color:var(--green);border-radius:999px;padding:7px 11px;font-size:11px;font-weight:900;letter-spacing:.5px}.status.pending{background:#2a2112;color:#f3cb80}.status.failed,.status.rejected{background:#2a1517;color:#ff9ca4}h1{font-size:clamp(30px,5vw,44px);line-height:1.08;letter-spacing:-1.8px;margin:14px 0 8px}.muted{color:var(--muted)}.summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0}.item{border:1px solid var(--line);border-radius:12px;padding:14px;min-width:0}.item span{display:block;font-size:11px;color:var(--muted);margin-bottom:5px}.item strong{overflow-wrap:anywhere}.line{height:1px;background:var(--line);margin:20px 0}.states{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.state{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:#e7eae8}.btn{display:inline-block;padding:12px 16px;border-radius:10px;background:var(--white);color:#111;font-weight:900;margin:5px 8px 0 0}.btn:hover{background:var(--green)}.btn.secondary{background:transparent;color:white;border:1px solid var(--line)}.flash{padding:11px 13px;border-radius:9px;margin:10px 0;background:#281517;color:#ffb7bd;border:1px solid #5d262b}.flash.success{background:#12251a;color:#bde7ca;border-color:#244b31}.small{font-size:12px;color:var(--muted);margin-top:15px}@media(max-width:540px){main{padding-top:30px}.card{padding:20px}.summary{grid-template-columns:1fr}}
+
+/* THE ECOSYSTEM brand standard: THE white, ECOSYSTEM red */
+.brand span { color: #E6333E; }
+</style>
+</head>
+<body>
+<header class="top"><a class="brand" href="{{ url_for('home') }}">THE <span>ECOSYSTEM</span></a><a href="{{ url_for('business_dashboard') }}">← Dashboard</a></header>
+<main>
+<div class="eyebrow">Premium listing application</div>
+{% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}<div class="flash {{ 'success' if category == 'success' else '' }}">{{ message }}</div>{% endfor %}{% endwith %}
+<section class="card">
+{% set status_text = (order.status or 'PENDING')|replace('_',' ')|upper %}
+{% set payment_text = (order.payment_status or 'PENDING')|replace('_',' ')|upper %}
+<span class="status {% if 'PENDING' in status_text or 'AWAITING' in status_text %}pending{% elif 'FAIL' in status_text or 'REJECT' in status_text %}failed{% endif %}">{{ status_text }}</span>
+<h1>{{ order.business_name }}</h1>
+<p class="muted">Track payment, coverage and review progress for this premium listing.</p>
+<div class="summary">
+<div class="item"><span>Payment status</span><strong>{{ payment_text }}</strong></div>
+<div class="item"><span>Amount paid / due</span><strong>₦{{ '{:,.0f}'.format(order.amount_naira|float) }}</strong></div>
+<div class="item"><span>Subscription duration</span><strong>{{ order.duration_months }} month{% if order.duration_months|int != 1 %}s{% endif %}</strong></div>
+<div class="item"><span>Created</span><strong>{{ order.created_at or '—' }}</strong></div>
+{% if order.expires_at %}<div class="item"><span>Coverage expires</span><strong>{{ order.expires_at }}</strong></div>{% endif %}
+{% if order.business_id %}<div class="item"><span>Business ID</span><strong>{{ order.business_id }}</strong></div>{% endif %}
+</div>
+<div class="line"></div>
+<h2 style="font-size:17px;margin:0">Selected state coverage</h2>
+<p class="muted" style="font-size:13px">Your business requested coverage in {{ order.selected_states|length }} location(s).</p>
+<div class="states">{% for state in order.selected_states %}<span class="state">{{ state }}</span>{% endfor %}</div>
+<div class="line"></div>
+{% if order.payment_status == 'SUCCESS' %}
+<p>Payment has been verified. Your listing may still require administrator review before it becomes publicly visible.</p>
+{% elif order.payment_status == 'PENDING' %}
+<p>Payment has not yet been confirmed. If you completed checkout, allow a moment for verification and check your account status again.</p>
+{% else %}
+<p>Review the payment status above. If you believe this is incorrect, contact THE ECOSYSTEM support with your payment reference.</p>
+{% endif %}
+<div style="margin-top:22px"><a class="btn" href="{{ url_for('premium_listing_apply') }}">Create another listing</a><a class="btn secondary" href="{{ url_for('business_dashboard') }}">Back to dashboard</a></div>
+<p class="small">Payment reference: {{ order.reference or 'Not available' }}. Keep this reference for support enquiries.</p>
+</section>
+</main>
+</body>
+</html>

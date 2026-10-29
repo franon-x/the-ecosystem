@@ -1,0 +1,509 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505">
+    <meta name="description" content="Discover businesses, people, places and experiences across {{ state|default('Ibadan') }}.">
+    <title>Discover | THE ECOSYSTEM</title>
+
+    <style>
+:root{--bg:#080909;--panel:#111413;--panel-soft:#171b18;--red:#E6333E;--green:#80C995;--white:#fff;--muted:#A9B0AA;--line:rgba(255,255,255,.11)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);scroll-behavior:smooth;scroll-padding-top:90px}
+body{min-height:100vh;overflow-x:hidden;background:var(--bg);color:var(--white);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+/* Keep the page deliberately flat: no fixed glow layers or decorative overlays. */
+nav{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px max(5%,calc((100% - 1240px)/2));background:var(--bg);border-bottom:1px solid var(--line)}
+.logo{color:var(--white);font-size:13px;font-weight:850;letter-spacing:.16em;text-decoration:none}.brand-the{color:#fff!important;-webkit-text-fill-color:#fff!important}.brand-ecosystem{color:#E6333E!important;-webkit-text-fill-color:#E6333E!important}
+.nav-right{display:flex;align-items:center;gap:22px}.location{color:var(--green);font-size:10px;letter-spacing:.12em;text-transform:uppercase}.home-link{padding:9px 13px;border:1px solid var(--line);border-radius:8px;color:var(--white);font-size:10px;font-weight:700;letter-spacing:.1em;text-decoration:none}.home-link:hover{border-color:var(--green);color:var(--green)}
+main{width:min(1180px,90%);margin:0 auto;padding:54px 0 64px}
+main>section:first-child{padding:clamp(24px,4vw,42px);border:1px solid var(--line);border-radius:18px;background:var(--panel)}
+.page-label{margin-bottom:18px;color:var(--green);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+.page-title{margin-bottom:18px;font-size:clamp(2.8rem,7vw,5.5rem);font-weight:850;line-height:.98;letter-spacing:-.06em}.page-title span{color:var(--red);background:none;-webkit-text-fill-color:currentColor}
+.description{max-width:620px;color:var(--muted);font-size:14px;line-height:1.8}
+.explore-state-button{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:12px 16px;border:1px solid rgba(128,201,149,.65);border-radius:9px;background:var(--white);color:#237744;text-decoration:none;font-size:10px;font-weight:800;letter-spacing:.08em}.explore-state-button:hover{background:var(--green);color:#08100b}
+.search{display:flex;gap:8px;width:min(760px,100%);margin-top:28px;padding:5px;border:1px solid var(--line);border-radius:11px;background:#0b0e0c}.search:focus-within{border-color:var(--green)}.search input{flex:1;min-width:0;padding:13px 12px;border:0!important;outline:none;background:transparent!important;box-shadow:none!important;color:var(--white);font:inherit;font-size:13px}.search input::placeholder{color:#737b75}.search button{padding:0 20px;border:1px solid rgba(128,201,149,.6);border-radius:8px;background:var(--white);color:#237744;font-size:10px;font-weight:850;letter-spacing:.1em;cursor:pointer}.search button:hover{background:var(--green);color:#08100b}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}.filter{padding:10px 14px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);font:inherit;font-size:10px;font-weight:750;letter-spacing:.06em;cursor:pointer}.filter:hover,.filter.active{border-color:rgba(128,201,149,.55);background:rgba(128,201,149,.1);color:var(--white)}
+.section{margin-top:58px}.section-header{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px}.section-title{font-size:12px;font-weight:850;letter-spacing:.14em;text-transform:uppercase}.section-note{color:#858d87;font-size:11px;text-align:right}
+.discover-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.discover-card{display:flex;min-width:0;min-height:205px;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:23px;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--white);text-decoration:none;transition:transform .2s ease,border-color .2s ease}.discover-card:hover{transform:translateY(-3px);border-color:rgba(128,201,149,.5)}.discover-card[hidden],.business-card[hidden]{display:none!important}
+.card-tag{margin-bottom:12px;color:var(--green);font-size:9px;font-weight:850;letter-spacing:.15em}.discover-card h3{margin-bottom:8px;font-size:21px;font-weight:800;letter-spacing:-.025em}.discover-card p{color:var(--muted);font-size:12px;line-height:1.75}
+.business-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.business-card{display:flex;min-width:0;overflow:hidden;flex-direction:column;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--white);text-decoration:none;transition:transform .2s ease,border-color .2s ease}.business-card:hover{transform:translateY(-3px);border-color:rgba(128,201,149,.45)}.business-visual{position:relative;display:flex;min-height:160px;align-items:center;justify-content:center;overflow:hidden;border-bottom:1px solid var(--line);background:var(--panel-soft)}.business-monogram{position:relative;z-index:1;color:var(--green);font-size:40px;font-weight:800}.business-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.business-visual.has-photo .business-monogram{display:none}.business-category{position:absolute;z-index:2;top:12px;left:12px;max-width:calc(100% - 24px);padding:6px 9px;border:1px solid rgba(128,201,149,.25);border-radius:6px;background:rgba(8,9,9,.9);color:#e8f5eb;font-size:9px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;overflow-wrap:anywhere}.business-content{display:flex;flex:1;flex-direction:column;align-items:flex-start;padding:19px}.business-location{margin-bottom:10px;color:#98a099;font-size:10px;line-height:1.6}.business-name{margin-bottom:9px;font-size:20px;font-weight:800;line-height:1.3;overflow-wrap:anywhere}.business-description{margin-bottom:16px;color:var(--muted);font-size:12px;line-height:1.75}.business-meta{display:flex;width:100%;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:13px;border-top:1px solid var(--line)}.business-rating{color:#9da59e;font-size:10px}.business-rating .stars{color:var(--green)}.business-open-link{color:var(--green);font-size:10px;font-weight:850;letter-spacing:.05em;text-transform:uppercase}
+.empty-state{display:none;padding:25px 18px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:13px;line-height:1.7;text-align:center}.empty-state.visible{display:block}.view-all{display:flex;justify-content:center;margin-top:24px}.view-all a,.featured-button{display:inline-flex;align-items:center;justify-content:center;min-height:45px;padding:12px 17px;border:1px solid rgba(128,201,149,.65);border-radius:9px;background:var(--white);color:#237744;font-size:10px;font-weight:850;letter-spacing:.08em;text-decoration:none}.view-all a:hover,.featured-button:hover{background:var(--green);color:#08100b}
+.featured{display:flex;align-items:center;justify-content:space-between;gap:25px;margin-top:58px;padding:clamp(24px,4vw,40px);border:1px solid var(--line);border-radius:16px;background:var(--panel)}.featured-label{margin-bottom:12px;color:var(--green);font-size:10px;font-weight:850;letter-spacing:.16em}.featured h2{margin-bottom:12px;font-size:clamp(25px,3.5vw,36px);font-weight:850;line-height:1.2;letter-spacing:-.04em}.featured p{max-width:600px;color:var(--muted);font-size:13px;line-height:1.8}footer{display:flex;justify-content:space-between;gap:15px;margin-top:60px;padding-top:20px;border-top:1px solid var(--line);color:#7f8881;font-size:10px;letter-spacing:.06em}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+@media(max-width:900px){.business-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.discover-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){nav{padding:16px 5%}.logo{font-size:10px;letter-spacing:.1em}.nav-right{gap:9px}.location{display:none}.home-link{padding:8px 10px}main{padding:35px 0 45px}main>section:first-child{padding:23px 18px}.page-title{font-size:clamp(2.7rem,12vw,4rem)}.description{font-size:13px}.search button{padding:0 12px;letter-spacing:.04em}.filters{gap:6px}.filter{padding:9px 11px;font-size:9px}.discover-grid,.business-grid{grid-template-columns:1fr}.discover-card{min-height:175px}.business-visual{min-height:175px}.section{margin-top:45px}.section-header{align-items:flex-start;flex-direction:column}.section-note{text-align:left}.featured{align-items:flex-start;flex-direction:column;margin-top:45px;padding:24px 19px}footer{flex-direction:column;gap:9px;margin-top:45px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
+
+
+/* THE ECOSYSTEM — ADVANCED, MATURE DISCOVERY DESIGN */
+:root{
+ --bg:#070a08;--panel:#0e1410;--panel-soft:#131c16;--green:#8bd5a0;--green-deep:#2c8b50;
+ --white:#f7faf8;--muted:#a7b3aa;--line:rgba(185,214,192,.14);
+}
+html{background:var(--bg)!important}
+body{background:radial-gradient(ellipse at 12% 0%,rgba(63,145,85,.12),transparent 36%),radial-gradient(ellipse at 95% 45%,rgba(44,139,80,.07),transparent 32%),var(--bg)!important;color:var(--white)}
+nav{background:rgba(7,10,8,.94);backdrop-filter:blur(16px);border-bottom-color:rgba(139,213,160,.15);padding-top:17px;padding-bottom:17px}
+.logo{font-size:12px;letter-spacing:.19em}.location{font-weight:800;letter-spacing:.15em}
+.home-link{border-radius:999px;padding:10px 15px;transition:background .2s,border-color .2s,color .2s}
+main{width:min(1220px,90%);padding-top:42px}
+main>section:first-child{position:relative;isolation:isolate;overflow:hidden;padding:clamp(28px,5vw,58px);border-radius:22px;border-color:rgba(139,213,160,.18);background:linear-gradient(135deg,rgba(21,35,25,.98),rgba(12,17,13,.98) 62%,rgba(15,25,18,.98));box-shadow:0 24px 70px rgba(0,0,0,.2)}
+main>section:first-child:after{content:"";position:absolute;z-index:-1;width:320px;height:320px;right:-100px;top:-155px;border-radius:50%;border:1px solid rgba(139,213,160,.13);box-shadow:0 0 0 35px rgba(139,213,160,.025),0 0 0 75px rgba(139,213,160,.018);pointer-events:none}
+.page-label{display:inline-flex;align-items:center;gap:9px;padding:8px 11px;margin-bottom:24px;border:1px solid rgba(139,213,160,.2);border-radius:999px;background:rgba(139,213,160,.06);font-size:9px;letter-spacing:.16em}
+.page-title{max-width:850px;font-size:clamp(3.1rem,8vw,6.4rem);line-height:.93;letter-spacing:-.075em;font-weight:850;margin-bottom:24px}
+.page-title span{color:var(--green)!important;-webkit-text-fill-color:var(--green)!important}
+.description{font-size:15px;max-width:640px;line-height:1.9;color:#b3beb6}
+.explore-state-button{position:relative;z-index:1;border-radius:999px;padding:13px 17px;box-shadow:0 8px 24px rgba(0,0,0,.16);transition:transform .2s,background .2s}
+.explore-state-button:hover{transform:translateY(-2px)}
+.search{position:relative;z-index:1;margin-top:30px;border-radius:13px;padding:6px;background:rgba(4,8,5,.78);border-color:rgba(255,255,255,.13);box-shadow:0 12px 32px rgba(0,0,0,.18)}
+.search:focus-within{border-color:rgba(139,213,160,.65);box-shadow:0 0 0 4px rgba(139,213,160,.07)}
+.search input{padding:15px 14px;font-size:14px}.search button{min-height:44px;border-radius:9px;padding:0 22px;letter-spacing:.12em}
+.filters{position:relative;z-index:1;gap:8px;margin-top:19px}.filter{padding:10px 14px;border-radius:999px;font-size:10px;transition:background .2s,border-color .2s,color .2s}.filter.active{background:rgba(139,213,160,.13);border-color:rgba(139,213,160,.5);color:#dff8e5}
+.section{margin-top:64px}.section-header{margin-bottom:22px}.section-title{font-size:13px;letter-spacing:.16em}.section-note{font-size:11px;line-height:1.6}
+.discover-grid{gap:15px}.discover-card{position:relative;isolation:isolate;min-height:225px;padding:26px;border-radius:17px;overflow:hidden;background:linear-gradient(145deg,rgba(20,31,23,.98),rgba(12,17,13,.98));border-color:rgba(255,255,255,.09);box-shadow:0 12px 32px rgba(0,0,0,.12);transition:transform .24s,border-color .24s,box-shadow .24s}
+.discover-card:before{content:"";position:absolute;z-index:-1;width:150px;height:150px;right:-65px;top:-70px;border-radius:50%;border:1px solid rgba(139,213,160,.14);box-shadow:0 0 0 20px rgba(139,213,160,.025),0 0 0 42px rgba(139,213,160,.018);transition:transform .3s}
+.discover-card:after{content:"↗";position:absolute;right:22px;bottom:23px;color:rgba(139,213,160,.7);font-size:17px;transition:transform .24s}
+.discover-card:hover{transform:translateY(-4px);border-color:rgba(139,213,160,.42);box-shadow:0 18px 42px rgba(0,0,0,.22)}.discover-card:hover:before{transform:scale(1.12)}.discover-card:hover:after{transform:translate(3px,-3px)}
+.card-tag{font-size:9px;letter-spacing:.17em;margin-bottom:14px}.discover-card h3{font-size:clamp(19px,2vw,23px);letter-spacing:-.035em;margin-bottom:10px}.discover-card p{max-width:300px;font-size:12px;line-height:1.8;color:#aab5ad;padding-right:10px}
+.business-grid{gap:17px}.business-card{border-radius:17px;background:linear-gradient(180deg,#111812,#0c110d);box-shadow:0 12px 32px rgba(0,0,0,.15);transition:transform .24s,border-color .24s,box-shadow .24s}.business-card:hover{transform:translateY(-4px);border-color:rgba(139,213,160,.42);box-shadow:0 18px 42px rgba(0,0,0,.25)}
+.business-visual{min-height:185px;background:radial-gradient(circle at 50% 40%,rgba(139,213,160,.08),transparent 58%),#111812}.business-monogram{display:grid;place-items:center;width:76px;height:76px;border:1px solid rgba(139,213,160,.25);border-radius:24px;background:rgba(139,213,160,.07);font-size:34px}.business-category{border-color:rgba(139,213,160,.22);border-radius:999px;padding:7px 10px;background:rgba(7,10,8,.88);backdrop-filter:blur(8px);font-size:9px}
+.business-content{padding:21px}.business-location{font-size:10px;letter-spacing:.02em}.business-name{font-size:20px;letter-spacing:-.035em}.business-description{font-size:12px;line-height:1.8;color:#aab5ad}.business-meta{border-top-color:rgba(255,255,255,.09);padding-top:15px}.business-open-link{letter-spacing:.06em}.business-rating .stars{color:var(--green)}
+.empty-state{border-radius:14px;background:rgba(255,255,255,.018)}.view-all{margin-top:27px}.view-all a,.featured-button{min-height:47px;padding:13px 18px;border-radius:999px;letter-spacing:.1em;transition:transform .2s,background .2s}.view-all a:hover,.featured-button:hover{transform:translateY(-2px)}
+.featured{position:relative;overflow:hidden;margin-top:65px;padding:clamp(27px,4vw,45px);border-radius:20px;border-color:rgba(139,213,160,.19);background:linear-gradient(120deg,rgba(21,36,25,.95),rgba(13,18,14,.98) 72%);box-shadow:0 20px 55px rgba(0,0,0,.14)}.featured:after{content:"";position:absolute;right:-75px;bottom:-170px;width:300px;height:300px;border:1px solid rgba(139,213,160,.12);border-radius:50%;box-shadow:0 0 0 28px rgba(139,213,160,.025),0 0 0 60px rgba(139,213,160,.018);pointer-events:none}.featured>div,.featured-button{position:relative;z-index:1}.featured-label{letter-spacing:.17em}.featured h2{font-size:clamp(26px,4vw,39px);letter-spacing:-.05em}.featured p{font-size:13px;line-height:1.9}
+footer{margin-top:65px;padding-top:22px;border-top-color:rgba(139,213,160,.15);color:#87938a;letter-spacing:.09em}
+:focus-visible{outline:2px solid var(--green)!important;outline-offset:4px!important}
+@media(max-width:620px){main{width:92%;padding-top:25px}.page-title{font-size:clamp(2.75rem,12vw,4.2rem)}main>section:first-child{border-radius:17px}.search{gap:4px}.search input{padding:13px 9px;font-size:12px}.search button{padding:0 12px;font-size:9px}.discover-grid,.business-grid{gap:12px}.discover-card{min-height:180px;padding:22px;border-radius:14px}.discover-card:after{right:18px;bottom:18px}.business-visual{min-height:165px}.business-content{padding:17px}.featured{border-radius:16px}}
+@media(prefers-reduced-motion:reduce){.discover-card:hover,.business-card:hover,.explore-state-button:hover,.view-all a:hover,.featured-button:hover{transform:none}}
+
+
+/* Consistent, always-visible return-to-home control */
+.ecosystem-home-link{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:36px;padding:9px 13px;border:1px solid rgba(128,201,149,.42);border-radius:7px;background:rgba(128,201,149,.08);color:#f4faf6!important;font-size:10px;font-weight:800;letter-spacing:.12em;text-decoration:none;white-space:nowrap;transition:background .2s,border-color .2s,color .2s}
+.ecosystem-home-link:hover{border-color:#80C995;background:#80C995;color:#07110c!important}
+@media(max-width:620px){.ecosystem-home-link{min-height:34px;padding:8px 10px;font-size:9px}}
+
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="{{ url_for('home') }}" class="logo"><span class="brand-the">THE</span> <span class="brand-ecosystem">ECOSYSTEM</span></a>
+
+        <div class="nav-right">
+            <div class="location">{{ state|default("Ibadan")|upper }} · NIGERIA</div>
+            <a href="{{ url_for('home') }}" class="home-link">HOME</a>
+        </div>
+    </nav>
+
+    <main>
+
+        <section>
+            <div class="page-label">DISCOVER · {{ state|default("Ibadan")|upper }}</div>
+
+            <h1 class="page-title">
+                Discover
+                <br>
+                <span>what's out there.</span>
+            </h1>
+
+            <p class="description">
+                Explore the businesses, people, places, events,
+                products and ideas making {{ state|default("Ibadan") }} interesting.
+            </p>
+
+            {% if state_explore_url %}
+            <a class="explore-state-button" href="{{ state_explore_url }}">
+                EXPLORE {{ state|default("OYO")|upper }} <span aria-hidden="true">↗</span>
+            </a>
+            {% endif %}
+
+            <form class="search" id="discovery-search" role="search">
+                <input
+                    id="search-input"
+                    type="search"
+                    placeholder="Search anything in {{ state|default('Ibadan') }}..."
+                    aria-label="Search discovery categories and businesses"
+                    autocomplete="off"
+                >
+                <button type="submit">SEARCH</button>
+            </form>
+
+            <div class="filters" aria-label="Filter discovery categories">
+                <button type="button" class="filter active"
+                        data-filter="all" aria-pressed="true">ALL</button>
+                <button type="button" class="filter"
+                        data-filter="businesses" aria-pressed="false">BUSINESSES</button>
+                <button type="button" class="filter"
+                        data-filter="people" aria-pressed="false">PEOPLE</button>
+                <button type="button" class="filter"
+                        data-filter="events" aria-pressed="false">EVENTS</button>
+                <button type="button" class="filter"
+                        data-filter="places" aria-pressed="false">PLACES</button>
+                <button type="button" class="filter"
+                        data-filter="products" aria-pressed="false">PRODUCTS</button>
+                <button type="button" class="filter"
+                        data-filter="services" aria-pressed="false">SERVICES</button>
+            </div>
+        </section>
+
+        <!-- DISCOVERY CATEGORIES -->
+
+        <section class="section">
+            <div class="section-header">
+                <div class="section-title">Explore</div>
+                <div class="section-note" id="filter-status" aria-live="polite">
+                    Showing all categories
+                </div>
+            </div>
+
+            <div class="discover-grid">
+
+                <a href="{{ url_for('businesses_page', state=state_slug) if state_discover else url_for('businesses_page') }}"
+                   class="discover-card"
+                   data-category="businesses"
+                   data-search-text="businesses local brands companies shops">
+                    <div class="card-tag">BUSINESSES</div>
+                    <h3>Local Businesses</h3>
+                    <p>Find businesses and brands worth knowing around {{ state|default("Ibadan") }}.</p>
+                </a>
+
+                <a href="{{ url_for('creators_page', state=state_slug) if state_discover else url_for('creators_page') }}"
+                   class="discover-card"
+                   data-category="people"
+                   data-search-text="people creators talents entrepreneurs artists">
+                    <div class="card-tag">PEOPLE</div>
+                    <h3>People &amp; Creators</h3>
+                    <p>Discover creators, talents, entrepreneurs and interesting people.</p>
+                </a>
+
+                <a href="{{ url_for('events', state=state_slug) if state_discover else url_for('events') }}"
+                   class="discover-card"
+                   data-category="events"
+                   data-search-text="events activities happenings festivals">
+                    <div class="card-tag">EVENTS</div>
+                    <h3>What's Happening</h3>
+                    <p>Find events, activities and things happening around {{ state|default("the city") }}.</p>
+                </a>
+
+                <a href="{{ url_for('businesses_page', state=state_slug) if state_discover else url_for('local') }}"
+                   class="discover-card"
+                   data-category="places"
+                   data-search-text="places restaurants hotels hangouts local spots">
+                    <div class="card-tag">PLACES</div>
+                    <h3>Explore Local</h3>
+                    <p>Discover restaurants, hotels, hangouts and hidden gems around {{ state|default("Ibadan") }}.</p>
+                </a>
+
+                <a href="{{ url_for('businesses_page', state=state_slug) if state_discover else url_for('businesses_page') }}"
+                   class="discover-card"
+                   data-category="products"
+                   data-search-text="products shopping vendors local brands">
+                    <div class="card-tag">PRODUCTS</div>
+                    <h3>Products</h3>
+                    <p>Find products and local brands people are talking about.</p>
+                </a>
+
+                <a href="{{ url_for('businesses_page', state=state_slug) if state_discover else url_for('businesses_page') }}"
+                   class="discover-card"
+                   data-category="services"
+                   data-search-text="services repairs technical professional help">
+                    <div class="card-tag">SERVICES</div>
+                    <h3>Services</h3>
+                    <p>Find people and businesses that can get things done.</p>
+                </a>
+
+            </div>
+
+            <div class="empty-state" id="category-empty">
+                No categories match that search. Try another word.
+            </div>
+        </section>
+
+        <!-- REAL BUSINESS DISCOVERY -->
+
+        <section class="section" id="business-spotlight">
+            <div class="section-header">
+                <div>
+                    <div class="section-title">Around {{ state|default("Ibadan") }}</div>
+                    <p style="margin-top: 10px; color: rgba(255,255,255,0.38); font-size: 12px; line-height: 1.7;">
+                        Local businesses worth discovering.
+                    </p>
+                </div>
+
+                <div class="section-note" id="business-count">
+                    {{ trending_businesses|length }} businesses highlighted
+                </div>
+            </div>
+
+            <div class="business-grid" id="business-grid">
+
+                {% for business in trending_businesses %}
+
+                <a href="{{ url_for('business_profile', business_id=business.id) }}"
+                   class="business-card"
+                   data-category="businesses"
+                   data-search-text="{{ (business.name ~ ' ' ~ business.category ~ ' ' ~ business.location ~ ' ' ~ business.description ~ ' ' ~ business.about)|default('', true)|lower|e }}">
+
+                    <div class="business-visual{% if business|business_card_image %} has-photo{% endif %}">
+                        <div class="business-monogram">
+                            {{ business.name[:1]|upper }}
+                        </div>
+
+                        {% if business|business_card_image %}
+                            <img
+                                src="{{ business|business_card_image|e }}"
+                                alt="{{ business.name|e }}"
+                                loading="lazy"
+                                onerror="this.style.display='none'; this.parentElement.classList.remove('has-photo');"
+                            >
+                        {% endif %}
+
+                        <div class="business-category">
+                            {{ business.category }}
+                        </div>
+                    </div>
+
+                    <div class="business-content">
+
+                        <div class="business-location">
+                            <span aria-hidden="true">⌖</span>
+                            {{ business.location }}
+                        </div>
+
+                        <h3 class="business-name">{{ business.name }}</h3>
+
+                        <p class="business-description">
+                            {{ business.description or business.about or "Discover this local business on THE ECOSYSTEM." }}
+                        </p>
+
+                        <div class="business-meta">
+
+                            <div class="business-rating">
+                                {% if business.rating_count %}
+                                    <span class="stars" aria-label="Rating">
+                                        ★ {{ "%.1f"|format(business.rating_average|float) }}
+                                    </span>
+                                    <span>
+                                        · {{ business.rating_count }}
+                                        {% if business.rating_count == 1 %}review{% else %}reviews{% endif %}
+                                    </span>
+                                {% else %}
+                                    <span class="stars">☆☆☆☆☆</span>
+                                    <span> New listing</span>
+                                {% endif %}
+                            </div>
+
+                            <span class="business-open-link">View profile ↗</span>
+
+                        </div>
+                    </div>
+                </a>
+
+                {% else %}
+
+                <div class="empty-state visible" style="grid-column: 1 / -1;">
+                    No public business listings are available yet.
+                    Check back as more local businesses join THE ECOSYSTEM.
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="empty-state" id="business-empty">
+                No highlighted businesses match your search.
+                Try another name, category or location.
+            </div>
+
+            <div class="view-all">
+                <a href="{{ url_for('businesses_page', state=state_slug) if state_discover else url_for('businesses_page') }}">EXPLORE ALL BUSINESSES ↗</a>
+            </div>
+        </section>
+
+        <!-- COMMUNITY FEATURE -->
+
+        <section class="featured">
+            <div>
+                <div class="featured-label">THE COMMUNITY</div>
+
+                <h2>Someone interesting<br>is probably near you.</h2>
+
+                <p>
+                    From entrepreneurs and creatives to local businesses
+                    and rising talents, discover the people shaping {{ state|default("Ibadan") }}.
+                </p>
+            </div>
+
+            <a href="{{ url_for('creators_page', state=state_slug) if state_discover else url_for('creators_page') }}" class="featured-button">
+                DISCOVER PEOPLE
+            </a>
+        </section>
+
+        <footer>
+            <div><span class="brand-the">THE</span> <span class="brand-ecosystem">ECOSYSTEM</span></div>
+            <div>{{ state|default("Ibadan")|upper }} · NIGERIA</div>
+        </footer>
+
+    </main>
+
+    <!-- FILTER AND SEARCH BEHAVIOUR -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const filterButtons = document.querySelectorAll(".filter");
+            const categoryCards = document.querySelectorAll(".discover-card");
+            const businessCards = document.querySelectorAll(".business-card");
+
+            const searchForm = document.getElementById("discovery-search");
+            const searchInput = document.getElementById("search-input");
+
+            const status = document.getElementById("filter-status");
+            const categoryEmpty = document.getElementById("category-empty");
+            const businessEmpty = document.getElementById("business-empty");
+            const businessCount = document.getElementById("business-count");
+            const businessSection = document.getElementById("business-spotlight");
+
+            let selectedCategory = "all";
+            let searchTerm = "";
+
+            const categoryNames = {
+                all: "Showing all categories",
+                businesses: "Showing businesses",
+                people: "Showing people and creators",
+                events: "Showing events",
+                places: "Showing places",
+                products: "Showing products",
+                services: "Showing services"
+            };
+
+            function matchesSearch(element) {
+                const searchableText = (
+                    element.dataset.searchText ||
+                    element.textContent ||
+                    ""
+                ).toLowerCase();
+
+                return searchableText.includes(searchTerm);
+            }
+
+            function updateResults() {
+                let visibleCategories = 0;
+                let visibleBusinesses = 0;
+
+                categoryCards.forEach(function (card) {
+                    const categoryMatches =
+                        selectedCategory === "all" ||
+                        card.dataset.category === selectedCategory;
+
+                    const searchMatches = matchesSearch(card);
+                    const shouldShow = categoryMatches && searchMatches;
+
+                    card.hidden = !shouldShow;
+
+                    if (shouldShow) {
+                        visibleCategories++;
+                    }
+                });
+
+                businessCards.forEach(function (card) {
+                    const categoryMatches =
+                        selectedCategory === "all" ||
+                        selectedCategory === "businesses" ||
+                        selectedCategory === "products" ||
+                        selectedCategory === "services" ||
+                        selectedCategory === "places";
+
+                    const searchMatches = matchesSearch(card);
+                    const shouldShow = categoryMatches && searchMatches;
+
+                    card.hidden = !shouldShow;
+
+                    if (shouldShow) {
+                        visibleBusinesses++;
+                    }
+                });
+
+                categoryEmpty.classList.toggle(
+                    "visible",
+                    visibleCategories === 0
+                );
+
+                businessEmpty.classList.toggle(
+                    "visible",
+                    businessCards.length > 0 && visibleBusinesses === 0
+                );
+
+                businessCount.textContent =
+                    visibleBusinesses + (
+                        visibleBusinesses === 1
+                            ? " business shown"
+                            : " businesses shown"
+                    );
+
+                if (searchTerm) {
+                    status.textContent =
+                        visibleCategories + " categories match your search";
+                } else {
+                    status.textContent =
+                        categoryNames[selectedCategory] ||
+                        "Explore categories";
+                }
+
+                /*
+                 * Keep business cards available for relevant discovery
+                 * filters while avoiding irrelevant results for people/events.
+                 */
+                businessSection.hidden =
+                    selectedCategory === "people" ||
+                    selectedCategory === "events";
+            }
+
+            filterButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    selectedCategory = button.dataset.filter;
+
+                    filterButtons.forEach(function (item) {
+                        const isActive = item === button;
+
+                        item.classList.toggle("active", isActive);
+                        item.setAttribute("aria-pressed", String(isActive));
+                    });
+
+                    updateResults();
+                });
+            });
+
+            searchForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                searchTerm = searchInput.value.trim().toLowerCase();
+
+                updateResults();
+
+                const target = searchTerm
+                    ? document.querySelector(".section")
+                    : document.querySelector(".filters");
+
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: window.matchMedia(
+                            "(prefers-reduced-motion: reduce)"
+                        ).matches ? "auto" : "smooth",
+                        block: "start"
+                    });
+                }
+            });
+
+            searchInput.addEventListener("input", function () {
+                searchTerm = searchInput.value.trim().toLowerCase();
+                updateResults();
+            });
+
+            updateResults();
+        });
+    </script>
+
+</body>
+</html>

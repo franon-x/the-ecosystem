@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Welcome | THE ECOSYSTEM</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100svh;
+            overflow: hidden;
+            background: #020202;
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff2525;
+        }
+
+        /* BACKGROUND ATMOSPHERE */
+
+        .aurora {
+            position: absolute;
+            width: 900px;
+            height: 500px;
+            background: radial-gradient(
+                ellipse,
+                rgba(180, 0, 0, 0.24),
+                rgba(80, 0, 0, 0.08) 45%,
+                transparent 75%
+            );
+            filter: blur(70px);
+            animation: auroraMove 12s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        .aurora-two {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(
+                circle,
+                rgba(255, 0, 0, 0.12),
+                transparent 70%
+            );
+            filter: blur(100px);
+            animation: secondGlow 15s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        .bottom-glow {
+            position: absolute;
+            width: 100%;
+            height: 250px;
+            bottom: -180px;
+            background: radial-gradient(
+                ellipse,
+                rgba(180, 0, 0, 0.3),
+                transparent 70%
+            );
+            filter: blur(50px);
+            pointer-events: none;
+        }
+
+        /* MAIN CONTENT */
+
+        .content {
+            position: relative;
+            z-index: 5;
+            width: min(950px, 90%);
+            text-align: center;
+            animation: contentReveal 2s ease forwards;
+        }
+
+        .small-label {
+            font-size: 11px;
+            letter-spacing: 0.5em;
+            color: #ff3030;
+            text-transform: uppercase;
+            margin-bottom: 38px;
+            text-shadow:
+                0 0 8px rgba(255, 0, 0, 0.8),
+                0 0 20px rgba(255, 0, 0, 0.4);
+            animation: labelPulse 3s ease-in-out infinite;
+        }
+
+        .headline {
+            font-size: clamp(2.2rem, 6vw, 5rem);
+            font-weight: 300;
+            line-height: 1.2;
+            letter-spacing: 0.035em;
+            margin-bottom: 32px;
+            color: #ff2424;
+            text-shadow:
+                0 0 8px rgba(255, 0, 0, 0.75),
+                0 0 25px rgba(255, 0, 0, 0.4),
+                0 0 60px rgba(180, 0, 0, 0.25);
+            animation: headlineGlow 4s ease-in-out infinite alternate;
+        }
+
+        .headline span {
+            color: #ff5555;
+            text-shadow:
+                0 0 10px rgba(255, 0, 0, 0.9),
+                0 0 35px rgba(255, 0, 0, 0.55);
+        }
+
+        .description {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: clamp(0.95rem, 2vw, 1.2rem);
+            line-height: 1.9;
+            font-weight: 300;
+            letter-spacing: 0.035em;
+            color: #ff4545;
+            text-shadow:
+                0 0 8px rgba(255, 0, 0, 0.45),
+                0 0 20px rgba(150, 0, 0, 0.25);
+            animation: descriptionReveal 2s ease 0.5s both;
+        }
+
+        .description span {
+            color: #ff7777;
+            text-shadow: 0 0 12px rgba(255, 0, 0, 0.7);
+        }
+
+        /* EXPLORE BUTTON */
+
+        .explore {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 55px;
+            padding: 17px 35px;
+            border: 1px solid rgba(255, 25, 25, 0.7);
+            border-radius: 2px;
+            background: rgba(90, 0, 0, 0.12);
+            color: #ff3939;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            box-shadow:
+                0 0 15px rgba(180, 0, 0, 0.08),
+                inset 0 0 15px rgba(180, 0, 0, 0.04);
+            transition:
+                background 0.4s ease,
+                box-shadow 0.4s ease,
+                transform 0.4s ease,
+                border-color 0.4s ease;
+            backdrop-filter: blur(8px);
+            animation: buttonReveal 2s ease 0.8s both;
+        }
+
+        .explore .arrow {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .explore:hover {
+            background: rgba(160, 0, 0, 0.2);
+            border-color: #ff3333;
+            box-shadow:
+                0 0 25px rgba(255, 0, 0, 0.22),
+                0 0 50px rgba(180, 0, 0, 0.12),
+                inset 0 0 20px rgba(180, 0, 0, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .explore:hover .arrow {
+            transform: translateX(5px);
+        }
+
+        /* ANIMATIONS */
+
+        @keyframes contentReveal {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+                filter: blur(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        @keyframes descriptionReveal {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes buttonReveal {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes auroraMove {
+            from {
+                transform: translate(-180px, -50px) rotate(-8deg) scale(0.9);
+            }
+            to {
+                transform: translate(180px, 70px) rotate(8deg) scale(1.15);
+            }
+        }
+
+        @keyframes secondGlow {
+            from {
+                transform: translate(150px, -100px);
+            }
+            to {
+                transform: translate(-150px, 100px);
+            }
+        }
+
+        @keyframes headlineGlow {
+            from {
+                text-shadow:
+                    0 0 8px rgba(255, 0, 0, 0.55),
+                    0 0 25px rgba(255, 0, 0, 0.25),
+                    0 0 50px rgba(180, 0, 0, 0.15);
+            }
+            to {
+                text-shadow:
+                    0 0 12px rgba(255, 0, 0, 0.9),
+                    0 0 35px rgba(255, 0, 0, 0.5),
+                    0 0 75px rgba(180, 0, 0, 0.3);
+            }
+        }
+
+        @keyframes labelPulse {
+            0%, 100% {
+                opacity: 0.65;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+            .content {
+                width: 88%;
+            }
+
+            .small-label {
+                font-size: 9px;
+                letter-spacing: 0.32em;
+                margin-bottom: 30px;
+            }
+
+            .headline {
+                font-size: clamp(2rem, 9vw, 3.3rem);
+                line-height: 1.3;
+                margin-bottom: 25px;
+            }
+
+            .description {
+                font-size: 0.95rem;
+                line-height: 1.8;
+            }
+
+            .explore {
+                width: 90%;
+                padding: 18px 15px;
+                margin-top: 40px;
+                font-size: 10px;
+                letter-spacing: 0.2em;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    
+
+/* ==========================================================
+   THE ECOSYSTEM — OFFICIAL DESIGN SYSTEM
+   Palette: #080909 / #111413 / #E6333E / #80C995 / #FFFFFF
+   ========================================================== */
+:root {
+  --eco-bg: #080909;
+  --eco-panel: #111413;
+  --eco-panel-soft: #171b18;
+  --eco-red: #E6333E;
+  --eco-green: #80C995;
+  --eco-white: #FFFFFF;
+  --eco-muted: #A9B0AA;
+  --eco-line: rgba(255,255,255,.11);
+}
+html { background: var(--eco-bg); scroll-behavior: smooth; }
+body {
+  color: var(--eco-white);
+  background:
+    radial-gradient(ellipse at 8% 0%, rgba(230,51,62,.11), transparent 34%),
+    radial-gradient(ellipse at 95% 85%, rgba(128,201,149,.07), transparent 32%),
+    var(--eco-bg);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease; }
+header, nav {
+  border-color: var(--eco-line) !important;
+}
+.logo, .brand { color: var(--eco-white); }
+.logo span, .brand span { color: var(--eco-red); }
+h1, h2, h3, h4 { color: var(--eco-white); }
+p { text-wrap: pretty; }
+input, select, textarea {
+  color: var(--eco-white) !important;
+  background: #0b0e0c !important;
+  border-color: rgba(255,255,255,.15) !important;
+  border-radius: 10px;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--eco-green) !important;
+  box-shadow: 0 0 0 3px rgba(128,201,149,.11);
+  outline: none;
+}
+input::placeholder, textarea::placeholder { color: #737b75 !important; }
+label { color: #d1d6d2; }
+button, input[type="submit"], input[type="button"], .login-button, .view-button,
+.view-link, .view-button, .explore-state-button, .action-button, .btn,
+.primary-button, .submit-button, .save-button, .cta, .view-all,
+a.button, a.btn, .register-button, .submit-btn {
+  border-radius: 10px;
+}
+button[type="submit"], input[type="submit"], .login-button, .submit-button,
+.save-button, .primary-button, .submit-btn, .explore-state-button,
+.action-button, .cta, .register-button, a.button, a.btn, .view-button {
+  background: var(--eco-white) !important;
+  color: #237744 !important;
+  border: 1px solid rgba(128,201,149,.65) !important;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(0,0,0,.16);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+button[type="submit"]:hover, input[type="submit"]:hover, .login-button:hover,
+.submit-button:hover, .save-button:hover, .primary-button:hover, .submit-btn:hover,
+.explore-state-button:hover, .action-button:hover, .cta:hover, .register-button:hover,
+a.button:hover, a.btn:hover, .view-button:hover {
+  background: var(--eco-green) !important;
+  color: #08100b !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(128,201,149,.14);
+}
+button:not([type="submit"]):not(.toggle-password):not(.featured-prev):not(.featured-next) {
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--eco-green);
+  outline-offset: 3px;
+}
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card,
+.creator-card, .event-card, .plan, .stat, .success-card, .featured,
+.featured-creator, .profile-card, .content-card, .result-card {
+  border-color: var(--eco-line) !important;
+}
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card,
+.creator-card, .event-card, .plan, .stat, .success-card, .profile-card,
+.content-card, .result-card {
+  background-color: var(--eco-panel);
+}
+.eyebrow, .label, .page-label, .section-label, .category, .featured-label,
+.event-category, .competition-category { color: var(--eco-green); }
+.muted, .intro, .description, .hero p, .hero-description, .about-text,
+.location, .empty-state p { color: var(--eco-muted); }
+.error, .alert-error {
+  color: #ff9da3;
+  background: rgba(230,51,62,.09);
+  border-color: rgba(230,51,62,.35);
+  border-radius: 10px;
+}
+.success, .alert-success, .notice-success {
+  color: #b8f0c8;
+  background: rgba(128,201,149,.08);
+  border-color: rgba(128,201,149,.3);
+  border-radius: 10px;
+}
+hr { border-color: var(--eco-line); }
+::selection { background: rgba(128,201,149,.32); color: #fff; }
+@media (max-width: 700px) {
+  body { background:
+    radial-gradient(ellipse at 10% 0%, rgba(230,51,62,.09), transparent 38%),
+    var(--eco-bg); }
+}
+
+
+body { color: var(--eco-white) !important; }
+/* Official wordmark colors if a brand label is added later. */
+.logo, .brand { color: var(--eco-white) !important; }
+.logo span, .brand span, .ecosystem-wordmark { color: var(--eco-red) !important; }
+.aurora { background: radial-gradient(ellipse,rgba(230,51,62,.17),rgba(128,201,149,.045) 45%,transparent 75%) !important; }
+.aurora-two { background: radial-gradient(circle,rgba(128,201,149,.09),transparent 70%) !important; }
+.bottom-glow { background: radial-gradient(ellipse,rgba(230,51,62,.2),transparent 70%) !important; }
+.small-label { color: var(--eco-green) !important; text-shadow: none !important; }
+.headline { color: var(--eco-white) !important; text-shadow: 0 0 35px rgba(230,51,62,.12) !important; }
+.headline span, .description span { color: var(--eco-green) !important; text-shadow: none !important; }
+.description { color: #c5ccc6 !important; text-shadow: none !important; }
+
+</style>
+</head>
+
+<body>
+
+    <div class="aurora"></div>
+    <div class="aurora-two"></div>
+    <div class="bottom-glow"></div>
+
+    <main class="content">
+
+        <div class="small-label">
+            ONE COUNTRY · ENDLESS DISCOVERIES
+        </div>
+
+        <h1 class="headline">
+            THERE'S MORE<br>
+            TO <span>NIGERIA</span><br>
+            THAN YOU KNOW.
+        </h1>
+
+        <p class="description">
+            Hidden gems. Local legends. Businesses worth knowing.
+            Places worth visiting. People making moves.
+            <span>Your next discovery starts here.</span>
+        </p>
+
+        <a href="/home" class="explore">
+            Enter The Ecosystem
+            <span class="arrow">→</span>
+        </a>
+
+    </main>
+
+</body>
+</html>

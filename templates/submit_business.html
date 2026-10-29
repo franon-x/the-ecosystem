@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+    <title>Submit to THE ECOSYSTEM</title>
+
+
+
+    <style>
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        body {
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: #050505;
+
+            color: #ffffff;
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+
+        }
+
+
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            top: -250px;
+
+            left: -200px;
+
+            width: 600px;
+
+            height: 600px;
+
+            background: radial-gradient(circle, rgba(255, 35, 35, .14), transparent 70%);
+
+            pointer-events: none;
+
+        }
+
+
+
+        body::after {
+
+            content: "";
+
+            position: fixed;
+
+            bottom: -300px;
+
+            right: -200px;
+
+            width: 650px;
+
+            height: 650px;
+
+            background: radial-gradient(circle, rgba(255, 35, 35, .09), transparent 70%);
+
+            pointer-events: none;
+
+        }
+
+
+
+        .page {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: min(900px, 92%);
+
+            margin: auto;
+
+            padding-bottom: 80px;
+
+        }
+
+
+
+        nav {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 28px 0;
+
+        }
+
+
+
+        .logo {
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+        }
+
+
+
+        .location {
+
+            font-size: 10px;
+
+            color: #ff4545;
+
+            letter-spacing: 1.5px;
+
+        }
+
+
+
+        .back {
+
+            display: inline-block;
+
+            margin-top: 25px;
+
+            color: #888;
+
+            text-decoration: none;
+
+            font-size: 11px;
+
+            letter-spacing: 1px;
+
+            transition: .2s;
+
+        }
+
+
+
+        .back:hover {
+
+            color: #ff3030;
+
+        }
+
+
+
+        .header {
+
+            margin-top: 55px;
+
+            margin-bottom: 45px;
+
+            max-width: 700px;
+
+        }
+
+
+
+        .eyebrow {
+
+            color: #ff3030;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+
+        h1 {
+
+            font-size: clamp(38px, 7vw, 72px);
+
+            line-height: .95;
+
+            letter-spacing: -3px;
+
+            margin-bottom: 22px;
+
+        }
+
+
+
+        .intro {
+
+            color: #999;
+
+            font-size: 15px;
+
+            line-height: 1.7;
+
+            max-width: 620px;
+
+        }
+
+
+
+        .form-container {
+
+            background: rgba(15, 15, 15, .92);
+
+            border: 1px solid #202020;
+
+            padding: 35px;
+
+            border-radius: 14px;
+
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+
+        }
+
+
+
+        .form-section {
+
+            margin-bottom: 35px;
+
+        }
+
+
+
+        .section-title {
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.5px;
+
+            color: #ff3030;
+
+            margin-bottom: 20px;
+
+            text-transform: uppercase;
+
+        }
+
+
+
+        .field {
+
+            margin-bottom: 24px;
+
+        }
+
+
+
+        label {
+
+            display: block;
+
+            font-size: 11px;
+
+            color: #bcbcbc;
+
+            letter-spacing: .8px;
+
+            margin-bottom: 9px;
+
+        }
+
+
+
+        input,
+
+        select,
+
+        textarea {
+
+            width: 100%;
+
+            background: #080808;
+
+            border: 1px solid #292929;
+
+            border-radius: 8px;
+
+            color: #fff;
+
+            padding: 15px 16px;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: .2s;
+
+        }
+
+
+
+        input::placeholder,
+
+        textarea::placeholder {
+
+            color: #555;
+
+        }
+
+
+
+        input:focus,
+
+        select:focus,
+
+        textarea:focus {
+
+            border-color: #ff3030;
+
+            box-shadow: 0 0 0 2px rgba(255, 48, 48, .08);
+
+        }
+
+
+
+        select {
+
+            appearance: none;
+
+            cursor: pointer;
+
+        }
+
+
+
+        select option {
+
+            background: #101010;
+
+            color: #fff;
+
+        }
+
+
+
+        textarea {
+
+            min-height: 150px;
+
+            resize: vertical;
+
+            line-height: 1.6;
+
+        }
+
+
+
+        .hint {
+
+            margin-top: 8px;
+
+            font-size: 10px;
+
+            color: #777;
+
+            line-height: 1.6;
+
+        }
+
+
+
+        .required {
+
+            color: #ff3030;
+
+        }
+
+
+
+        .location-panel {
+
+            padding: 22px;
+
+            border: 1px solid #292020;
+
+            border-radius: 10px;
+
+            background: rgba(255, 30, 30, .025);
+
+            margin-bottom: 26px;
+
+        }
+
+
+
+        .location-heading {
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+
+        .location-intro {
+
+            font-size: 12px;
+
+            color: #888;
+
+            line-height: 1.7;
+
+            margin-bottom: 22px;
+
+        }
+
+
+
+        .location-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 0 18px;
+
+        }
+
+
+
+        .full-width {
+
+            grid-column: 1 / -1;
+
+        }
+
+
+
+        .location-status {
+
+            display: none;
+
+            color: #ff5555;
+
+            font-size: 11px;
+
+            margin-top: 10px;
+
+            line-height: 1.6;
+
+        }
+
+
+
+        .submit-area {
+
+            border-top: 1px solid #222;
+
+            padding-top: 30px;
+
+        }
+
+
+
+        .submit-button {
+
+            width: 100%;
+
+            border: none;
+
+            background: #ff3030;
+
+            color: #fff;
+
+            padding: 17px 20px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+
+            cursor: pointer;
+
+            transition: .2s;
+
+        }
+
+
+
+        .submit-button:hover {
+
+            background: #e52525;
+
+            transform: translateY(-1px);
+
+        }
+
+
+
+        .submit-note {
+
+            margin-top: 14px;
+
+            text-align: center;
+
+            color: #777;
+
+            font-size: 10px;
+
+            line-height: 1.7;
+
+        }
+
+
+
+        footer {
+
+            margin-top: 70px;
+
+            padding-top: 25px;
+
+            border-top: 1px solid #181818;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            color: #666;
+
+            font-size: 10px;
+
+            letter-spacing: .5px;
+
+        }
+
+
+
+        @media (max-width: 600px) {
+
+            .page {
+
+                width: 90%;
+
+            }
+
+
+
+            nav {
+
+                padding: 22px 0;
+
+            }
+
+
+
+            .location {
+
+                font-size: 8px;
+
+                letter-spacing: 1px;
+
+            }
+
+
+
+            .header {
+
+                margin-top: 45px;
+
+                margin-bottom: 32px;
+
+            }
+
+
+
+            h1 {
+
+                letter-spacing: -2px;
+
+            }
+
+
+
+            .intro {
+
+                font-size: 14px;
+
+            }
+
+
+
+            .form-container {
+
+                padding: 22px;
+
+                border-radius: 11px;
+
+            }
+
+
+
+            .location-panel {
+
+                padding: 16px;
+
+            }
+
+
+
+            .location-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+
+            .full-width {
+
+                grid-column: auto;
+
+            }
+
+
+
+            footer {
+
+                flex-direction: column;
+
+                gap: 8px;
+
+            }
+
+        }
+
+
+        .submission-switch {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 0 0 22px
+        }
+
+        .switch-button {
+            background: #ff3030;
+            border: 2px solid #ff3030;
+            color: #fff;
+            border-radius: 10px;
+            padding: 17px 14px;
+            font-size: 14px;
+            font-weight: 900;
+            letter-spacing: .7px;
+            cursor: pointer;
+            transition: background .2s, transform .2s, box-shadow .2s;
+            box-shadow: 0 8px 24px rgba(255, 48, 48, .16);
+            text-transform: uppercase
+        }
+
+        .switch-button:hover {
+            background: #e52525;
+            border-color: #e52525;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(255, 48, 48, .26)
+        }
+
+        .switch-button.active {
+            background: #b91515;
+            border-color: #ff7777;
+            box-shadow: 0 0 0 3px rgba(255, 48, 48, .16), 0 10px 28px rgba(255, 48, 48, .22)
+        }
+
+        .switch-button:focus-visible {
+            outline: 3px solid #fff;
+            outline-offset: 3px
+        }
+
+        .event-panel {
+            margin-top: 0
+        }
+
+        @media(max-width:520px) {
+            .submission-switch {
+                grid-template-columns: 1fr
+            }
+
+            .switch-button {
+                padding: 15px;
+                font-size: 13px
+            }
+        }
+
+
+        /* Clear, pop-up event calendar */
+        .event-date-field {
+            position: relative;
+        }
+
+        .date-picker-trigger {
+            width: 100%;
+            min-height: 52px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+            padding: 13px 14px;
+            border: 1px solid #414141;
+            border-radius: 10px;
+            background: #101010;
+            color: #fff;
+            cursor: pointer;
+            font: inherit;
+            transition: border-color .18s, background .18s, box-shadow .18s;
+        }
+
+        .date-picker-trigger:hover,
+        .date-picker-trigger:focus-visible {
+            border-color: #ff3030;
+            background: #171010;
+            box-shadow: 0 0 0 3px rgba(255, 35, 35, .12);
+            outline: none;
+        }
+
+        .date-picker-icon {
+            display: grid;
+            place-items: center;
+            width: 34px;
+            height: 34px;
+            flex: 0 0 34px;
+            border-radius: 8px;
+            color: #fff;
+            background: #e51b23;
+            font-size: 21px;
+        }
+
+        #eventDateLabel {
+            flex: 1;
+            color: #f5f5f5;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .date-picker-hint {
+            color: #ff5555;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .7px;
+        }
+
+        .date-help {
+            display: block;
+            color: #999;
+            margin-top: 8px;
+            line-height: 1.45;
+            font-size: 12px;
+        }
+
+        .calendar-popover {
+            position: absolute;
+            z-index: 50;
+            left: 0;
+            top: calc(100% + 10px);
+            width: min(340px, calc(100vw - 48px));
+            padding: 16px;
+            border: 1px solid #373737;
+            border-radius: 15px;
+            background: #101010;
+            box-shadow: 0 18px 55px rgba(0, 0, 0, .65), 0 0 0 1px rgba(255, 40, 40, .05);
+        }
+
+        .calendar-popover[hidden] {
+            display: none;
+        }
+
+        .calendar-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .calendar-top>div {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .calendar-top strong {
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .calendar-top small {
+            color: #888;
+            font-size: 11px;
+        }
+
+        .calendar-nav {
+            width: 34px;
+            height: 34px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #1a1a1a;
+            color: #fff;
+            font-size: 25px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .calendar-nav:hover {
+            background: #e51b23;
+            border-color: #e51b23;
+        }
+
+        .calendar-weekdays,
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 5px;
+        }
+
+        .calendar-weekdays {
+            margin-bottom: 7px;
+        }
+
+        .calendar-weekdays span {
+            text-align: center;
+            color: #888;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 0;
+        }
+
+        .calendar-day,
+        .calendar-empty {
+            min-width: 0;
+            height: 36px;
+        }
+
+        .calendar-day {
+            border: 1px solid transparent;
+            border-radius: 8px;
+            background: transparent;
+            color: #eee;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .calendar-day:hover:not(:disabled) {
+            border-color: #ff3434;
+            background: #291112;
+        }
+
+        .calendar-day.today {
+            border-color: #9b2828;
+            color: #ff7373;
+        }
+
+        .calendar-day.selected {
+            background: #e51b23;
+            border-color: #e51b23;
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .calendar-day:disabled {
+            color: #444;
+            cursor: not-allowed;
+        }
+
+        .calendar-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #292929;
+            margin-top: 14px;
+            padding-top: 12px;
+            gap: 8px;
+        }
+
+        .calendar-bottom span {
+            color: #999;
+            font-size: 11px;
+        }
+
+        .calendar-bottom button {
+            color: #ff5a5a;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        @media (max-width:480px) {
+            .date-picker-hint {
+                font-size: 9px;
+            }
+
+            .calendar-popover {
+                left: 0;
+            }
+        }
+    
+/* THE ECOSYSTEM — unified faint-green theme */
+:root {
+  --green: #80C995; --green-soft: rgba(128,201,149,.12);
+  --line: rgba(255,255,255,.11); --panel: #111413;
+  --panel-soft: #171b18; --muted: #A9B0AA;
+  --red: #80C995; --red-light: #80C995;
+  --border: rgba(255,255,255,.11); --card: #111413;
+}
+html, body { background: #080909 !important; color: #fff; }
+body::before, body::after { content: none !important; display: none !important; }
+
+.logo, .location, .eyebrow, .section-title, .required, .back:hover { color:#80C995 !important; }
+.form-container, .residence-section, .location-panel { background:#111413 !important; border-color:rgba(255,255,255,.11) !important; box-shadow:none !important; }
+input, select, textarea { background:#080909 !important; color:#fff !important; border-color:rgba(255,255,255,.14) !important; }
+input:focus, select:focus, textarea:focus, .date-picker-trigger:focus-visible, .date-picker-trigger:hover { border-color:#80C995 !important; box-shadow:0 0 0 2px rgba(128,201,149,.10) !important; background:#101512 !important; }
+.submission-switch .switch-button, .switch-button, .submit-button, .date-picker-icon, .calendar-day.selected { background:#80C995 !important; border-color:#80C995 !important; color:#080909 !important; box-shadow:none !important; }
+.switch-button:hover, .switch-button.active, .submit-button:hover, .calendar-nav:hover { background:#80C995 !important; border-color:#80C995 !important; color:#080909 !important; transform:translateY(-1px); }
+.location-panel { background:rgba(128,201,149,.035) !important; }
+.date-picker-hint, .calendar-bottom button { color:#80C995 !important; }
+.calendar-popover { background:#111413 !important; border-color:rgba(255,255,255,.14) !important; box-shadow:0 18px 55px rgba(0,0,0,.65) !important; }
+.calendar-day:hover:not(:disabled) { border-color:#80C995 !important; background:rgba(128,201,149,.10) !important; }
+.calendar-day.today { border-color:#80C995 !important; color:#80C995 !important; }
+.calendar-bottom { border-color:rgba(255,255,255,.11) !important; }
+footer { border-color:rgba(255,255,255,.11) !important; }
+
+    </style>
+
+
+<style>
+:root{--eco-green:#80C995;--eco-bg:#080909;--eco-panel:#111413;--eco-line:rgba(255,255,255,.11)}
+html,body{background:#080909!important;color:#fff!important}body::before,body::after{display:none!important;content:none!important}
+.eyebrow,.section-title,.location,.required{color:#80C995!important}
+.form-container,.location-panel{background:#111413!important;border-color:var(--eco-line)!important;box-shadow:none!important}
+input:focus,select:focus,textarea:focus{border-color:#80C995!important;box-shadow:0 0 0 2px rgba(128,201,149,.1)!important}
+.submit-button,.switch-button,.switch-button.active,.date-picker-icon{background:#80C995!important;color:#08100b!important;border-color:#80C995!important;box-shadow:none!important}
+.submit-button:hover,.switch-button:hover{background:#80C995!important;color:#08100b!important;transform:none!important;filter:brightness(1.03)}
+
+/* Final brand wordmark consistency: THE white, ECOSYSTEM red */
+.logo, .brand { color: #FFFFFF !important; }
+.logo span, .brand span, .ecosystem-wordmark span, .ecosystem-wordmark b,
+.footer strong.ecosystem-wordmark span { color: #E6333E !important; }
+.ecosystem-wordmark { color: #FFFFFF !important; }
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+
+    <div class="page">
+
+
+
+        <nav>
+
+            <div class="logo">THE <span>ECOSYSTEM</span></div>
+
+            <div class="location">NIGERIA · 36 STATES + FCT</div>
+
+        </nav>
+
+
+
+        <a href="{{ url_for('account') }}" class="back">
+
+            ← BACK TO ACCOUNT
+
+        </a>
+
+
+
+        <section class="header">
+
+            <div class="eyebrow">ADD TO THE ECOSYSTEM</div>
+
+            <h1>PUT IT<br>ON THE MAP.</h1>
+
+            <p class="intro">
+                Add a business or promote an event. Submissions are reviewed
+                before they appear publicly on THE ECOSYSTEM.
+            </p>
+
+        </section>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+        <div
+            style="margin-bottom:16px;padding:14px 16px;border:1px solid {% if category == 'success' %}#286545{% else %}#7b2525{% endif %};background:{% if category == 'success' %}#0c2116{% else %}#210d0d{% endif %};color:{% if category == 'success' %}#a9f0c5{% else %}#ffb0b0{% endif %};border-radius:8px;">
+            {{ message }}</div>
+        {% endfor %}
+        {% endwith %}
+        {% if error %}
+        <div
+            style="margin-bottom:20px;padding:14px 16px;border:1px solid #7b2525;background:#210d0d;color:#ffb0b0;border-radius:8px;">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <div class="submission-switch" role="tablist" aria-label="Choose submission type">
+            <button type="button" class="switch-button" id="businessTab" onclick="showSubmissionForm('business')">＋
+                Submit a Business</button>
+            <button type="button" class="switch-button" id="eventTab" onclick="showSubmissionForm('event')">▣ Submit an
+                Event</button>
+        </div>
+
+        <div class="form-container business-panel" id="businessPanel">
+
+
+
+            <form method="POST" action="{{ url_for('submit_business') }}" id="businessForm">
+
+
+
+                <div class="form-section">
+
+
+
+                    <div class="section-title">Business Details</div>
+
+
+
+                    <div class="field">
+
+                        <label for="name">
+
+                            BUSINESS NAME <span class="required">*</span>
+
+                        </label>
+
+
+
+                        <input type="text" id="name" name="name" placeholder="e.g. Franon's Kitchen" maxlength="150"
+                            required>
+
+                    </div>
+
+
+
+                    <div class="field">
+                        <label for="business_phone">BUSINESS PHONE <span class="required">*</span></label>
+                        <input type="tel" id="business_phone" name="business_phone" placeholder="Business phone number" maxlength="40">
+                        <div class="hint">Provide a public business contact. A phone number or business email is required for verification.</div>
+                    </div>
+                    <div class="field">
+                        <label for="business_email">BUSINESS EMAIL <span class="required">*</span></label>
+                        <input type="email" id="business_email" name="business_email" placeholder="name@business.com" maxlength="254">
+                    </div>
+
+                    <div class="field">
+
+                        <label for="category">
+
+                            CATEGORY <span class="required">*</span>
+
+                        </label>
+
+
+
+                        <select id="category" name="category" required>
+
+                            <option value="" disabled {% if not default_category %}selected{% endif %}>Select a category</option>
+
+                            <option value="Restaurant" {% if default_category == "Restaurant" %}selected{% endif %}>Restaurant</option>
+
+                            <option value="Food & Drinks" {% if default_category == "Food & Drinks" %}selected{% endif %}>Food & Drinks</option>
+
+                            <option value="Fashion & Beauty" {% if default_category == "Fashion & Beauty" %}selected{% endif %}>Fashion & Beauty</option>
+
+                            <option value="Technology" {% if default_category == "Technology" %}selected{% endif %}>Technology</option>
+
+                            <option value="Entertainment" {% if default_category == "Entertainment" %}selected{% endif %}>Entertainment</option>
+
+                            <option value="Hotel & Accommodation" {% if default_category == "Hotel & Accommodation" %}selected{% endif %}>Hotel & Accommodation</option>
+
+                            <option value="Services" {% if default_category == "Services" %}selected{% endif %}>Services</option>
+
+                            <option value="Shopping" {% if default_category == "Shopping" %}selected{% endif %}>Shopping</option>
+
+                            <option value="Health & Wellness" {% if default_category == "Health & Wellness" %}selected{% endif %}>Health & Wellness</option>
+
+                            <option value="Education" {% if default_category == "Education" %}selected{% endif %}>Education</option>
+
+                            <option value="Automotive" {% if default_category == "Automotive" %}selected{% endif %}>Automotive</option>
+
+                            <option value="Agriculture" {% if default_category == "Agriculture" %}selected{% endif %}>Agriculture</option>
+
+                            <option value="Professional Services" {% if default_category == "Professional Services" %}selected{% endif %}>Professional Services</option>
+
+                            <option value="Other" {% if default_category == "Other" %}selected{% endif %}>Other</option>
+
+                        </select>
+
+                    </div>
+
+
+
+
+
+                    <div class="field" id="serviceTypeField" style="display:none;">
+                        <label for="service_type">SERVICE TYPE <span class="required">*</span></label>
+                        <select id="service_type" name="service_type">
+                            <option value="">Choose your service type</option>
+                            <option value="Home & Repairs" {% if default_service_type == "Home & Repairs" %}selected{% endif %}>Home & Repairs</option>
+                            <option value="Automotive Services" {% if default_service_type == "Automotive Services" %}selected{% endif %}>Automotive Services</option>
+                            <option value="Creative & Media" {% if default_service_type == "Creative & Media" %}selected{% endif %}>Creative & Media</option>
+                            <option value="Professional & Digital" {% if default_service_type == "Professional & Digital" %}selected{% endif %}>Professional & Digital</option>
+                            <option value="Everyday Services" {% if default_service_type == "Everyday Services" %}selected{% endif %}>Everyday Services</option>
+                            <option value="Delivery & Logistics" {% if default_service_type == "Delivery & Logistics" %}selected{% endif %}>Delivery & Logistics</option>
+                            <option value="Massage & Spa" {% if default_service_type == "Massage & Spa" %}selected{% endif %}>Massage & Spa</option>
+                            <option value="Personal Wellness" {% if default_service_type == "Personal Wellness" %}selected{% endif %}>Personal Wellness</option>
+                            <option value="Private Appointments" {% if default_service_type == "Private Appointments" %}selected{% endif %}>Private Appointments</option>
+                            <option value="Adult-Oriented Services" {% if default_service_type == "Adult-Oriented Services" %}selected{% endif %}>Adult-Oriented Services (18+)</option>
+                        </select>
+                        <div class="hint">Choose the closest fit. Explain the specific work you offer in your business description.</div>
+                    </div>
+
+
+                                        <!-- NATIONWIDE BUSINESS LOCATION -->
+
+
+
+                    <div class="location-panel">
+
+
+
+                        <div class="location-heading">Where is your business?</div>
+
+
+
+                        <p class="location-intro">
+
+                            Choose your state and LGA, then enter your city or town.
+
+                            This helps people discover your business when they explore
+
+                            that part of Nigeria.
+
+                        </p>
+
+
+
+                        <div class="location-grid">
+
+
+
+                            <div class="field">
+
+                                <label for="state">
+
+                                    STATE / FCT <span class="required">*</span>
+
+                                </label>
+
+
+
+                                <select id="state" name="state" required>
+
+                                    <option value="" disabled selected>Select state</option>
+
+                                </select>
+
+                            </div>
+
+
+
+                            <div class="field">
+
+                                <label for="lga">
+
+                                    LOCAL GOVERNMENT AREA (LGA)
+
+                                    <span class="required">*</span>
+
+                                </label>
+
+
+
+                                <select id="lga" name="lga" required disabled>
+
+                                    <option value="" disabled selected>Select state first</option>
+
+                                </select>
+
+                            </div>
+
+
+
+                            <div class="field full-width">
+
+                                <label for="city">
+
+                                    CITY / TOWN <span class="required">*</span>
+
+                                </label>
+
+
+
+                                <input type="text" id="city" name="city"
+                                    placeholder="e.g. Ibadan, Ikeja, Lekki, or Ogbomoso" maxlength="100" required>
+
+
+
+                                <div class="hint">
+
+                                    Enter the actual city or town where your business operates.
+
+                                    It doesn't have to be the state capital.
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="field full-width">
+
+                                <label for="address">
+
+                                    STREET ADDRESS
+
+                                </label>
+
+
+
+                                <input type="text" id="address" name="address"
+                                    placeholder="e.g. 12 Awolowo Road, Bodija" maxlength="250">
+
+
+
+                                <div class="hint">
+
+                                    Optional, but recommended to help customers find you.
+
+                                    Only provide an address you're comfortable sharing publicly.
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+                        <div class="location-status" id="locationStatus" role="status"></div>
+
+
+
+                    </div>
+
+
+
+                    <!-- LEGACY LOCATION FIELD
+
+                                                      Keeps compatibility with the existing Flask form handler.
+
+                                                      The backend must still be updated to save the new fields. -->
+
+
+
+                    <input type="hidden" id="location" name="location" value="">
+
+
+
+                    <div class="field">
+
+                        <label for="description">
+
+                            BUSINESS DESCRIPTION <span class="required">*</span>
+
+                        </label>
+
+
+
+                        <textarea id="description" name="description"
+                            placeholder="Tell people what your business does, what you offer, and what makes it worth checking out..."
+                            maxlength="3000" required></textarea>
+
+
+
+                        <div class="hint">
+
+                            Keep it clear and useful. Help people understand why they should visit or contact you.
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+
+                <div class="submit-area">
+
+
+
+                    <button type="submit" class="submit-button">
+
+                        SUBMIT BUSINESS →
+
+                    </button>
+
+
+
+                    <p class="submit-note">
+
+                        Your business will be submitted for processing.
+
+                        Once approved and published, its location can help people
+
+                        find it through THE ECOSYSTEM's Nigeria discovery map.
+
+                    </p>
+
+
+
+                </div>
+
+
+
+            </form>
+
+
+
+        </div>
+
+
+
+        <div class="form-container event-panel" id="eventPanel" style="display:none;">
+            <form method="POST" enctype="multipart/form-data" action="{{ url_for('submit_business') }}" id="eventForm">
+                <input type="hidden" name="submission_type" value="event">
+                <div class="form-section">
+                    <div class="section-title">Event Details</div>
+                    <div class="field">
+                        <label for="event_title">EVENT NAME <span class="required">*</span></label>
+                        <input id="event_title" name="event_title" maxlength="150"
+                            placeholder="e.g. Lagos Creative Meetup" required>
+                    </div>
+                    <div class="location-grid">
+                        <div class="field">
+                            <label for="event_category">EVENT CATEGORY <span class="required">*</span></label>
+                            <select id="event_category" name="event_category" required>
+                                <option value="" disabled selected>Select category</option>
+                                <option>Business & Networking</option>
+                                <option>Technology</option>
+                                <option>Music & Entertainment</option>
+                                <option>Food & Drink</option>
+                                <option>Fashion & Beauty</option>
+                                <option>Arts & Culture</option>
+                                <option>Education & Workshop</option>
+                                <option>Community</option>
+                                <option>Sports & Fitness</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="event_state">STATE / FCT <span class="required">*</span></label>
+                            <select id="event_state" name="event_state" required>
+                                <option value="" disabled selected>Select state</option>
+                                {% for state_name in states %}
+                                <option value="{{ state_name }}">{{ state_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="event_city">CITY / TOWN <span class="required">*</span></label>
+                            <input id="event_city" name="event_city" maxlength="100"
+                                placeholder="e.g. Ikeja, Ibadan, Abuja" required>
+                        </div>
+                        <div class="field">
+                            <label for="event_lga">LGA</label>
+                            <input id="event_lga" name="event_lga" maxlength="100" placeholder="e.g. Ikeja (optional)">
+                        </div>
+                        <div class="field full-width">
+                            <label for="event_venue">VENUE / FULL ADDRESS <span class="required">*</span></label>
+                            <input id="event_venue" name="event_venue" maxlength="250"
+                                placeholder="Venue name and address" required>
+                        </div>
+                        <div class="field event-date-field">
+                            <label for="event_date_display">EVENT DATE <span class="required">*</span></label>
+                            <input id="event_date" name="event_date" type="hidden" value="">
+                            <button type="button" id="event_date_display" class="date-picker-trigger"
+                                aria-haspopup="dialog" aria-expanded="false">
+                                <span class="date-picker-icon" aria-hidden="true">▦</span>
+                                <span id="eventDateLabel">Choose your event date</span>
+                                <span class="date-picker-hint">OPEN CALENDAR</span>
+                            </button>
+                            <small class="date-help">Select a day from the calendar. Past dates are unavailable.</small>
+                            <div class="calendar-popover" id="eventCalendar" role="dialog"
+                                aria-label="Choose event date" hidden>
+                                <div class="calendar-top">
+                                    <button type="button" id="calendarPrev" class="calendar-nav"
+                                        aria-label="Previous month">‹</button>
+                                    <div><strong id="calendarMonth">October 2026</strong><small
+                                            id="calendarYearHint">Choose a date</small></div>
+                                    <button type="button" id="calendarNext" class="calendar-nav"
+                                        aria-label="Next month">›</button>
+                                </div>
+                                <div class="calendar-weekdays" aria-hidden="true">
+                                    <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                                </div>
+                                <div class="calendar-days" id="calendarDays"></div>
+                                <div class="calendar-bottom"><span id="calendarSelectedHint">No date
+                                        selected</span><button type="button" id="calendarClear">Clear</button></div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="event_time">START TIME <span class="required">*</span></label>
+                            <input id="event_time" name="event_time" type="time" required>
+                        </div>
+                        <div class="field">
+                            <label for="event_host">ORGANISER / HOST <span class="required">*</span></label>
+                            <input id="event_host" name="event_host" maxlength="150"
+                                placeholder="Who is organising this?" required>
+                        </div>
+                        <div class="field">
+                            <label for="event_contact">CONTACT DETAILS <span class="required">*</span></label>
+                            <input id="event_contact" name="event_contact" maxlength="150"
+                                placeholder="Phone, WhatsApp or email" required>
+                        </div>
+                        <div class="field">
+                            <label for="event_ticket_price">TICKET PRICE</label>
+                            <input id="event_ticket_price" name="event_ticket_price" maxlength="80"
+                                placeholder="Free, ₦5,000, etc.">
+                        </div>
+                        <div class="field full-width">
+                            <label for="event_flyer">UPLOAD EVENT FLYER (OPTIONAL)</label>
+                            <input id="event_flyer" name="event_flyer" type="file"
+                                accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+                                aria-describedby="eventFlyerHelp">
+                            <small id="eventFlyerHelp"
+                                style="display:block;color:#aaa;margin-top:8px;line-height:1.5">JPG, PNG, or WEBP ·
+                                Maximum 5 MB. Your flyer will be reviewed with your event.</small>
+                            <div id="eventFlyerPreviewWrap" style="display:none;margin-top:14px">
+                                <img id="eventFlyerPreview" alt="Event flyer preview"
+                                    style="display:block;max-width:100%;max-height:360px;object-fit:contain;border:1px solid #333;border-radius:12px;background:#111;padding:5px">
+                                <button type="button" id="removeEventFlyer"
+                                    style="margin-top:10px;background:#222;color:#fff;border:1px solid #444;border-radius:8px;padding:9px 12px;cursor:pointer">Remove
+                                    flyer</button>
+                            </div>
+                        </div>
+                        <div class="field full-width">
+                            <label for="event_flyer_url">OR ADD A FLYER LINK</label>
+                            <input id="event_flyer_url" name="event_flyer_url" type="url" maxlength="500"
+                                placeholder="https://... (optional)">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="event_description">EVENT DESCRIPTION <span class="required">*</span></label>
+                        <textarea id="event_description" name="event_description" maxlength="3000"
+                            placeholder="What is happening, who should attend, and what should people know?"
+                            required></textarea>
+                    </div>
+                </div>
+                <div class="submit-area">
+                    <button type="submit" class="submit-button">SUBMIT EVENT FOR REVIEW →</button>
+                    <p class="submit-note">Events are reviewed by THE ECOSYSTEM before they appear on the public Events
+                        page.</p>
+                </div>
+            </form>
+        </div>
+
+        <footer>
+
+            <div>THE ECOSYSTEM</div>
+
+            <div>DISCOVER NIGERIA · ONE PLACE AT A TIME</div>
+
+        </footer>
+
+
+
+    </div>
+
+
+
+    <script>
+        function showSubmissionForm(type) {
+            const isEvent = type === "event";
+            const businessPanel = document.getElementById("businessPanel");
+            const eventPanel = document.getElementById("eventPanel");
+            const businessTab = document.getElementById("businessTab");
+            const eventTab = document.getElementById("eventTab");
+            const businessForm = document.getElementById("businessForm");
+            const eventForm = document.getElementById("eventForm");
+
+            businessPanel.style.display = isEvent ? "none" : "block";
+            eventPanel.style.display = isEvent ? "block" : "none";
+            businessTab.classList.toggle("active", !isEvent);
+            eventTab.classList.toggle("active", isEvent);
+            businessTab.setAttribute("aria-selected", String(!isEvent));
+            eventTab.setAttribute("aria-selected", String(isEvent));
+            Array.from(businessForm.elements).forEach(el => { el.disabled = isEvent; });
+            Array.from(eventForm.elements).forEach(el => { el.disabled = !isEvent; });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            showSubmissionForm("business");
+
+            // Friendly pop-up calendar for event date selection.
+            const dateValue = document.getElementById("event_date");
+            const dateTrigger = document.getElementById("event_date_display");
+            const dateLabel = document.getElementById("eventDateLabel");
+            const calendar = document.getElementById("eventCalendar");
+            const calendarMonth = document.getElementById("calendarMonth");
+            const calendarDays = document.getElementById("calendarDays");
+            const calendarSelectedHint = document.getElementById("calendarSelectedHint");
+            const minDateText = {{ (now_date |default ("")) | tojson }};
+        const today = new Date(); today.setHours(0, 0, 0, 0);
+        const minDate = minDateText ? new Date(minDateText + "T00:00:00") : today;
+        let viewDate = new Date(Math.max(today.getTime(), minDate.getTime()));
+        viewDate.setDate(1);
+        const pad = n => String(n).padStart(2, "0");
+        const isoDate = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+        const prettyDate = d => d.toLocaleDateString("en-NG", { weekday: "short", day: "numeric", month: "long", year: "numeric" });
+        function openCalendar() { calendar.hidden = false; dateTrigger.setAttribute("aria-expanded", "true"); renderCalendar(); }
+        function closeCalendar() { calendar.hidden = true; dateTrigger.setAttribute("aria-expanded", "false"); }
+        function renderCalendar() {
+            const year = viewDate.getFullYear(), month = viewDate.getMonth();
+            calendarMonth.textContent = viewDate.toLocaleDateString("en-NG", { month: "long", year: "numeric" });
+            calendarDays.innerHTML = "";
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            for (let i = 0; i < firstDay; i++) { const empty = document.createElement("span"); empty.className = "calendar-empty"; calendarDays.appendChild(empty); }
+            for (let day = 1; day <= daysInMonth; day++) {
+                const d = new Date(year, month, day); const iso = isoDate(d);
+                const btn = document.createElement("button"); btn.type = "button"; btn.className = "calendar-day"; btn.textContent = day;
+                if (iso === isoDate(today)) btn.classList.add("today");
+                if (dateValue.value === iso) btn.classList.add("selected");
+                if (d < minDate || d < today) { btn.disabled = true; btn.title = "Past dates cannot be selected"; }
+                btn.setAttribute("aria-label", prettyDate(d));
+                btn.addEventListener("click", () => { dateValue.value = iso; dateLabel.textContent = prettyDate(d); calendarSelectedHint.textContent = "Selected: " + prettyDate(d); closeCalendar(); dateTrigger.focus(); });
+                calendarDays.appendChild(btn);
+            }
+            const current = dateValue.value ? new Date(dateValue.value + "T00:00:00") : null;
+            calendarSelectedHint.textContent = current ? "Selected: " + prettyDate(current) : "No date selected";
+            document.getElementById("calendarPrev").disabled = year < minDate.getFullYear() || (year === minDate.getFullYear() && month <= minDate.getMonth());
+        }
+        dateTrigger.addEventListener("click", () => calendar.hidden ? openCalendar() : closeCalendar());
+        document.getElementById("calendarPrev").addEventListener("click", () => { viewDate.setMonth(viewDate.getMonth() - 1); renderCalendar(); });
+        document.getElementById("calendarNext").addEventListener("click", () => { viewDate.setMonth(viewDate.getMonth() + 1); renderCalendar(); });
+        document.getElementById("calendarClear").addEventListener("click", () => { dateValue.value = ""; dateLabel.textContent = "Choose your event date"; renderCalendar(); });
+        document.addEventListener("click", e => { if (!calendar.hidden && !calendar.contains(e.target) && !dateTrigger.contains(e.target)) closeCalendar(); });
+        document.addEventListener("keydown", e => { if (e.key === "Escape" && !calendar.hidden) { closeCalendar(); dateTrigger.focus(); } });
+        document.getElementById("eventForm").addEventListener("submit", e => {
+            if (!dateValue.value) { e.preventDefault(); openCalendar(); dateTrigger.scrollIntoView({ behavior: "smooth", block: "center" }); }
+        });
+
+        const flyerInput = document.getElementById("event_flyer");
+        const previewWrap = document.getElementById("eventFlyerPreviewWrap");
+        const preview = document.getElementById("eventFlyerPreview");
+        const removeButton = document.getElementById("removeEventFlyer");
+        let previewUrl = null;
+        flyerInput.addEventListener("change", () => {
+            const file = flyerInput.files && flyerInput.files[0];
+            if (previewUrl) URL.revokeObjectURL(previewUrl);
+            previewUrl = null;
+            if (!file) {
+                previewWrap.style.display = "none";
+                preview.removeAttribute("src");
+                return;
+            }
+            const allowed = ["image/jpeg", "image/png", "image/webp"];
+            if (!allowed.includes(file.type) || file.size > 5 * 1024 * 1024) {
+                alert("Choose a JPG, PNG, or WEBP flyer that is 5 MB or smaller.");
+                flyerInput.value = "";
+                previewWrap.style.display = "none";
+                preview.removeAttribute("src");
+                return;
+            }
+            previewUrl = URL.createObjectURL(file);
+            preview.src = previewUrl;
+            previewWrap.style.display = "block";
+        });
+        removeButton.addEventListener("click", () => {
+            flyerInput.value = "";
+            previewWrap.style.display = "none";
+            preview.removeAttribute("src");
+            if (previewUrl) URL.revokeObjectURL(previewUrl);
+            previewUrl = null;
+        });
+          });
+
+        /*
+
+             State and LGA selector.
+
+             LGA lists are populated from a public dataset when available.
+
+             If loading fails, the user is informed instead of being shown
+
+             an inaccurate LGA list.
+
+        */
+
+
+
+        const statesAndFCT = [
+
+            "Abia", "Adamawa", "Akwa Ibom", "Anambra", "Bauchi",
+
+            "Bayelsa", "Benue", "Borno", "Cross River", "Delta",
+
+            "Ebonyi", "Edo", "Ekiti", "Enugu", "Federal Capital Territory",
+
+            "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina",
+
+            "Kebbi", "Kogi", "Kwara", "Lagos", "Nasarawa", "Niger",
+
+            "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers",
+
+            "Sokoto", "Taraba", "Yobe", "Zamfara"
+
+        ];
+
+
+
+        const stateSelect = document.getElementById("state");
+
+        const lgaSelect = document.getElementById("lga");
+
+        const cityInput = document.getElementById("city");
+
+        const addressInput = document.getElementById("address");
+
+        const locationInput = document.getElementById("location");
+
+        const statusMessage = document.getElementById("locationStatus");
+
+        const form = document.getElementById("businessForm");
+
+
+
+        const stateData = {};
+
+        let lgaDataLoaded = false;
+
+
+
+        statesAndFCT.forEach(state => {
+
+            const option = document.createElement("option");
+
+            option.value = state;
+
+            option.textContent = state;
+
+            stateSelect.appendChild(option);
+
+        });
+
+
+
+        function showLocationStatus(message) {
+
+            statusMessage.textContent = message;
+
+            statusMessage.style.display = "block";
+
+        }
+
+
+
+        function clearLocationStatus() {
+
+            statusMessage.textContent = "";
+
+            statusMessage.style.display = "none";
+
+        }
+
+
+
+        function resetLgaOptions(message = "Select state first") {
+
+            lgaSelect.innerHTML = "";
+
+
+
+            const option = document.createElement("option");
+
+            option.value = "";
+
+            option.textContent = message;
+
+            option.disabled = true;
+
+            option.selected = true;
+
+
+
+            lgaSelect.appendChild(option);
+
+            lgaSelect.disabled = true;
+
+        }
+
+
+
+        async function loadLgaDataset() {
+            try {
+                const response = await fetch("/api/nigeria-locations", {
+                    headers: { "Accept": "application/json" }
+                });
+
+                if (!response.ok) {
+                    throw new Error("Could not retrieve local Nigeria location data");
+                }
+
+                const data = await response.json();
+                if (!data || typeof data !== "object" || !data.lgas || typeof data.lgas !== "object") {
+                    throw new Error("The local Nigeria location dataset has an unexpected format");
+                }
+
+                Object.assign(stateData, data.lgas);
+                lgaDataLoaded = Object.keys(stateData).length > 0;
+                if (!lgaDataLoaded) {
+                    throw new Error("No LGA records were returned by the local dataset");
+                }
+                clearLocationStatus();
+            } catch (error) {
+                lgaDataLoaded = false;
+                console.error("Local Nigeria location data could not be loaded.", error);
+                showLocationStatus(
+                    "The local state/LGA dataset could not be loaded. Confirm the Nigeria JSON file is in your project's data folder, then reload this page."
+                );
+            }
+        }
+
+        function findStateLgas(selectedState) {
+            const normalise = value => String(value || "")
+                .toLowerCase()
+                .replace(/&/g, "and")
+                .replace(/[^a-z0-9]/g, "");
+
+            const aliases = {
+                "federalcapitalterritory": ["federalcapitalterritory", "fct", "abuja"],
+                "abuja": ["federalcapitalterritory", "fct", "abuja"]
+            };
+            const wanted = normalise(selectedState);
+            const accepted = aliases[wanted] || [wanted];
+
+            for (const [stateName, lgas] of Object.entries(stateData)) {
+                if (accepted.includes(normalise(stateName))) {
+                    if (!Array.isArray(lgas)) return [];
+                    return lgas.map(item => typeof item === "string"
+                        ? item
+                        : (item && (item.name || item.lga || item.title) || "")
+                    ).filter(Boolean);
+                }
+            }
+            return [];
+        }
+
+        stateSelect.addEventListener("change", () => {
+
+            clearLocationStatus();
+
+            resetLgaOptions("Loading LGAs...");
+
+
+
+            const selectedState = stateSelect.value;
+
+
+
+            if (!selectedState) {
+
+                resetLgaOptions();
+
+                return;
+
+            }
+
+
+
+            if (!lgaDataLoaded) {
+
+                resetLgaOptions("LGA list unavailable");
+
+
+
+                showLocationStatus(
+
+                    "The local LGA list is unavailable. Confirm the Nigeria JSON dataset is installed, then reload this page."
+
+                );
+
+                return;
+
+            }
+
+
+
+            const lgas = findStateLgas(selectedState);
+
+
+
+            if (!lgas.length) {
+
+                resetLgaOptions("No LGAs available");
+
+                showLocationStatus(
+
+                    "We couldn't find the LGA list for this selection. Please reload the page and try again."
+
+                );
+
+                return;
+
+            }
+
+
+
+            resetLgaOptions("Select your LGA");
+
+
+
+            lgas.forEach(lga => {
+
+                const name = typeof lga === "string"
+
+                    ? lga
+
+                    : (lga.name || lga.lga || "");
+
+
+
+                if (!name) return;
+
+
+
+                const option = document.createElement("option");
+
+                option.value = name;
+
+                option.textContent = name;
+
+                lgaSelect.appendChild(option);
+
+            });
+
+
+
+            lgaSelect.disabled = false;
+
+
+
+            if (selectedState === "Lagos") {
+
+                cityInput.placeholder = "e.g. Ikeja, Lekki, Badagry, or Epe";
+
+            } else if (selectedState === "Oyo") {
+
+                cityInput.placeholder = "e.g. Ibadan, Ogbomoso, Oyo, or Iseyin";
+
+            } else if (selectedState === "Federal Capital Territory") {
+
+                cityInput.placeholder = "e.g. Abuja, Gwagwalada, or Bwari";
+
+            } else {
+
+                cityInput.placeholder = "Enter your city or town";
+
+            }
+
+        });
+
+
+
+        form.addEventListener("submit", event => {
+
+            const state = stateSelect.value.trim();
+
+            const lga = lgaSelect.value.trim();
+
+            const city = cityInput.value.trim();
+
+            const address = addressInput.value.trim();
+
+
+
+            if (!state || !lga || !city) {
+
+                event.preventDefault();
+
+
+
+                showLocationStatus(
+
+                    "Please select your state and LGA, then enter your city or town."
+
+                );
+
+
+
+                return;
+
+            }
+
+
+
+            /*
+
+                 Preserve compatibility with the current backend's location field.
+
+                 app.py must be updated to store state, city, LGA, and address
+
+                 as separate fields before map filtering can work reliably.
+
+            */
+
+
+
+            locationInput.value = [
+
+                city,
+
+                lga,
+
+                state,
+
+                address
+
+            ].filter(Boolean).join(", ");
+
+        });
+
+
+
+        const categorySelect = document.getElementById("category");
+        const serviceTypeField = document.getElementById("serviceTypeField");
+        const serviceTypeSelect = document.getElementById("service_type");
+
+        function syncServiceTypeField() {
+            const isServices = (categorySelect.value || "").trim().toLowerCase() === "services";
+            serviceTypeField.style.display = isServices ? "block" : "none";
+            serviceTypeSelect.required = isServices;
+            if (!isServices) serviceTypeSelect.value = "";
+        }
+        categorySelect.addEventListener("change", syncServiceTypeField);
+        syncServiceTypeField();
+
+        resetLgaOptions();
+
+        loadLgaDataset();
+
+    </script>
+
+
+
+</body>
+
+</html>

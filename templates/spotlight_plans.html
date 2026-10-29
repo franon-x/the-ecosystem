@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#090909">
+    <title>Spotlight Plans | THE ECOSYSTEM</title>
+    <style>
+        :root {
+            --bg: #090909;
+            --panel: #111111;
+            --panel-soft: #151515;
+            --red: #ef3434;
+            --red-soft: rgba(239, 52, 52, .13);
+            --green: #45d483;
+            --white: #f7f7f7;
+            --muted: #aaa3a3;
+            --line: rgba(255,255,255,.1);
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 28px 20px 60px;
+            color: var(--white);
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(160, 15, 20, .18), transparent 42%),
+                var(--bg);
+            font: 15px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+        a { color: inherit; }
+        .wrap { width: min(1120px, 100%); margin: 0 auto; }
+        .topbar {
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 16px; margin-bottom: 54px;
+        }
+        .brand { text-decoration: none; font-size: 13px; font-weight: 900; letter-spacing: .14em; }
+        .brand span { color: var(--red); }
+        .back {
+            color: #d7d0d0; text-decoration: none; font-size: 13px;
+            border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px;
+        }
+        .back:hover { border-color: rgba(239,52,52,.65); }
+        .intro { max-width: 760px; margin: 0 auto 34px; text-align: center; }
+        .eyebrow {
+            display: inline-flex; align-items: center; gap: 9px;
+            color: #ff7777; font-size: 11px; font-weight: 800;
+            letter-spacing: .17em; text-transform: uppercase;
+        }
+        .eyebrow:before {
+            content: ""; width: 7px; height: 7px; border-radius: 50%;
+            background: var(--red); box-shadow: 0 0 14px rgba(239,52,52,.8);
+        }
+        h1 {
+            margin: 15px 0 12px; font-size: clamp(35px, 6vw, 62px);
+            line-height: 1.04; letter-spacing: -.055em;
+        }
+        h1 span { color: var(--red); }
+        .intro p { max-width: 620px; margin: 0 auto; color: var(--muted); }
+        .trust {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 22px;
+            margin: 23px 0 40px; color: #d7d2d2; font-size: 12px;
+        }
+        .trust span:before { content: "✓"; color: var(--green); font-weight: 900; margin-right: 7px; }
+        .plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+        .plan {
+            position: relative; display: flex; flex-direction: column;
+            padding: 25px; border: 1px solid var(--line); border-radius: 20px;
+            background: linear-gradient(160deg, rgba(255,255,255,.035), transparent 45%), var(--panel);
+            min-width: 0;
+        }
+        .plan.featured { border-color: rgba(239,52,52,.8); box-shadow: 0 0 0 1px rgba(239,52,52,.15), 0 18px 60px rgba(150,0,0,.12); }
+        .popular {
+            position: absolute; top: -12px; right: 18px; padding: 5px 10px;
+            border-radius: 999px; background: var(--red); color: white;
+            font-size: 10px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase;
+        }
+        .plan-label { color: #c6bebe; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+        .plan h2 { margin: 7px 0 0; font-size: 22px; letter-spacing: -.025em; }
+        .price { margin: 20px 0 0; font-size: clamp(27px, 3vw, 35px); font-weight: 900; letter-spacing: -.045em; }
+        .duration { margin-top: 1px; color: var(--muted); font-size: 12px; }
+        .summary { min-height: 48px; margin: 16px 0 18px; color: #c7c0c0; font-size: 13px; }
+        .features { list-style: none; padding: 0; margin: 0 0 25px; display: grid; gap: 12px; }
+        .features li { display: flex; gap: 9px; color: #e4dfdf; font-size: 13px; }
+        .features li:before { content: "✓"; color: var(--green); font-weight: 900; }
+        .choose {
+            width: 100%; margin-top: auto; border: 0; border-radius: 11px;
+            padding: 14px 16px; background: var(--red); color: white;
+            font: inherit; font-size: 13px; font-weight: 850; cursor: pointer;
+            transition: transform .18s ease, background .18s ease;
+        }
+        .choose:hover { background: #ff4545; transform: translateY(-2px); }
+        .plan:not(.featured) .choose { background: #222; border: 1px solid #414141; }
+        .plan:not(.featured) .choose:hover { background: #303030; }
+        .fineprint {
+            max-width: 760px; margin: 24px auto 0; text-align: center;
+            color: #918989; font-size: 11px;
+        }
+        .notice { max-width: 800px; margin: 0 auto 20px; padding: 12px 15px; border-radius: 10px; background: #241214; border: 1px solid #592326; color: #ffdede; }
+        .bottom { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 12px; color: #8f8888; font-size: 11px; }
+        @media (max-width: 800px) {
+            body { padding: 20px 14px 40px; }
+            .topbar { margin-bottom: 40px; }
+            .plans { grid-template-columns: 1fr; max-width: 520px; margin: auto; gap: 18px; }
+            .plan { padding: 23px; }
+            .summary { min-height: 0; }
+            .bottom { flex-direction: column; align-items: center; text-align: center; }
+        }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; } }
+    
+
+/* ==========================================================
+   THE ECOSYSTEM — OFFICIAL DESIGN SYSTEM
+   Palette: #080909 / #111413 / #E6333E / #80C995 / #FFFFFF
+   ========================================================== */
+:root {
+  --eco-bg: #080909;
+  --eco-panel: #111413;
+  --eco-panel-soft: #171b18;
+  --eco-red: #E6333E;
+  --eco-green: #80C995;
+  --eco-white: #FFFFFF;
+  --eco-muted: #A9B0AA;
+  --eco-line: rgba(255,255,255,.11);
+}
+html { background: var(--eco-bg); scroll-behavior: smooth; }
+body {
+  color: var(--eco-white);
+  background:
+    radial-gradient(ellipse at 8% 0%, rgba(230,51,62,.11), transparent 34%),
+    radial-gradient(ellipse at 95% 85%, rgba(128,201,149,.07), transparent 32%),
+    var(--eco-bg);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease; }
+header, nav {
+  border-color: var(--eco-line) !important;
+}
+.logo, .brand { color: var(--eco-white); }
+.logo span, .brand span { color: var(--eco-red); }
+h1, h2, h3, h4 { color: var(--eco-white); }
+p { text-wrap: pretty; }
+input, select, textarea {
+  color: var(--eco-white) !important;
+  background: #0b0e0c !important;
+  border-color: rgba(255,255,255,.15) !important;
+  border-radius: 10px;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--eco-green) !important;
+  box-shadow: 0 0 0 3px rgba(128,201,149,.11);
+  outline: none;
+}
+input::placeholder, textarea::placeholder { color: #737b75 !important; }
+label { color: #d1d6d2; }
+button, input[type="submit"], input[type="button"], .login-button, .view-button,
+.view-link, .view-button, .explore-state-button, .action-button, .btn,
+.primary-button, .submit-button, .save-button, .cta, .view-all,
+a.button, a.btn, .register-button, .submit-btn {
+  border-radius: 10px;
+}
+button[type="submit"], input[type="submit"], .login-button, .submit-button,
+.save-button, .primary-button, .submit-btn, .explore-state-button,
+.action-button, .cta, .register-button, a.button, a.btn, .view-button {
+  background: var(--eco-white) !important;
+  color: #237744 !important;
+  border: 1px solid rgba(128,201,149,.65) !important;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(0,0,0,.16);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+button[type="submit"]:hover, input[type="submit"]:hover, .login-button:hover,
+.submit-button:hover, .save-button:hover, .primary-button:hover, .submit-btn:hover,
+.explore-state-button:hover, .action-button:hover, .cta:hover, .register-button:hover,
+a.button:hover, a.btn:hover, .view-button:hover {
+  background: var(--eco-green) !important;
+  color: #08100b !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(128,201,149,.14);
+}
+button:not([type="submit"]):not(.toggle-password):not(.featured-prev):not(.featured-next) {
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--eco-green);
+  outline-offset: 3px;
+}
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card,
+.creator-card, .event-card, .plan, .stat, .success-card, .featured,
+.featured-creator, .profile-card, .content-card, .result-card {
+  border-color: var(--eco-line) !important;
+}
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card,
+.creator-card, .event-card, .plan, .stat, .success-card, .profile-card,
+.content-card, .result-card {
+  background-color: var(--eco-panel);
+}
+.eyebrow, .label, .page-label, .section-label, .category, .featured-label,
+.event-category, .competition-category { color: var(--eco-green); }
+.muted, .intro, .description, .hero p, .hero-description, .about-text,
+.location, .empty-state p { color: var(--eco-muted); }
+.error, .alert-error {
+  color: #ff9da3;
+  background: rgba(230,51,62,.09);
+  border-color: rgba(230,51,62,.35);
+  border-radius: 10px;
+}
+.success, .alert-success, .notice-success {
+  color: #b8f0c8;
+  background: rgba(128,201,149,.08);
+  border-color: rgba(128,201,149,.3);
+  border-radius: 10px;
+}
+hr { border-color: var(--eco-line); }
+::selection { background: rgba(128,201,149,.32); color: #fff; }
+@media (max-width: 700px) {
+  body { background:
+    radial-gradient(ellipse at 10% 0%, rgba(230,51,62,.09), transparent 38%),
+    var(--eco-bg); }
+}
+
+
+.plan { border-radius: 20px; transition: transform .22s ease,border-color .22s ease,box-shadow .22s ease; }
+.plan:hover { transform: translateY(-4px); border-color: rgba(128,201,149,.4) !important; }
+.plan.featured { border-color: rgba(128,201,149,.62) !important; box-shadow: 0 18px 60px rgba(128,201,149,.07); }
+.popular { background: var(--eco-green) !important; color: #08100b !important; }
+h1 span { color: var(--eco-green) !important; }
+
+
+/* Final brand wordmark consistency: THE white, ECOSYSTEM red */
+.logo, .brand { color: #FFFFFF !important; }
+.logo span, .brand span, .ecosystem-wordmark span, .ecosystem-wordmark b,
+.footer strong.ecosystem-wordmark span { color: #E6333E !important; }
+.ecosystem-wordmark { color: #FFFFFF !important; }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+    <header class="topbar">
+        <a class="brand" href="{{ url_for('home') }}">THE <span>ECOSYSTEM</span></a>
+        <a class="back" href="{{ url_for('marketplace_page') }}">← Back to Marketplace</a>
+    </header>
+
+    <section class="intro">
+        <div class="eyebrow">Premium business promotion</div>
+        <h1>Get your business<br><span>in the spotlight.</span></h1>
+        <p>Give your brand a premium place in THE ECOSYSTEM Marketplace. Choose a campaign length, complete payment, then submit your advert for review.</p>
+        <div class="trust">
+            <span>Secure Paystack checkout</span>
+            <span>Admin-reviewed campaigns</span>
+            <span>Fixed campaign duration</span>
+        </div>
+    </section>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="notice">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+
+    <section class="plans" aria-label="Spotlight plans">
+        {% for plan_id, plan in plans.items() %}
+        <article class="plan {% if plan_id == 'growth' %}featured{% endif %}">
+            {% if plan_id == 'growth' %}<div class="popular">Most popular</div>{% endif %}
+            <div class="plan-label">{{ plan.name }}</div>
+            <h2>
+                {% if plan_id == 'starter' %}Start getting noticed
+                {% elif plan_id == 'growth' %}Reach more customers
+                {% else %}Own the spotlight
+                {% endif %}
+            </h2>
+            <div class="price">₦{{ '{:,.0f}'.format(plan.amount / 100) }}</div>
+            <div class="duration">for {{ plan.duration_days }} days</div>
+            <p class="summary">
+                {% if plan_id == 'starter' %}A strong first step for businesses ready to get seen.
+                {% elif plan_id == 'growth' %}More time and priority placement to help your brand stand out.
+                {% else %}Maximum duration and top-priority placement for your campaign.
+                {% endif %}
+            </p>
+            <ul class="features">
+                {% for benefit in plan.benefits %}
+                <li>{{ benefit }}</li>
+                {% endfor %}
+                <li>Payment verified before submission</li>
+                <li>Admin approval before publication</li>
+            </ul>
+            <form method="post" action="{{ url_for('spotlight_pay', plan_id=plan_id) }}">
+                <button class="choose" type="submit">
+                    {% if plan_id == 'growth' %}Choose Growth ↗
+                    {% elif plan_id == 'premium' %}Choose Premium ↗
+                    {% else %}Choose Starter ↗
+                    {% endif %}
+                </button>
+            </form>
+        </article>
+        {% endfor %}
+    </section>
+
+    <p class="fineprint">Choosing a plan starts checkout. A successful payment does not publish an advert automatically; your submitted campaign must be reviewed and approved by THE ECOSYSTEM admin. Campaigns expire at the end of the purchased duration.</p>
+
+    <footer class="bottom">
+        <span>© THE ECOSYSTEM</span>
+        <span>Discover your Nigeria. Help your business get discovered.</span>
+    </footer>
+</div>
+</body>
+</html>

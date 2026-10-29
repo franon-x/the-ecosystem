@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Creators — THE ECOSYSTEM</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #050505;
+            color: #ffffff;
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            width: 100%;
+            padding: 28px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1c1c1c;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .home-link {
+            color: #aaa;
+            font-size: 13px;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .home-link:hover {
+            color: #ff3030;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            padding: 100px 7% 70px;
+            max-width: 1100px;
+        }
+
+        .eyebrow {
+            color: #ff3030;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 92px);
+            line-height: 0.95;
+            letter-spacing: -4px;
+            max-width: 900px;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 span {
+            color: #ff3030;
+        }
+
+        .hero p {
+            max-width: 650px;
+            color: #999;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        /* =========================
+           FEATURED CREATOR
+        ========================= */
+
+        .featured {
+            margin: 0 7% 90px;
+            padding: 45px;
+            border: 1px solid #252525;
+            background: #0b0b0b;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: #ff3030;
+        }
+
+        .featured-label {
+            color: #ff3030;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+        }
+
+        .featured-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .featured-icon {
+            font-size: 70px;
+            min-width: 100px;
+        }
+
+        .featured-info {
+            flex: 1;
+        }
+
+        .featured-info h2 {
+            font-size: 42px;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .category {
+            color: #ff3030;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        .location {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .featured-info p {
+            color: #999;
+            max-width: 650px;
+            line-height: 1.7;
+        }
+
+        .view-button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 13px 22px;
+            border: 1px solid #444;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .view-button:hover {
+            background: #ff3030;
+            border-color: #ff3030;
+            color: #fff;
+        }
+
+        /* =========================
+           CREATOR GRID
+        ========================= */
+
+        .section {
+            padding: 0 7% 100px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 35px;
+            border-bottom: 1px solid #202020;
+            padding-bottom: 18px;
+        }
+
+        .section-heading h2 {
+            font-size: 28px;
+            letter-spacing: -1px;
+        }
+
+        .section-heading span {
+            color: #666;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .creator-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .creator-card {
+            background: #0b0b0b;
+            border: 1px solid #202020;
+            padding: 30px;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: 0.3s ease;
+        }
+
+        .creator-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff3030;
+        }
+
+        .creator-icon {
+            font-size: 42px;
+            margin-bottom: 25px;
+        }
+
+        .creator-card h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .creator-card .category {
+            margin-bottom: 10px;
+        }
+
+        .creator-card .location {
+            margin-bottom: 15px;
+        }
+
+        .creator-card p {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .card-bottom {
+            margin-top: 25px;
+            padding-top: 18px;
+            border-top: 1px solid #202020;
+        }
+
+        .card-link {
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            transition: 0.3s;
+        }
+
+        .card-link:hover {
+            color: #ff3030;
+        }
+
+        /* =========================
+           ECOSYSTEM CONNECTION
+        ========================= */
+
+        .connection {
+            margin: 0 7% 100px;
+            padding: 70px 50px;
+            background: #0b0b0b;
+            border-top: 1px solid #252525;
+            border-bottom: 1px solid #252525;
+            text-align: center;
+        }
+
+        .connection-label {
+            color: #ff3030;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .connection h2 {
+            font-size: clamp(32px, 5vw, 58px);
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+
+        .connection p {
+            max-width: 650px;
+            margin: auto;
+            color: #888;
+            line-height: 1.8;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 40px 7%;
+            border-top: 1px solid #1b1b1b;
+            color: #555;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 850px) {
+
+            .creator-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .featured-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .featured-info h2 {
+                font-size: 34px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 22px 6%;
+            }
+
+            .hero {
+                padding: 70px 6% 50px;
+            }
+
+            .hero h1 {
+                font-size: 54px;
+                letter-spacing: -3px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .featured {
+                margin: 0 6% 70px;
+                padding: 30px;
+            }
+
+            .featured-icon {
+                font-size: 55px;
+            }
+
+            .featured-info h2 {
+                font-size: 30px;
+            }
+
+            .section {
+                padding: 0 6% 70px;
+            }
+
+            .section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .creator-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .creator-card {
+                min-height: auto;
+            }
+
+            .connection {
+                margin: 0 6% 70px;
+                padding: 50px 25px;
+            }
+
+            footer {
+                padding: 30px 6%;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    
+
+/* ==========================================================
+   THE ECOSYSTEM — OFFICIAL DESIGN SYSTEM
+   Palette: #080909 / #111413 / #E6333E / #80C995 / #FFFFFF
+   ========================================================== */
+:root {
+  --eco-bg: #080909;
+  --eco-panel: #111413;
+  --eco-panel-soft: #171b18;
+  --eco-red: #E6333E;
+  --eco-green: #80C995;
+  --eco-white: #FFFFFF;
+  --eco-muted: #A9B0AA;
+  --eco-line: rgba(255,255,255,.11);
+}
+html { background: var(--eco-bg); scroll-behavior: smooth; }
+body {
+  color: var(--eco-white);
+  background:
+    radial-gradient(ellipse at 8% 0%, rgba(230,51,62,.11), transparent 34%),
+    radial-gradient(ellipse at 95% 85%, rgba(128,201,149,.07), transparent 32%),
+    var(--eco-bg);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease; }
+header, nav {
+  border-color: var(--eco-line) !important;
+}
+.logo, .brand { color: var(--eco-white); }
+.logo span, .brand span { color: var(--eco-red); }
+h1, h2, h3, h4 { color: var(--eco-white); }
+p { text-wrap: pretty; }
+input, select, textarea {
+  color: var(--eco-white) !important;
+  background: #0b0e0c !important;
+  border-color: rgba(255,255,255,.15) !important;
+  border-radius: 10px;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--eco-green) !important;
+  box-shadow: 0 0 0 3px rgba(128,201,149,.11);
+  outline: none;
+}
+input::placeholder, textarea::placeholder { color: #737b75 !important; }
+label { color: #d1d6d2; }
+button, input[type="submit"], input[type="button"], .login-button, .view-button,
+.view-link, .view-button, .explore-state-button, .action-button, .btn,
+.primary-button, .submit-button, .save-button, .cta, .view-all,
+a.button, a.btn, .register-button, .submit-btn {
+  border-radius: 10px;
+}
+button[type="submit"], input[type="submit"], .login-button, .submit-button,
+.save-button, .primary-button, .submit-btn, .explore-state-button,
+.action-button, .cta, .register-button, a.button, a.btn, .view-button {
+  background: var(--eco-white) !important;
+  color: #237744 !important;
+  border: 1px solid rgba(128,201,149,.65) !important;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(0,0,0,.16);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+button[type="submit"]:hover, input[type="submit"]:hover, .login-button:hover,
+.submit-button:hover, .save-button:hover, .primary-button:hover, .submit-btn:hover,
+.explore-state-button:hover, .action-button:hover, .cta:hover, .register-button:hover,
+a.button:hover, a.btn:hover, .view-button:hover {
+  background: var(--eco-green) !important;
+  color: #08100b !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(128,201,149,.14);
+}
+button:not([type="submit"]):not(.toggle-password):not(.featured-prev):not(.featured-next) {
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--eco-green);
+  outline-offset: 3px;
+}
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card,
+.creator-card, .event-card, .plan, .stat, .success-card, .featured,
+.featured-creator, .profile-card, .content-card, .result-card {
+  border-color: var(--eco-line) !important;
+}
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card,
+.creator-card, .event-card, .plan, .stat, .success-card, .profile-card,
+.content-card, .result-card {
+  background-color: var(--eco-panel);
+}
+.eyebrow, .label, .page-label, .section-label, .category, .featured-label,
+.event-category, .competition-category { color: var(--eco-green); }
+.muted, .intro, .description, .hero p, .hero-description, .about-text,
+.location, .empty-state p { color: var(--eco-muted); }
+.error, .alert-error {
+  color: #ff9da3;
+  background: rgba(230,51,62,.09);
+  border-color: rgba(230,51,62,.35);
+  border-radius: 10px;
+}
+.success, .alert-success, .notice-success {
+  color: #b8f0c8;
+  background: rgba(128,201,149,.08);
+  border-color: rgba(128,201,149,.3);
+  border-radius: 10px;
+}
+hr { border-color: var(--eco-line); }
+::selection { background: rgba(128,201,149,.32); color: #fff; }
+@media (max-width: 700px) {
+  body { background:
+    radial-gradient(ellipse at 10% 0%, rgba(230,51,62,.09), transparent 38%),
+    var(--eco-bg); }
+}
+
+
+header { background: rgba(8,9,9,.82); backdrop-filter: blur(16px); }
+.featured { border-radius: 20px; background: radial-gradient(ellipse at 90% 10%,rgba(128,201,149,.09),transparent 35%),linear-gradient(120deg,rgba(230,51,62,.08),rgba(255,255,255,.015)) !important; }
+.featured::before { background: var(--eco-green) !important; }
+.creator-card, .card { border-radius: 16px; transition: transform .22s ease,border-color .22s ease; }
+.creator-card:hover, .card:hover { transform: translateY(-4px); border-color: rgba(128,201,149,.45) !important; }
+.view-button { background: #fff !important; color: #237744 !important; }
+
+</style>
+
+<!-- THE ECOSYSTEM WORDMARK STANDARD: THE white, ECOSYSTEM red -->
+<style id="ecosystem-wordmark-standard">
+  .brand, .logo, .ecosystem-link-wordmark {
+    color: #FFFFFF !important;
+  }
+  .brand span, .logo span, .ecosystem-link-wordmark span {
+    color: #E6333E !important;
+    -webkit-text-fill-color: #E6333E !important;
+    background: none !important;
+    background-image: none !important;
+  }
+</style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+
+        <div class="logo">
+            THE <span>ECOSYSTEM</span>
+        </div>
+
+        <a href="/home" class="home-link">
+            ← HOME
+        </a>
+
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="eyebrow">
+            P11 · CREATORS
+        </div>
+
+        <h1>
+            The people<br>
+            <span>creating Ibadan.</span>
+        </h1>
+
+        <p>
+            Discover the photographers, filmmakers, musicians,
+            designers, tech creators and storytellers shaping
+            the culture of Ibadan.
+        </p>
+
+    </section>
+
+
+    <!-- FEATURED CREATOR -->
+    {% if creators %}
+
+    <section class="featured">
+
+        <div class="featured-label">
+            FEATURED CREATOR
+        </div>
+
+        <div class="featured-content">
+
+            <div class="featured-icon">
+                {{ creators[0].icon }}
+            </div>
+
+            <div class="featured-info">
+
+                <div class="category">
+                    {{ creators[0].category }}
+                </div>
+
+                <h2>
+                    {{ creators[0].name }}
+                </h2>
+
+                <div class="location">
+                    📍 {{ creators[0].location }}
+                </div>
+
+                <p>
+                    {{ creators[0].description }}
+                </p>
+
+                <a
+                    href="/creator/{{ creators[0].id }}"
+                    class="view-button"
+                >
+                    VIEW CREATOR →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    {% endif %}
+
+
+    <!-- CREATOR DIRECTORY -->
+    <section class="section">
+
+        <div class="section-heading">
+
+            <h2>
+                Discover creators
+            </h2>
+
+            <span>
+                {{ creators|length }} CREATORS
+            </span>
+
+        </div>
+
+
+        <div class="creator-grid">
+
+            {% for creator in creators %}
+
+            <article class="creator-card">
+
+                <div>
+
+                    <div class="creator-icon">
+                        {{ creator.icon }}
+                    </div>
+
+                    <div class="category">
+                        {{ creator.category }}
+                    </div>
+
+                    <h3>
+                        {{ creator.name }}
+                    </h3>
+
+                    <div class="location">
+                        📍 {{ creator.location }}
+                    </div>
+
+                    <p>
+                        {{ creator.description }}
+                    </p>
+
+                </div>
+
+
+                <div class="card-bottom">
+
+                    <a
+                        href="/creator/{{ creator.id }}"
+                        class="card-link"
+                    >
+                        VIEW PROFILE →
+                    </a>
+
+                </div>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- ECOSYSTEM CONNECTION -->
+    <section class="connection">
+
+        <div class="connection-label">
+            THE ECOSYSTEM
+        </div>
+
+        <h2>
+            Creators connect the city.
+        </h2>
+
+        <p>
+            Creators don't exist in isolation. They collaborate
+            with businesses, host events, enter competitions and
+            help tell the story of what's happening around Ibadan.
+            That's what makes them part of the ecosystem.
+        </p>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <span>
+            THE ECOSYSTEM
+        </span>
+
+        <span>
+            IBADAN · NIGERIA
+        </span>
+
+    </footer>
+
+</body>
+</html>

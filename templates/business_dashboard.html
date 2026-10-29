@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Business Dashboard · THE ECOSYSTEM</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #080909;
+            color: #FFFFFF;
+        }
+
+        a { text-decoration:none; color:inherit; }
+        .hero p,.business-meta,.premium-panel p,.empty p { color:#a7afaa; }
+        .stat,.business-card,.empty,.premium-panel { background:#111413; color:#FFFFFF; }
+        .business-stat { background:#171b19; }
+        .btn { border-color:#2a302c; }
+        .verified { background:#80C995; color:#080909; }
+        .verified-check { background:#080909; color:#80C995; }
+
+        .topbar {
+            background: #FFFFFF;
+            color: #111413;
+            padding: 18px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .brand {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .brand span {
+            color: #a7afaa;
+        }
+
+        .account-link {
+            font-size: 13px;
+            color: #e7eae8;
+        }
+
+        .page {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 35px 20px 60px;
+        }
+
+        .hero {
+            margin-bottom: 30px;
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #a7afaa;
+            margin-bottom: 8px;
+        }
+
+        .hero h1 {
+            font-size: clamp(30px, 5vw, 48px);
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: #a7afaa;
+            font-size: 15px;
+        }
+
+        /* =========================
+           STATS
+        ========================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 35px;
+        }
+
+        .stat {
+            background: #111413;
+            border: 1px solid #2a302c;
+            border-radius: 18px;
+            padding: 22px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #a7afaa;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            font-weight: 700;
+        }
+
+        .stat-value {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        /* =========================
+           SECTION
+        ========================= */
+
+        .section {
+            margin-top: 35px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 21px;
+            letter-spacing: -.5px;
+        }
+
+        .section-header span {
+            font-size: 12px;
+            color: #a7afaa;
+        }
+
+        /* =========================
+           BUSINESS CARD
+        ========================= */
+
+        .business-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .business-card {
+            background: #111413;
+            border: 1px solid #2a302c;
+            border-radius: 22px;
+            padding: 24px;
+        }
+
+        .business-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .business-name {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -.7px;
+            margin-bottom: 6px;
+        }
+
+        .business-meta {
+            font-size: 13px;
+            color: #a7afaa;
+            line-height: 1.6;
+        }
+
+        .verified {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #FFFFFF;
+            color: #111413;
+            padding: 7px 10px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .verified-check {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #111413;
+            color: #111;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .pending {
+            display: inline-flex;
+            align-items: center;
+            background: #f2f2f2;
+            color: #a7afaa;
+            padding: 7px 10px;
+            border-radius: 999px;
+            font-size: 10px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        /* =========================
+           BUSINESS STATS
+        ========================= */
+
+        .business-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .business-stat {
+            background: #171b19;
+            border-radius: 13px;
+            padding: 14px;
+        }
+
+        .business-stat strong {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 3px;
+        }
+
+        .business-stat span {
+            color: #a7afaa;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        /* =========================
+           ACTIONS
+        ========================= */
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 9px;
+        }
+
+        .btn {
+            padding: 13px 15px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+            border: 1px solid #ddd;
+            background: #111413;
+            transition: .2s ease;
+        }
+
+        .btn:hover {
+            background: #FFFFFF;
+            color: #111413;
+            border-color: #FFFFFF;
+        }
+
+        .btn-primary {
+            background: #FFFFFF;
+            color: #111413;
+            border-color: #FFFFFF;
+        }
+
+        .btn-primary:hover {
+            background: #80C995; color:#080909;
+        }
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty {
+            background: #111413;
+            border: 1px solid #2a302c;
+            border-radius: 22px;
+            padding: 45px 25px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .empty h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .empty p {
+            color: #a7afaa;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .business-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            .topbar {
+                padding: 15px 18px;
+            }
+
+            .page {
+                padding: 28px 15px 45px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .stats {
+                gap: 9px;
+            }
+
+            .stat {
+                padding: 17px;
+                border-radius: 15px;
+            }
+
+            .stat-value {
+                font-size: 25px;
+            }
+
+            .business-card {
+                padding: 19px;
+                border-radius: 18px;
+            }
+
+            .business-top {
+                flex-direction: column;
+            }
+
+            .business-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+        }
+
+
+        .premium-panel { background:#111413; border:1px solid #e4dada; border-left:4px solid #e32636; border-radius:16px; padding:20px; margin:0 0 26px; }
+        .premium-panel h2 { margin:0 0 8px; font-size:21px; }
+        .premium-panel p { color:#666; line-height:1.6; margin:7px 0; }
+        .premium-orders { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; margin-top:15px; }
+        .premium-order { border:1px solid #e7e7e7; border-radius:12px; padding:14px; min-width:0; }
+        .premium-order strong { display:block; overflow-wrap:anywhere; }
+        .premium-tag { display:inline-block; padding:5px 9px; border-radius:999px; background:#2b1719; color:#ff9ca4; font-size:11px; font-weight:800; margin-bottom:8px; }
+        .premium-cta { display:inline-block; margin-top:10px; padding:11px 15px; border-radius:9px; background:#E6333E; color:white; font-weight:800; }
+
+    
+/* Consistent, always-visible return-to-home control */
+.ecosystem-home-link{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:36px;padding:9px 13px;border:1px solid rgba(128,201,149,.42);border-radius:7px;background:rgba(128,201,149,.08);color:#f4faf6!important;font-size:10px;font-weight:800;letter-spacing:.12em;text-decoration:none;white-space:nowrap;transition:background .2s,border-color .2s,color .2s}
+.ecosystem-home-link:hover{border-color:#80C995;background:#80C995;color:#07110c!important}
+@media(max-width:620px){.ecosystem-home-link{min-height:34px;padding:8px 10px;font-size:9px}}
+
+    </style>
+
+
+<style>html,body{background:#080909!important;color:#fff!important}.topbar{background:#111413!important;color:#fff!important;border-bottom:1px solid rgba(255,255,255,.11)}.brand span,.eyebrow{color:#80C995!important}.premium-panel{background:#111413!important;border-color:rgba(128,201,149,.25)!important;border-left-color:#80C995!important}.premium-cta,.btn-primary,.verified{background:#80C995!important;color:#08100b!important;border-color:#80C995!important}.btn-primary:hover,.premium-cta:hover{background:#80C995!important;color:#08100b!important;transform:none!important}.business-card,.stat,.empty{background:#111413!important;border-color:rgba(255,255,255,.11)!important}.btn:hover{background:#171b18!important;color:#fff!important;border-color:#80C995!important}</style>
+
+
+<!-- THE ECOSYSTEM WORDMARK STANDARD: THE white, ECOSYSTEM red -->
+<style id="ecosystem-wordmark-standard">
+  .brand, .logo, .ecosystem-link-wordmark {
+    color: #FFFFFF !important;
+  }
+  .brand span, .logo span, .ecosystem-link-wordmark span {
+    color: #E6333E !important;
+    -webkit-text-fill-color: #E6333E !important;
+    background: none !important;
+    background-image: none !important;
+  }
+</style>
+
+
+    <style id="mature-dashboard-refinement">
+      :root {
+        --eco-bg: #080b09;
+        --eco-surface: #101512;
+        --eco-surface-raised: #141a16;
+        --eco-border: rgba(226, 238, 229, .12);
+        --eco-muted: #a6b1a9;
+        --eco-green: #80c995;
+        --eco-green-soft: rgba(128, 201, 149, .09);
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--eco-bg) !important;
+        color: #f5f8f5;
+        font-family: Inter, "Segoe UI", Arial, sans-serif;
+        letter-spacing: .005em;
+        -webkit-font-smoothing: antialiased;
+      }
+      .topbar {
+        min-height: 72px;
+        padding: 15px clamp(16px, 3vw, 38px) !important;
+        gap: 18px;
+        background: rgba(13, 17, 14, .96) !important;
+        border-bottom: 1px solid var(--eco-border) !important;
+        box-shadow: 0 8px 28px rgba(0,0,0,.14);
+        backdrop-filter: blur(14px);
+      }
+      .brand { font-size: 17px; letter-spacing: -.35px; }
+      .topbar nav { gap: 20px !important; }
+      .account-link {
+        color: #d6ded8 !important;
+        font-size: 12px;
+        font-weight: 600;
+        transition: color .2s ease;
+      }
+      .account-link:hover { color: var(--eco-green) !important; }
+      .ecosystem-home-link {
+        border-radius: 8px !important;
+        letter-spacing: .09em !important;
+      }
+      .page {
+        max-width: 1180px;
+        padding: clamp(28px, 4vw, 48px) clamp(16px, 3vw, 28px) 72px;
+      }
+      .hero { margin-bottom: 30px; }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        font-size: 10px;
+        letter-spacing: .16em;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 18px;
+        height: 1px;
+        background: var(--eco-green);
+      }
+      .hero h1 {
+        font-size: clamp(34px, 4vw, 46px);
+        line-height: 1.08;
+        letter-spacing: -.055em;
+        font-weight: 750;
+        margin-bottom: 12px;
+      }
+      .hero p { color: var(--eco-muted) !important; font-size: 14px; line-height: 1.7; }
+      .premium-panel {
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 28px !important;
+        padding: clamp(22px, 3vw, 30px) !important;
+        border: 1px solid rgba(128,201,149,.2) !important;
+        border-left: 3px solid var(--eco-green) !important;
+        border-radius: 15px !important;
+        background: linear-gradient(115deg, rgba(128,201,149,.07), transparent 56%), var(--eco-surface) !important;
+        box-shadow: 0 12px 34px rgba(0,0,0,.12);
+      }
+      .premium-panel h2 { font-size: 19px !important; letter-spacing: -.025em; margin-bottom: 9px !important; }
+      .premium-panel p { color: var(--eco-muted) !important; font-size: 13px; line-height: 1.75; max-width: 780px; }
+      .premium-panel p strong { color: #f2f6f3; }
+      .premium-cta {
+        display: inline-flex !important;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px !important;
+        padding: 11px 15px !important;
+        border-radius: 8px !important;
+        background: var(--eco-green) !important;
+        color: #0a120c !important;
+        font-size: 12px;
+        font-weight: 750;
+        transition: transform .2s ease, box-shadow .2s ease;
+      }
+      .premium-cta:hover { transform: translateY(-1px) !important; box-shadow: 0 7px 18px rgba(128,201,149,.16); }
+      .premium-orders { gap: 12px; }
+      .premium-order {
+        border: 1px solid var(--eco-border) !important;
+        border-radius: 11px !important;
+        padding: 16px !important;
+        background: rgba(5,8,6,.3);
+      }
+      .premium-order p { font-size: 12px; margin: 7px 0; }
+      .premium-order a { display: inline-block; margin-top: 8px; color: var(--eco-green); font-size: 12px; font-weight: 700; }
+      .premium-tag { background: var(--eco-green-soft) !important; color: var(--eco-green) !important; letter-spacing: .04em; }
+      .stats { gap: 12px !important; margin-bottom: 38px !important; }
+      .stat {
+        border: 1px solid var(--eco-border) !important;
+        border-radius: 13px !important;
+        padding: 21px !important;
+        background: linear-gradient(145deg, rgba(255,255,255,.018), transparent 65%), var(--eco-surface) !important;
+        transition: border-color .2s ease, transform .2s ease;
+      }
+      .stat:hover { border-color: rgba(128,201,149,.3) !important; transform: translateY(-2px); }
+      .stat-label { color: var(--eco-muted) !important; font-size: 10px !important; letter-spacing: .12em !important; }
+      .stat-value { font-size: clamp(25px, 3vw, 31px) !important; letter-spacing: -.045em !important; font-weight: 750 !important; }
+      .section { margin-top: 38px !important; }
+      .section-header {
+        margin-bottom: 17px !important;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--eco-border);
+      }
+      .section-header h2 { font-size: 18px !important; font-weight: 700; letter-spacing: -.025em !important; }
+      .section-header span { color: var(--eco-muted) !important; font-size: 11px !important; }
+      .business-grid { gap: 14px !important; }
+      .business-card, .empty {
+        border: 1px solid var(--eco-border) !important;
+        border-radius: 15px !important;
+        background: linear-gradient(145deg, rgba(255,255,255,.018), transparent 58%), var(--eco-surface) !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,.1);
+      }
+      .business-card { padding: 22px !important; transition: border-color .2s ease, transform .2s ease; }
+      .business-card:hover { border-color: rgba(128,201,149,.28) !important; transform: translateY(-2px); }
+      .business-top { margin-bottom: 22px !important; }
+      .business-name { font-size: 19px !important; line-height: 1.35; letter-spacing: -.035em !important; }
+      .business-meta { color: var(--eco-muted) !important; font-size: 12px !important; line-height: 1.7 !important; }
+      .verified, .pending {
+        padding: 6px 9px !important;
+        border-radius: 6px !important;
+        font-size: 9px !important;
+        letter-spacing: .07em;
+      }
+      .verified { background: var(--eco-green-soft) !important; color: var(--eco-green) !important; border: 1px solid rgba(128,201,149,.2); }
+      .verified-check { background: var(--eco-green) !important; color: #09120c !important; }
+      .pending { background: rgba(255,255,255,.05) !important; color: #c5cec8 !important; border: 1px solid var(--eco-border); }
+      .business-stats { gap: 8px !important; margin-bottom: 19px !important; }
+      .business-stat {
+        padding: 13px !important;
+        border: 1px solid rgba(255,255,255,.045);
+        border-radius: 9px !important;
+        background: var(--eco-surface-raised) !important;
+      }
+      .business-stat strong { font-size: 17px !important; letter-spacing: -.025em; }
+      .business-stat span { color: var(--eco-muted) !important; font-size: 9px !important; letter-spacing: .09em; }
+      .actions { gap: 8px !important; }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 41px;
+        padding: 11px 13px !important;
+        border: 1px solid var(--eco-border) !important;
+        border-radius: 8px !important;
+        background: rgba(255,255,255,.025) !important;
+        color: #e8eee9 !important;
+        font: inherit;
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        line-height: 1.4;
+        cursor: pointer;
+        transition: background .18s ease, border-color .18s ease, color .18s ease;
+      }
+      .btn:hover { background: var(--eco-green-soft) !important; color: #f4fff6 !important; border-color: rgba(128,201,149,.5) !important; }
+      .btn-primary { background: var(--eco-green) !important; color: #09120c !important; border-color: var(--eco-green) !important; }
+      .btn-primary:hover { background: #9bd9ab !important; color: #09120c !important; border-color: #9bd9ab !important; }
+      .actions form { display: flex; flex: 1 1 160px; flex-wrap: wrap; gap: 7px; min-width: 0; }
+      .actions form input[type="email"] {
+        width: 100%;
+        min-width: 0 !important;
+        border: 1px solid var(--eco-border) !important;
+        border-radius: 8px !important;
+        background: #0a0e0b !important;
+        color: #f5f8f5 !important;
+        padding: 11px 12px !important;
+        font: inherit;
+        font-size: 12px;
+      }
+      .actions form button { width: 100%; }
+      .empty { padding: 42px 24px !important; }
+      .empty-icon { font-size: 30px !important; filter: saturate(.75); }
+      .empty h3 { font-size: 19px !important; letter-spacing: -.025em; }
+      .empty p { color: var(--eco-muted) !important; line-height: 1.7; }
+      .empty > p[style*="text-align:left"] { padding: 13px 0; border-bottom: 1px solid var(--eco-border); }
+      button:focus-visible, a:focus-visible, input:focus-visible {
+        outline: 2px solid var(--eco-green);
+        outline-offset: 3px;
+      }
+      @media (max-width: 800px) {
+        .stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      }
+      @media (max-width: 620px) {
+        .topbar { flex-wrap: wrap; }
+        .topbar nav { order: 3; width: 100%; justify-content: flex-start; gap: 16px !important; }
+        .ecosystem-home-link { margin-left: auto; }
+      }
+      @media (max-width: 500px) {
+        .page { padding-top: 27px; }
+        .hero h1 { font-size: 35px !important; }
+        .stat { padding: 16px !important; }
+        .stat-label { font-size: 9px !important; }
+        .business-card { padding: 17px !important; }
+        .business-top { flex-direction: column; gap: 12px !important; }
+        .business-top .verified, .business-top .pending { align-self: flex-start; }
+        .business-stats { grid-template-columns: repeat(3, minmax(0,1fr)) !important; }
+        .business-stat { padding: 11px 8px !important; }
+        .business-stat span { font-size: 8px !important; }
+        .actions { grid-template-columns: 1fr 1fr; }
+        .actions form { flex-basis: 100%; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+      }
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     TOP BAR
+========================= -->
+
+<header class="topbar">
+
+    <a
+        href="{{ url_for('home') }}"
+        class="brand"
+    >
+        THE <span>ECOSYSTEM</span>
+    </a>
+
+    <nav style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <a href="{{ url_for('account_deleted_items') }}" class="account-link" style="color:#80C995">Deleted</a>
+        <a href="{{ url_for('account') }}" class="account-link">← My Account</a>
+    </nav>
+
+    <a href="{{ url_for('home') }}" class="ecosystem-home-link" aria-label="Return to THE ECOSYSTEM homepage">⌂ HOME</a>
+</header>
+
+
+<main class="page">
+
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            BUSINESS OWNER
+        </div>
+
+        <h1>
+            Dashboard
+        </h1>
+
+        <p>
+            Welcome back, {{ user["name"] }}.
+            Manage your businesses from one place.
+        </p>
+
+    </section>
+
+
+    <section class="premium-panel">
+        <h2>Premium Business Listing</h2>
+        <p>Reach customers in the states you choose. Pricing is <strong>₦2,999 per selected state or FCT, per month</strong>. Your listing is published only after payment verification and admin approval.</p>
+        <a class="premium-cta" href="{{ url_for('premium_listing_plans') }}">Explore premium listing →</a>
+        {% if premium_orders %}
+        <div class="premium-orders">
+            {% for order in premium_orders %}
+            <article class="premium-order">
+                <span class="premium-tag">{{ order.status|replace('_',' ') }}</span>
+                <strong>{{ order.business_name }}</strong>
+                <p>Payment: {{ order.payment_status|replace('_',' ') }}</p>
+                <p>{{ order.selected_states|length }} location(s) · {{ order.duration_months }} month(s)</p>
+                <p><strong>₦{{ '{:,.0f}'.format(order.amount_naira|float) }}</strong></p>
+                {% if order.expires_at %}<p>Expires: {{ order.expires_at }}</p>{% endif %}
+                <a href="{{ url_for('premium_listing_status', order_id=order.id) }}">View application status</a>
+            </article>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </section>
+
+    <!-- =========================
+         GLOBAL STATS
+    ========================= -->
+
+    <section class="stats">
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Businesses
+            </div>
+
+            <div class="stat-value">
+                {{ total_businesses }}
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Verified
+            </div>
+
+            <div class="stat-value">
+                {{ verified_count }}
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Reviews
+            </div>
+
+            <div class="stat-value">
+                {{ total_reviews }}
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                Photos
+            </div>
+
+            <div class="stat-value">
+                {{ total_photos }}
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         APPROVED BUSINESSES
+    ========================= -->
+
+    {% if approved_businesses %}
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>
+                Your Businesses
+            </h2>
+
+            <span>
+                {{ approved_businesses|length }}
+                approved
+            </span>
+
+        </div>
+
+
+        <div class="business-grid">
+
+            {% for item in approved_businesses %}
+
+            {% set business = item["business"] %}
+
+            <article class="business-card">
+
+                <div class="business-top">
+
+                    <div>
+
+                        <div class="business-name">
+                            {{ business["name"] }}
+                        </div>
+
+                        <div class="business-meta">
+                            {{ business["category"] }}
+                            ·
+                            {{ business["location"] }}
+                        </div>
+
+                    </div>
+
+
+                    {% if item["is_verified"] %}
+
+                    <div class="verified">
+
+                        <span class="verified-check">
+                            ✓
+                        </span>
+
+                        VERIFIED
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="pending">
+                        NOT VERIFIED
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="business-stats">
+
+                    <div class="business-stat">
+
+                        <strong>
+                            {% if item["rating"]["count"] > 0 %}
+                                {{ "%.1f"|format(item["rating"]["average"]) }}
+                            {% else %}
+                                NEW
+                            {% endif %}
+                        </strong>
+
+                        <span>
+                            Rating
+                        </span>
+
+                    </div>
+
+
+                    <div class="business-stat">
+
+                        <strong>
+                            {{ item["review_count"] }}
+                        </strong>
+
+                        <span>
+                            Reviews
+                        </span>
+
+                    </div>
+
+
+                    <div class="business-stat">
+
+                        <strong>
+                            {{ item["photo_count"] }}
+                        </strong>
+
+                        <span>
+                            Photos
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="actions">
+
+                    <a
+                        href="{{ url_for(
+                            'manage_business',
+                            business_id=business['id']
+                        ) }}"
+                        class="btn btn-primary"
+                    >
+                        Manage Business
+                    </a>
+
+
+                    <a
+                        href="{{ url_for(
+                            'business_profile',
+                            business_id=business['id']
+                        ) }}"
+                        class="btn"
+                    >
+                        View Profile
+                    </a>
+                    {% if item.get("role") == "PRIMARY OWNER" %}
+                    <form method="post" action="{{ url_for('business_ownership_action', business_id=business['id']) }}"><input type="hidden" name="action" value="archive"><button class="btn" type="submit" onclick="return confirm('Archive this business? Records will be preserved.')">Archive</button></form>
+                    <form method="post" action="{{ url_for('business_ownership_action', business_id=business['id']) }}"><input type="hidden" name="action" value="transfer"><input type="email" name="target_email" placeholder="New owner's account email" required style="min-width:180px;background:#0b0e0c;color:#fff;border:1px solid #333;padding:10px;border-radius:8px"><button class="btn" type="submit">Request transfer</button></form>
+                    <form method="post" action="{{ url_for('business_ownership_action', business_id=business['id']) }}"><input type="hidden" name="action" value="manager"><input type="hidden" name="manager_action" value="add"><input type="email" name="target_email" placeholder="Manager account email" required style="min-width:180px;background:#0b0e0c;color:#fff;border:1px solid #333;padding:10px;border-radius:8px"><button class="btn" type="submit">Request manager</button></form>
+                    {% endif %}
+                </div>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    {% endif %}
+
+
+    <!-- =========================
+         PENDING BUSINESSES
+    ========================= -->
+
+    {% if pending_businesses %}
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>
+                Awaiting Approval
+            </h2>
+
+            <span>
+                {{ pending_businesses|length }}
+                pending
+            </span>
+
+        </div>
+
+
+        <div class="business-grid">
+
+            {% for item in pending_businesses %}
+
+            {% set business = item["business"] %}
+
+            <article class="business-card">
+
+                <div class="business-top">
+
+                    <div>
+
+                        <div class="business-name">
+                            {{ business["name"] }}
+                        </div>
+
+                        <div class="business-meta">
+                            {{ business["category"] }}
+                            ·
+                            {{ business["location"] }}
+                        </div>
+
+                    </div>
+
+                    <div class="pending">
+                        PENDING
+                    </div>
+
+                </div>
+
+
+                <p
+                    style="
+                        color:#777;
+                        font-size:13px;
+                        line-height:1.6;
+                        margin-bottom:18px;
+                    "
+                >
+                    Your business claim is currently
+                    being reviewed by THE ECOSYSTEM.
+                    You'll be able to manage the business
+                    once your claim is approved.
+                </p>
+
+
+                <a
+                    href="{{ url_for(
+                        'business_profile',
+                        business_id=business['id']
+                    ) }}"
+                    class="btn"
+                    style="display:block;"
+                >
+                    View Business
+
+                </a>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    {% endif %}
+
+
+    {% if rejected_businesses or archived_businesses %}
+    <section class="section">
+      <div class="section-header"><h2>Needs attention / archived</h2><span>{{ (rejected_businesses|length) + (archived_businesses|length) }} records</span></div>
+      <div class="business-grid">
+      {% for item in rejected_businesses + archived_businesses %}{% set business=item.business %}
+        <article class="business-card"><div class="business-top"><div><div class="business-name">{{ business.name }}</div><div class="business-meta">{{ business.category }} · {{ business.location }}</div></div><span class="pending">{{ item.status }}</span></div>
+        {% if business.ownership_dispute %}<p class="business-meta">Ownership dispute is active. Ownership changes and new listings are paused pending admin review.</p>{% endif %}
+        <div class="actions"><a class="btn" href="{{ url_for('business_profile', business_id=business.id) }}">View Business</a>
+        {% if item.role == 'PRIMARY OWNER' and item.status == 'ARCHIVED' %}<form method="post" action="{{ url_for('business_ownership_action', business_id=business.id) }}"><input type="hidden" name="action" value="restore"><button class="btn btn-primary" type="submit">Request restoration</button></form>{% endif %}
+        {% if item.role == 'PRIMARY OWNER' and item.status not in ['ARCHIVED','DISPUTED'] %}<form method="post" action="{{ url_for('business_ownership_action', business_id=business.id) }}" onsubmit="return confirm('Archive this business from public discovery? Its records will be preserved.')"><input type="hidden" name="action" value="archive"><button class="btn" type="submit">Archive business</button></form>{% endif %}</div></article>
+      {% endfor %}
+      </div>
+    </section>{% endif %}
+
+    {% if business_notifications %}<section class="section"><div class="section-header"><h2>Business notifications</h2><span>{{ business_notifications|length }} recent</span></div><div class="empty">{% for note in business_notifications %}<p style="text-align:left;margin:10px 0"><strong>{{ note.title }}</strong><br>{{ note.message }} <small>{{ note.created_at }}</small></p>{% endfor %}<form method="post" action="{{ url_for('mark_business_notifications_read') }}"><button class="btn btn-primary" type="submit">Mark notifications read</button></form></div></section>{% endif %}
+
+    <!-- =========================
+         NO BUSINESSES
+    ========================= -->
+
+    {% if not owned_businesses %}
+
+    <section class="empty">
+
+        <div class="empty-icon">
+            🏪
+        </div>
+
+        <h3>
+            No businesses yet
+        </h3>
+
+        <p>
+            Add your business to THE ECOSYSTEM
+            and start building your presence.
+        </p>
+
+        <a
+            href="{{ url_for('submit_business') }}"
+            class="btn btn-primary"
+            style="
+                display:inline-block;
+                padding:14px 22px;
+            "
+        >
+            Add Your Business
+        </a>
+
+    </section>
+
+    {% endif %}
+
+
+</main>
+
+
+</body>
+
+</html>

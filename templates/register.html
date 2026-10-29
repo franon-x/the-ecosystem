@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account — THE ECOSYSTEM</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #050505;
+            color: #fff;
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 460px;
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 55px;
+        }
+
+        .logo span {
+            color: #ff3030;
+        }
+
+        .eyebrow {
+            color: #ff3030;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: 48px;
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 18px;
+        }
+
+        .intro {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .form-box {
+            background: #0b0b0b;
+            border: 1px solid #222;
+            padding: 35px;
+        }
+
+        .field {
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            color: #777;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 9px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 15px;
+            background: #050505;
+            border: 1px solid #292929;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #ff3030;
+        }
+
+        select:invalid {
+            color: #777;
+        }
+
+        select option {
+            color: #fff;
+            background: #111;
+        }
+
+        .location-note {
+            color: #777;
+            font-size: 11px;
+            line-height: 1.6;
+            margin-top: 8px;
+        }
+
+        .location-heading {
+            color: #ff5050;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin: 30px 0 8px;
+        }
+
+        input::placeholder {
+            color: #444;
+        }
+
+        /* Password visibility control */
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-wrapper input {
+            padding-right: 65px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 6px 4px;
+            background: transparent;
+            border: none;
+            color: #ff5050;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .toggle-password:hover {
+            background: transparent;
+            color: #fff;
+        }
+
+        .toggle-password:focus-visible {
+            outline: 1px solid #ff3030;
+            outline-offset: 3px;
+        }
+
+        .error {
+            background: rgba(255, 48, 48, 0.08);
+            border: 1px solid rgba(255, 48, 48, 0.3);
+            color: #ff5c5c;
+            padding: 13px;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .notice {
+            background: rgba(255, 48, 48, 0.06);
+            border: 1px solid #292020;
+            padding: 15px;
+            margin-bottom: 22px;
+            color: #aaa;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .notice strong {
+            display: block;
+            color: #ff5050;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+            font-size: 11px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            background: #ff3030;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-button:hover {
+            background: #d92323;
+        }
+
+        .login {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .login a {
+            color: #fff;
+            margin-left: 5px;
+            transition: 0.3s;
+        }
+
+        .login a:hover {
+            color: #ff3030;
+        }
+
+        .resend {
+            display: block;
+            margin-top: 12px;
+            color: #ff5050 !important;
+            text-decoration: none;
+        }
+
+        .resend:hover {
+            color: #fff !important;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 35px;
+            color: #555;
+            font-size: 11px;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .back:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 500px) {
+            body {
+                padding: 22px;
+            }
+
+            .logo {
+                margin-bottom: 40px;
+            }
+
+            h1 {
+                font-size: 40px;
+            }
+
+            .form-box {
+                padding: 25px;
+            }
+        }
+    
+
+/* ==========================================================
+   THE ECOSYSTEM — OFFICIAL DESIGN SYSTEM
+   Palette: #080909 / #111413 / #E6333E / #80C995 / #FFFFFF
+   ========================================================== */
+:root {
+  --eco-bg: #080909;
+  --eco-panel: #111413;
+  --eco-panel-soft: #171b18;
+  --eco-red: #E6333E;
+  --eco-green: #80C995;
+  --eco-white: #FFFFFF;
+  --eco-muted: #A9B0AA;
+  --eco-line: rgba(255,255,255,.11);
+}
+html { background: var(--eco-bg); scroll-behavior: smooth; }
+body {
+  color: var(--eco-white);
+  background:
+    radial-gradient(ellipse at 8% 0%, rgba(230,51,62,.11), transparent 34%),
+    radial-gradient(ellipse at 95% 85%, rgba(128,201,149,.07), transparent 32%),
+    var(--eco-bg);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+a { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease; }
+header, nav {
+  border-color: var(--eco-line) !important;
+}
+.logo, .brand { color: var(--eco-white); }
+.logo span, .brand span { color: var(--eco-red); }
+h1, h2, h3, h4 { color: var(--eco-white); }
+p { text-wrap: pretty; }
+input, select, textarea {
+  color: var(--eco-white) !important;
+  background: #0b0e0c !important;
+  border-color: rgba(255,255,255,.15) !important;
+  border-radius: 10px;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--eco-green) !important;
+  box-shadow: 0 0 0 3px rgba(128,201,149,.11);
+  outline: none;
+}
+input::placeholder, textarea::placeholder { color: #737b75 !important; }
+label { color: #d1d6d2; }
+button, input[type="submit"], input[type="button"], .login-button, .view-button,
+.view-link, .view-button, .explore-state-button, .action-button, .btn,
+.primary-button, .submit-button, .save-button, .cta, .view-all,
+a.button, a.btn, .register-button, .submit-btn {
+  border-radius: 10px;
+}
+button[type="submit"], input[type="submit"], .login-button, .submit-button,
+.save-button, .primary-button, .submit-btn, .explore-state-button,
+.action-button, .cta, .register-button, a.button, a.btn, .view-button {
+  background: var(--eco-white) !important;
+  color: #237744 !important;
+  border: 1px solid rgba(128,201,149,.65) !important;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(0,0,0,.16);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+button[type="submit"]:hover, input[type="submit"]:hover, .login-button:hover,
+.submit-button:hover, .save-button:hover, .primary-button:hover, .submit-btn:hover,
+.explore-state-button:hover, .action-button:hover, .cta:hover, .register-button:hover,
+a.button:hover, a.btn:hover, .view-button:hover {
+  background: var(--eco-green) !important;
+  color: #08100b !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(128,201,149,.14);
+}
+button:not([type="submit"]):not(.toggle-password):not(.featured-prev):not(.featured-next) {
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--eco-green);
+  outline-offset: 3px;
+}
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card,
+.creator-card, .event-card, .plan, .stat, .success-card, .featured,
+.featured-creator, .profile-card, .content-card, .result-card {
+  border-color: var(--eco-line) !important;
+}
+.card, .panel, .form-box, .info-card, .saved-card, .competition-card,
+.creator-card, .event-card, .plan, .stat, .success-card, .profile-card,
+.content-card, .result-card {
+  background-color: var(--eco-panel);
+}
+.eyebrow, .label, .page-label, .section-label, .category, .featured-label,
+.event-category, .competition-category { color: var(--eco-green); }
+.muted, .intro, .description, .hero p, .hero-description, .about-text,
+.location, .empty-state p { color: var(--eco-muted); }
+.error, .alert-error {
+  color: #ff9da3;
+  background: rgba(230,51,62,.09);
+  border-color: rgba(230,51,62,.35);
+  border-radius: 10px;
+}
+.success, .alert-success, .notice-success {
+  color: #b8f0c8;
+  background: rgba(128,201,149,.08);
+  border-color: rgba(128,201,149,.3);
+  border-radius: 10px;
+}
+hr { border-color: var(--eco-line); }
+::selection { background: rgba(128,201,149,.32); color: #fff; }
+@media (max-width: 700px) {
+  body { background:
+    radial-gradient(ellipse at 10% 0%, rgba(230,51,62,.09), transparent 38%),
+    var(--eco-bg); }
+}
+
+
+.container { max-width: 520px; }
+.logo { letter-spacing: .16em; }
+.form-box { border-radius: 22px; padding: clamp(24px,5vw,38px); background: linear-gradient(145deg,rgba(128,201,149,.045),transparent 50%),var(--eco-panel) !important; box-shadow: 0 24px 80px rgba(0,0,0,.22); }
+input, select { border-radius: 10px; }
+.location-heading { color: var(--eco-green) !important; }
+
+
+/* Final brand wordmark consistency: THE white, ECOSYSTEM red */
+.logo, .brand { color: #FFFFFF !important; }
+.logo span, .brand span, .ecosystem-wordmark span, .ecosystem-wordmark b,
+.footer strong.ecosystem-wordmark span { color: #E6333E !important; }
+.ecosystem-wordmark { color: #FFFFFF !important; }
+
+</style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="logo">
+            THE <span>ECOSYSTEM</span>
+        </div>
+
+        <div class="eyebrow">
+            JOIN THE ECOSYSTEM
+        </div>
+
+        <h1>
+            Create your account.
+        </h1>
+
+        <p class="intro">
+            Create an account and become part of the growing
+            community discovering, creating and building
+            around Ibadan.
+        </p>
+
+        <div class="form-box">
+
+            {% if error %}
+                <div class="error">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            {% if message %}
+                <div class="notice">
+                    <strong>CHECK YOUR EMAIL</strong>
+                    {{ message }}
+                </div>
+            {% endif %}
+
+            <form method="POST">
+
+                <div class="field">
+                    <label for="name">YOUR NAME</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your name"
+                        value="{{ request.form.get('name', '') }}"
+                        autocomplete="name"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="email">EMAIL</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        value="{{ request.form.get('email', '') }}"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="password">PASSWORD</label>
+
+                    <div class="password-wrapper">
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Create a password"
+                            autocomplete="new-password"
+                            minlength="8"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            id="togglePassword"
+                            aria-label="Show password"
+                            aria-controls="password"
+                            aria-pressed="false"
+                        >
+                            SHOW
+                        </button>
+                    </div>
+                </div>
+
+                <div class="location-heading">YOUR HOME LOCATION</div>
+
+                <div class="field">
+                    <label for="state_of_residence">STATE OF RESIDENCE *</label>
+                    <select id="state_of_residence" name="state_of_residence" required>
+                        <option value="" disabled {% if not request.form.get('state_of_residence') %}selected{% endif %}>Choose your state</option>
+                        {% for state_name in states %}
+                        <option value="{{ state_name }}" {% if request.form.get('state_of_residence', selected_state|default('')) == state_name %}selected{% endif %}>{{ state_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <p class="location-note">Your feed will default to this state. You can explore other states whenever you want.</p>
+                </div>
+
+                <div class="field">
+                    <label for="city_of_residence">CITY / TOWN (OPTIONAL)</label>
+                    <input
+                        type="text"
+                        id="city_of_residence"
+                        name="city_of_residence"
+                        maxlength="100"
+                        placeholder="Enter your city or town"
+                        value="{{ request.form.get('city_of_residence', selected_city|default('')) }}"
+                        autocomplete="address-level2"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="lga_of_residence">LOCAL GOVERNMENT AREA (OPTIONAL)</label>
+                    <select
+                        id="lga_of_residence"
+                        name="lga_of_residence"
+                        data-selected="{{ request.form.get('lga_of_residence', selected_lga|default('')) }}"
+                    >
+                        <option value="">Skip for now</option>
+                    </select>
+                    <p class="location-note">You can leave this blank and still discover listings across your whole state.</p>
+                </div>
+
+                <button type="submit" class="submit-button">
+                    CREATE ACCOUNT →
+                </button>
+
+            </form>
+
+        </div>
+
+        <div class="login">
+            Already have an account?
+
+            <a href="{{ url_for('login') }}">
+                Log in
+            </a>
+
+            <a
+                href="{{ url_for('resend_verification') }}"
+                class="resend"
+            >
+                Didn't receive your verification email? Resend it
+            </a>
+        </div>
+
+        <a href="{{ url_for('home') }}" class="back">
+            ← BACK TO THE ECOSYSTEM
+        </a>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const passwordInput = document.getElementById("password");
+            const toggleButton = document.getElementById("togglePassword");
+            if (passwordInput && toggleButton) {
+                toggleButton.addEventListener("click", function () {
+                    const isHidden = passwordInput.type === "password";
+                    passwordInput.type = isHidden ? "text" : "password";
+                    toggleButton.textContent = isHidden ? "HIDE" : "SHOW";
+                    toggleButton.setAttribute("aria-label", isHidden ? "Hide password" : "Show password");
+                    toggleButton.setAttribute("aria-pressed", String(isHidden));
+                    passwordInput.focus();
+                });
+            }
+
+            const stateSelect = document.getElementById("state_of_residence");
+            const lgaSelect = document.getElementById("lga_of_residence");
+            if (stateSelect && lgaSelect) {
+                let locationData = {};
+                const previouslySelectedLga = lgaSelect.dataset.selected || "";
+
+                function populateLgas(selectedLga) {
+                    const stateName = stateSelect.value;
+                    lgaSelect.innerHTML = '<option value="">Skip for now</option>';
+                    const lgas = locationData[stateName] || [];
+                    lgas.forEach(function (lgaName) {
+                        const option = document.createElement("option");
+                        option.value = lgaName;
+                        option.textContent = lgaName;
+                        if (lgaName === selectedLga) option.selected = true;
+                        lgaSelect.appendChild(option);
+                    });
+                }
+
+                fetch("{{ url_for('nigeria_locations_api') }}")
+                    .then(function (response) {
+                        if (!response.ok) throw new Error("Could not load locations");
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        locationData = data.lgas || {};
+                        populateLgas(previouslySelectedLga);
+                    })
+                    .catch(function () {
+                        lgaSelect.innerHTML = '<option value="">LGA list unavailable (optional)</option>';
+                    });
+
+                stateSelect.addEventListener("change", function () {
+                    populateLgas("");
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
