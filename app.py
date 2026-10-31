@@ -13,6 +13,12 @@ from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 import json
 import sqlite3
+try:
+    import psycopg2
+    from psycopg2.extras import DictCursor
+except ImportError:
+    psycopg2 = None
+    DictCursor = None
 import secrets
 import hashlib
 import urllib.request
@@ -25,7 +31,9 @@ from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
 load_dotenv()
 app = Flask(__name__)
-app.secret_key = "the-ecosystem-development-key"
+app.secret_key = os.environ.get("SECRET_KEY", "the-ecosystem-development-key")
+if os.environ.get("RENDER") and app.secret_key == "the-ecosystem-development-key":
+    app.logger.warning("SECRET_KEY is not configured; set a strong SECRET_KEY in Render Environment.")
 
 # =========================
 # FILE UPLOAD SETTINGS
@@ -6381,13 +6389,13 @@ def admin_system_health():
             ).fetchone()
             database_ok = True
             database_size = int(row[0] or 0) if row else 0
-            database_detail = "SQLite connection is working; saved state record is present." if row else "SQLite works, but no saved application state row was found."
+            database_detail = ("PostgreSQL" if DATABASE_URL else "SQLite") + (" connection is working; saved state record is present." if row else " works, but no saved application state row was found.")
     except Exception as exc:
         database_detail = f"{type(exc).__name__}: database connection failed."
         app.logger.exception("Admin system health database check failed")
 
     checks.append({
-        "name": "SQLite database",
+        "name": "PostgreSQL database" if DATABASE_URL else "SQLite database",
         "status": "healthy" if database_ok and database_size > 0 else ("warning" if database_ok else "error"),
         "detail": database_detail,
     })
@@ -8066,26 +8074,77 @@ def logout():
 
 
 # =========================
-# SQLITE DATABASE STORAGE
+# DATABASE STORAGE (PostgreSQL on Render, SQLite locally)
 # =========================
 
 PROJECT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 DATABASE_PATH = os.path.join(PROJECT_FOLDER, "ecosystem.db")
+DATABASE_URL = os.environ.get("DATABASE_URL", "").strip()
+
+
+def _normalise_database_url(url):
+    # Render may provide postgres:// while psycopg2 expects postgresql://.
+    if url.startswith("postgres://"):
+        return "postgresql://" + url[len("postgres://"):]
+    return url
+
+
+class _PostgresConnection:
+    """Small compatibility adapter for the app's existing SQLite-style calls."""
+    def __init__(self, raw_connection):
+        self.raw = raw_connection
+        self.row_factory = None  # Existing code assigns sqlite3.Row; DictCursor supports key and index access.
+
+    def execute(self, sql, params=None):
+        # Existing app SQL uses SQLite qmark placeholders. Convert them for psycopg2.
+        sql = sql.replace("?", "%s")
+        cursor = self.raw.cursor()
+        cursor.execute(sql, params or ())
+        return cursor
+
+    def commit(self):
+        self.raw.commit()
+
+    def rollback(self):
+        self.raw.rollback()
+
+    def close(self):
+        self.raw.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        try:
+            if exc_type is None:
+                self.raw.commit()
+            else:
+                self.raw.rollback()
+        finally:
+            self.raw.close()
+        return False
 
 
 def connect_database():
-    """Open a SQLite connection with a wait timeout for concurrent requests."""
+    """Use Render PostgreSQL when DATABASE_URL is configured; otherwise local SQLite."""
+    if DATABASE_URL:
+        if psycopg2 is None:
+            raise RuntimeError("PostgreSQL support is missing. Install psycopg2-binary from requirements.txt.")
+        raw = psycopg2.connect(_normalise_database_url(DATABASE_URL), cursor_factory=DictCursor, connect_timeout=15)
+        return _PostgresConnection(raw)
+
     connection = sqlite3.connect(DATABASE_PATH, timeout=30)
     connection.execute("PRAGMA busy_timeout = 30000")
     return connection
 
 
 def init_database():
-    os.makedirs(os.path.dirname(DATABASE_PATH), exist_ok=True)
+    if not DATABASE_URL:
+        os.makedirs(os.path.dirname(DATABASE_PATH), exist_ok=True)
     with connect_database() as connection:
-        # WAL allows readers while a request writes state; busy_timeout above
-        # gives short concurrent writes time to finish instead of failing fast.
-        connection.execute("PRAGMA journal_mode = WAL")
+        if not DATABASE_URL:
+            # WAL is SQLite-only.
+            connection.execute("PRAGMA journal_mode = WAL")
         connection.execute("""
             CREATE TABLE IF NOT EXISTS app_state (
                 id INTEGER PRIMARY KEY CHECK (id = 1),
