@@ -1432,8 +1432,15 @@ body>.location-quick-card.location-popup-open{z-index:10050!important;display:bl
 
 
 
+        <!-- MOBILE SIDEBAR TOGGLE -->
+        <button class="mobile-sidebar-toggle" id="mobileSidebarToggle" type="button"
+                aria-label="Open account menu" aria-controls="accountSidebar" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="mobile-sidebar-backdrop" id="mobileSidebarBackdrop" hidden></div>
+
         <!-- ACCOUNT SIDEBAR -->
-        <nav class="account-sidebar" aria-label="Account navigation">
+        <nav class="account-sidebar" id="accountSidebar" aria-label="Account navigation">
             <a class="logo" href="{{ url_for('account') }}" aria-label="THE ECOSYSTEM account home">
                 <span>THE</span> <strong>ECOSYSTEM</strong>
             </a>
@@ -2381,6 +2388,117 @@ document.addEventListener('DOMContentLoaded', function () {
 /* Move the welcome section slightly lower beneath the search bar; leave other layout unchanged. */
 .dashboard-welcome { margin-top: 14px !important; }
 </style>
+
+
+
+<style id="mobile-account-sidebar-drawer">
+/* On phones the account navigation is hidden until the hamburger is tapped. */
+.mobile-sidebar-toggle { display:none; }
+.mobile-sidebar-backdrop { display:none; }
+@media (max-width:700px) {
+  .mobile-sidebar-toggle {
+    display:flex !important;
+    position:fixed !important;
+    z-index:10030 !important;
+    top:13px !important;
+    left:13px !important;
+    width:42px !important;
+    height:42px !important;
+    padding:10px !important;
+    flex-direction:column !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:5px !important;
+    border:1px solid rgba(128,201,149,.38) !important;
+    border-radius:10px !important;
+    background:#111713 !important;
+    box-shadow:0 5px 18px rgba(0,0,0,.28) !important;
+    cursor:pointer !important;
+  }
+  .mobile-sidebar-toggle span { display:block; width:19px; height:2px; border-radius:2px; background:#80c995; transition:transform .2s ease,opacity .2s ease; }
+  .mobile-sidebar-backdrop { display:block; position:fixed; inset:0; z-index:10010; background:rgba(0,0,0,.68); opacity:0; visibility:hidden; transition:opacity .22s ease,visibility .22s ease; }
+  .mobile-sidebar-backdrop.is-visible { opacity:1; visibility:visible; }
+  nav.account-sidebar {
+    position:fixed !important;
+    z-index:10020 !important;
+    top:0 !important; left:0 !important; bottom:0 !important;
+    width:min(300px,86vw) !important;
+    height:100dvh !important;
+    max-height:100dvh !important;
+    margin:0 !important;
+    padding:22px 17px 18px !important;
+    border:0 !important;
+    border-right:1px solid rgba(128,201,149,.22) !important;
+    border-radius:0 16px 16px 0 !important;
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+    gap:16px !important;
+    overflow-y:auto !important;
+    overscroll-behavior:contain;
+    background:#0e110f !important;
+    box-shadow:18px 0 50px rgba(0,0,0,.42) !important;
+    transform:translateX(-105%) !important;
+    visibility:hidden !important;
+    transition:transform .25s ease,visibility .25s ease !important;
+  }
+  nav.account-sidebar.mobile-menu-open { transform:translateX(0) !important; visibility:visible !important; }
+  .account-sidebar .logo { padding:5px 4px 17px !important; }
+  .sidebar-links { display:flex !important; flex-direction:column !important; grid-template-columns:none !important; gap:5px !important; }
+  .sidebar-link { min-height:46px !important; padding:0 11px !important; gap:12px !important; font-size:12px !important; }
+  .sidebar-icon { flex-basis:22px !important; width:22px !important; font-size:19px !important; }
+  .sidebar-divider { margin:8px 3px !important; }
+  .sidebar-bottom { margin-top:auto !important; gap:13px !important; }
+  .sidebar-premium { min-height:78px !important; }
+  .sidebar-logout { padding-top:13px !important; }
+  body.mobile-menu-active { overflow:hidden !important; }
+  .dashboard-topbar { padding-left:62px !important; }
+}
+@media (prefers-reduced-motion:reduce) {
+  nav.account-sidebar,.mobile-sidebar-backdrop,.mobile-sidebar-toggle span { transition:none !important; }
+}
+</style>
+<script id="mobile-account-sidebar-drawer-script">
+document.addEventListener('DOMContentLoaded', function () {
+  const sidebar = document.getElementById('accountSidebar');
+  const toggle = document.getElementById('mobileSidebarToggle');
+  const backdrop = document.getElementById('mobileSidebarBackdrop');
+  if (!sidebar || !toggle || !backdrop) return;
+  function isMobile() { return window.matchMedia('(max-width: 700px)').matches; }
+  function closeMenu() {
+    sidebar.classList.remove('mobile-menu-open');
+    backdrop.classList.remove('is-visible');
+    backdrop.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open account menu');
+    document.body.classList.remove('mobile-menu-active');
+  }
+  function openMenu() {
+    if (!isMobile()) return;
+    backdrop.hidden = false;
+    requestAnimationFrame(function () {
+      backdrop.classList.add('is-visible');
+      sidebar.classList.add('mobile-menu-open');
+    });
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Close account menu');
+    document.body.classList.add('mobile-menu-active');
+  }
+  toggle.addEventListener('click', function () {
+    sidebar.classList.contains('mobile-menu-open') ? closeMenu() : openMenu();
+  });
+  backdrop.addEventListener('click', closeMenu);
+  sidebar.querySelectorAll('a.sidebar-link, a.sidebar-premium, a.sidebar-logout').forEach(function (link) {
+    link.addEventListener('click', function () {
+      if (isMobile() && !link.classList.contains('location-sidebar-link')) closeMenu();
+    });
+  });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && sidebar.classList.contains('mobile-menu-open')) closeMenu();
+  });
+  window.addEventListener('resize', function () { if (!isMobile()) closeMenu(); });
+});
+</script>
 
 </body>
 
