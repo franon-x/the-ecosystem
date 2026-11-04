@@ -215,6 +215,109 @@ body{background:var(--bg);color:#f5f7f5}
   .hero-video{display:block}
 }
 
+
+
+/* MOBILE SHOWCASE REFINEMENT + VIDEO FALLBACK */
+.hero{
+  background:
+    radial-gradient(ellipse at 78% 18%, rgba(128,201,149,.22), transparent 38%),
+    radial-gradient(ellipse at 12% 85%, rgba(45,125,74,.18), transparent 42%),
+    linear-gradient(135deg,#101b14 0%,#080909 72%);
+}
+.hero-video{
+  z-index:0;
+  opacity:.72;
+  object-fit:cover;
+  object-position:center center;
+}
+.hero-shade{
+  z-index:1;
+  background:
+    linear-gradient(90deg,rgba(5,8,6,.72),rgba(5,8,6,.30)),
+    linear-gradient(0deg,rgba(5,8,6,.78),rgba(5,8,6,.12));
+}
+.hero-copy,.hero-note{z-index:2;min-width:0}
+.hero-note{
+  width:100%;
+  max-width:520px;
+  box-sizing:border-box;
+  padding:15px 17px;
+  border:1px solid rgba(255,255,255,.18);
+  border-left:3px solid var(--green);
+  border-radius:0 14px 14px 0;
+  background:rgba(8,13,10,.72);
+  line-height:1.65;
+}
+@media(max-width:760px){
+  .wrap{width:min(100% - 32px,620px);padding-top:18px;padding-bottom:42px}
+  .topbar{height:62px;padding:0 16px;gap:12px}
+  .logo{font-size:13px;letter-spacing:.045em}
+  .share-cta{font-size:11px;padding:10px 12px;white-space:nowrap}
+  .hero{
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:flex-end;
+    gap:22px;
+    min-height:0;
+    padding:clamp(30px,8vw,46px) 22px 22px;
+    margin-bottom:22px;
+    border-radius:20px;
+  }
+  .hero-copy{width:100%;max-width:100%}
+  .eyebrow{font-size:9px;letter-spacing:.18em;line-height:1.5}
+  .hero h1{
+    max-width:100%;
+    margin:14px 0 16px;
+    font-size:clamp(39px,10.5vw,56px);
+    line-height:.99;
+    letter-spacing:-.052em;
+    overflow-wrap:normal;
+  }
+  .hero p{max-width:100%;font-size:14px;line-height:1.72}
+  .hero-note{
+    max-width:100%;
+    margin:0;
+    padding:14px 15px;
+    font-size:12px;
+    line-height:1.65;
+  }
+  .hero-note strong{font-size:14px;line-height:1.4;margin-bottom:5px}
+  .toolbar{gap:14px;margin:20px 0 18px}
+  .filters{gap:8px}
+  .filter{padding:9px 13px;font-size:11px}
+  .search{min-height:48px;font-size:13px;padding:12px 14px}
+  .content{gap:22px}
+  .feed-heading{margin:5px 0 13px;gap:10px}
+  .feed-heading h2{font-size:18px}
+  .trending-panel{gap:11px}
+  .trending-card{flex-basis:min(84%,320px);padding:12px}
+  .community-column .grid{gap:14px}
+  .business{gap:10px;padding:14px}
+  .body{padding:14px}
+  .comments{padding:0 14px 14px}
+  .footer{margin-top:34px;padding-top:17px}
+}
+@media(max-width:390px){
+  .wrap{width:calc(100% - 26px)}
+  .topbar{padding:0 13px}
+  .logo{font-size:12px}
+  .share-cta{font-size:10px;padding:9px 10px}
+  .hero{padding:30px 17px 18px;gap:19px}
+  .hero h1{font-size:clamp(37px,10.8vw,44px)}
+  .hero p{font-size:13px}
+  .hero-note{padding:13px}
+  .filter{padding:8px 11px}
+}
+/* A failed/missing MP4 still leaves a deliberate green ambient hero, not a blank panel. */
+.hero.video-unavailable{
+  background:
+    radial-gradient(ellipse at 78% 22%,rgba(128,201,149,.24),transparent 42%),
+    radial-gradient(ellipse at 18% 82%,rgba(35,132,71,.22),transparent 46%),
+    linear-gradient(135deg,#102218,#080909 72%);
+}
+.hero.video-unavailable .hero-video{opacity:0}
+
 </style>
 </head>
 <body>
@@ -470,6 +573,23 @@ document.querySelectorAll('.share-button').forEach(button=>button.addEventListen
 document.querySelectorAll('.comment-jump').forEach(button=>button.addEventListener('click',()=>{const target=document.getElementById(button.dataset.target);target?.scrollIntoView({behavior:'smooth',block:'center'});target?.querySelector('input')?.focus()}));
 updateFeed();
 buildTrending();
+
+// Detect a missing/unsupported hero video and retain the designed ambient fallback.
+(() => {
+  const hero = document.querySelector('.hero');
+  const video = document.querySelector('.hero-video');
+  if (!hero || !video) return;
+  const fallback = () => hero.classList.add('video-unavailable');
+  const ready = () => hero.classList.remove('video-unavailable');
+  video.addEventListener('error', fallback);
+  video.addEventListener('stalled', () => {
+    if (video.readyState < 2) fallback();
+  });
+  video.addEventListener('loadeddata', ready);
+  video.addEventListener('playing', ready);
+  if (video.error) fallback();
+})();
+
 </script>
 </body>
 </html>
