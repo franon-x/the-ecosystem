@@ -96,7 +96,7 @@
 
         .headline {
             font-size: clamp(2.2rem, 6vw, 5rem);
-            font-weight: 300;
+            font-weight: 800;
             line-height: 1.2;
             letter-spacing: 0.035em;
             margin-bottom: 32px;
@@ -120,9 +120,9 @@
             margin: 0 auto;
             font-size: clamp(0.95rem, 2vw, 1.2rem);
             line-height: 1.9;
-            font-weight: 300;
-            letter-spacing: 0.035em;
-            color: #ff4545;
+            font-weight: 600;
+            letter-spacing: 0.025em;
+            color: #ffffff;
             text-shadow:
                 0 0 8px rgba(255, 0, 0, 0.45),
                 0 0 20px rgba(150, 0, 0, 0.25);
@@ -429,6 +429,68 @@ body { color: var(--eco-white) !important; }
 .headline { color: var(--eco-white) !important; text-shadow: 0 0 35px rgba(230,51,62,.12) !important; }
 .headline span, .description span { color: var(--eco-green) !important; text-shadow: none !important; }
 .description { color: #c5ccc6 !important; text-shadow: none !important; }
+
+
+/* WELCOME PAGE — WHITE TYPOGRAPHY + GREEN AMBIENT */
+body {
+    color: #ffffff;
+    background:
+        radial-gradient(ellipse at 50% 42%, rgba(128, 201, 149, 0.10), transparent 38%),
+        radial-gradient(ellipse at 8% 8%, rgba(128, 201, 149, 0.13), transparent 38%),
+        radial-gradient(ellipse at 94% 88%, rgba(50, 150, 86, 0.12), transparent 38%),
+        #080909 !important;
+}
+.aurora {
+    background: radial-gradient(ellipse, rgba(128, 201, 149, 0.24), rgba(55, 130, 79, 0.10) 45%, transparent 75%) !important;
+}
+.aurora-two {
+    background: radial-gradient(circle, rgba(128, 201, 149, 0.16), rgba(55, 130, 79, 0.05) 48%, transparent 72%) !important;
+}
+.bottom-glow {
+    background: radial-gradient(ellipse, rgba(85, 180, 112, 0.22), transparent 70%) !important;
+}
+.small-label {
+    color: #ffffff !important;
+    font-weight: 800;
+    text-shadow: 0 0 16px rgba(128, 201, 149, 0.32) !important;
+}
+.headline {
+    color: #ffffff !important;
+    font-weight: 900 !important;
+    text-shadow: 0 0 14px rgba(255, 255, 255, 0.10), 0 0 38px rgba(128, 201, 149, 0.20) !important;
+}
+.headline span, .description span {
+    color: #ffffff !important;
+    font-weight: 800;
+    text-shadow: 0 0 18px rgba(128, 201, 149, 0.42) !important;
+}
+.description {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    text-shadow: 0 0 18px rgba(128, 201, 149, 0.16) !important;
+}
+.explore {
+    color: #ffffff !important;
+    font-weight: 800;
+    border: 1px solid rgba(128, 201, 149, 0.78) !important;
+    background: rgba(28, 75, 43, 0.20) !important;
+    text-shadow: 0 0 12px rgba(128, 201, 149, 0.35) !important;
+    box-shadow: 0 0 18px rgba(128, 201, 149, 0.12), inset 0 0 18px rgba(128, 201, 149, 0.06) !important;
+}
+.explore:hover {
+    color: #ffffff !important;
+    background: rgba(55, 125, 75, 0.30) !important;
+    border-color: #80c995 !important;
+    box-shadow: 0 0 28px rgba(128, 201, 149, 0.28), 0 0 58px rgba(80, 170, 110, 0.16), inset 0 0 22px rgba(128, 201, 149, 0.10) !important;
+}
+@media (max-width: 700px) {
+    body {
+        background:
+            radial-gradient(ellipse at 50% 38%, rgba(128, 201, 149, 0.11), transparent 48%),
+            radial-gradient(ellipse at 10% 0%, rgba(128, 201, 149, 0.10), transparent 42%),
+            #080909 !important;
+    }
+}
 
 </style>
 </head>
