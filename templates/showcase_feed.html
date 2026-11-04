@@ -194,6 +194,27 @@ body{background:var(--bg);color:#f5f7f5}
 }
 @media(max-width:440px){.sidebar{grid-template-columns:1fr}.trending-card{flex-basis:88%}}
 
+
+/* HERO VIDEO MOBILE + HOSTED PLAYBACK FIX */
+.hero{position:relative;isolation:isolate;background:#080909}
+.hero-video{
+  position:absolute;inset:0;width:100%;height:100%;
+  display:block;object-fit:cover;object-position:center;
+  z-index:0;opacity:.78;background:#080909;
+}
+.hero-shade{z-index:1}
+.hero-copy,.hero-note{position:relative;z-index:2}
+@media(max-width:760px){
+  .hero{min-height:420px;overflow:hidden}
+  .hero-video{width:100%;height:100%;object-fit:cover;object-position:center;opacity:.68}
+  .hero-shade{z-index:1}
+  .hero-copy,.hero-note{z-index:2}
+}
+/* Keep the poster visible for reduced-motion users instead of removing the video element. */
+@media(prefers-reduced-motion:reduce){
+  .hero-video{display:block}
+}
+
 </style>
 </head>
 <body>
@@ -203,7 +224,7 @@ body{background:var(--bg);color:#f5f7f5}
 </nav>
 <main class="wrap">
   <header class="hero">
-    <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" poster="{{ url_for('static', filename='images/showcase-hero-poster.jpg') }}">
+    <video class="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto" aria-hidden="true" poster="{{ url_for('static', filename='images/showcase-hero-poster.jpg') }}">
       <source src="{{ url_for('static', filename='videos/showcase-hero.mp4') }}" type="video/mp4">
     </video>
     <div class="hero-shade" aria-hidden="true"></div>
@@ -298,6 +319,30 @@ body{background:var(--bg);color:#f5f7f5}
 <script id="national-trends-data" type="application/json">{{ national_trends|default([], true)|tojson }}</script>
 <script id="live-football-data" type="application/json">{{ live_football|default({'configured': false, 'items': [], 'error': 'Live scores are not configured.'}, true)|tojson }}</script>
 <script>
+
+// Mobile Safari/Chrome can defer autoplay until the video is ready or the page is visible.
+(() => {
+  const video = document.querySelector('.hero-video');
+  if (!video) return;
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  video.setAttribute('muted', '');
+  video.setAttribute('playsinline', '');
+  video.setAttribute('webkit-playsinline', '');
+
+  const attemptPlayback = () => {
+    if (document.visibilityState !== 'visible') return;
+    const attempt = video.play();
+    if (attempt && typeof attempt.catch === 'function') attempt.catch(() => {});
+  };
+  video.addEventListener('loadeddata', attemptPlayback, { once: true });
+  video.addEventListener('canplay', attemptPlayback);
+  document.addEventListener('visibilitychange', attemptPlayback);
+  window.addEventListener('pageshow', attemptPlayback);
+  attemptPlayback();
+})();
+
 const cards=[...document.querySelectorAll('.post')], filters=[...document.querySelectorAll('.filter')], search=document.getElementById('showcase-search'), count=document.getElementById('post-count'), noResults=document.getElementById('no-results');
 let selected='all';
 
