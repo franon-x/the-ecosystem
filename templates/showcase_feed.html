@@ -216,107 +216,66 @@ body{background:var(--bg);color:#f5f7f5}
 }
 
 
+/* POST MEDIA LIGHTBOX: open from the tapped item, then swipe through this post's media */
+.media-grid img,.media-grid video{cursor:zoom-in}
+.media-viewer[hidden]{display:none!important}
+.media-viewer{
+  position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;
+  padding:22px;background:rgba(0,0,0,.94);backdrop-filter:blur(12px);
+}
+.media-viewer-stage{
+  position:relative;width:min(100%,1100px);height:min(88vh,820px);
+  display:flex;align-items:center;justify-content:center;touch-action:pan-y;
+}
+.media-viewer-stage img,.media-viewer-stage video{
+  display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;
+  border-radius:10px;background:#050605;
+}
+.media-viewer-close,.media-viewer-arrow{
+  position:absolute;z-index:2;display:grid;place-items:center;border:1px solid rgba(255,255,255,.2);
+  color:#fff;background:rgba(15,20,16,.78);cursor:pointer;backdrop-filter:blur(8px);
+}
+.media-viewer-close{top:12px;right:12px;width:44px;height:44px;border-radius:50%;font-size:25px}
+.media-viewer-arrow{top:50%;transform:translateY(-50%);width:46px;height:54px;border-radius:12px;font-size:28px}
+.media-viewer-prev{left:12px}.media-viewer-next{right:12px}
+.media-viewer-count{
+  position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:2;
+  padding:8px 13px;border-radius:999px;background:rgba(15,20,16,.78);
+  color:#fff;font-size:12px;font-weight:750;letter-spacing:.04em;
+  border:1px solid rgba(255,255,255,.16)
+}
+.media-viewer-close:hover,.media-viewer-arrow:hover{border-color:var(--green);background:rgba(35,90,52,.9)}
+@media(max-width:600px){
+  .media-viewer{padding:10px}
+  .media-viewer-stage{height:82vh;width:100%}
+  .media-viewer-stage img,.media-viewer-stage video{max-width:100%;max-height:100%;border-radius:6px}
+  .media-viewer-arrow{width:38px;height:46px;font-size:23px;background:rgba(10,14,11,.68)}
+  .media-viewer-prev{left:4px}.media-viewer-next{right:4px}
+  .media-viewer-close{top:8px;right:8px;width:40px;height:40px}
+  .media-viewer-count{bottom:8px}
+}
 
-/* MOBILE SHOWCASE REFINEMENT + VIDEO FALLBACK */
-.hero{
-  background:
-    radial-gradient(ellipse at 78% 18%, rgba(128,201,149,.22), transparent 38%),
-    radial-gradient(ellipse at 12% 85%, rgba(45,125,74,.18), transparent 42%),
-    linear-gradient(135deg,#101b14 0%,#080909 72%);
+
+/* Crisp white separators around each image/video tile in a post */
+.media-grid{
+  gap:2px;
+  background:#fff;
+  padding:2px;
 }
-.hero-video{
-  z-index:0;
-  opacity:.72;
-  object-fit:cover;
-  object-position:center center;
+.media-grid img,
+.media-grid video{
+  border:1px solid rgba(255,255,255,.92);
+  outline:1px solid rgba(255,255,255,.22);
+  outline-offset:-2px;
 }
-.hero-shade{
-  z-index:1;
-  background:
-    linear-gradient(90deg,rgba(5,8,6,.72),rgba(5,8,6,.30)),
-    linear-gradient(0deg,rgba(5,8,6,.78),rgba(5,8,6,.12));
+.media-grid.single{
+  background:#fff;
+  padding:2px;
 }
-.hero-copy,.hero-note{z-index:2;min-width:0}
-.hero-note{
-  width:100%;
-  max-width:520px;
-  box-sizing:border-box;
-  padding:15px 17px;
-  border:1px solid rgba(255,255,255,.18);
-  border-left:3px solid var(--green);
-  border-radius:0 14px 14px 0;
-  background:rgba(8,13,10,.72);
-  line-height:1.65;
+.media-grid.single img,
+.media-grid.single video{
+  border:1px solid rgba(255,255,255,.95);
 }
-@media(max-width:760px){
-  .wrap{width:min(100% - 32px,620px);padding-top:18px;padding-bottom:42px}
-  .topbar{height:62px;padding:0 16px;gap:12px}
-  .logo{font-size:13px;letter-spacing:.045em}
-  .share-cta{font-size:11px;padding:10px 12px;white-space:nowrap}
-  .hero{
-    display:flex;
-    flex-direction:column;
-    align-items:stretch;
-    justify-content:flex-end;
-    gap:22px;
-    min-height:0;
-    padding:clamp(30px,8vw,46px) 22px 22px;
-    margin-bottom:22px;
-    border-radius:20px;
-  }
-  .hero-copy{width:100%;max-width:100%}
-  .eyebrow{font-size:9px;letter-spacing:.18em;line-height:1.5}
-  .hero h1{
-    max-width:100%;
-    margin:14px 0 16px;
-    font-size:clamp(39px,10.5vw,56px);
-    line-height:.99;
-    letter-spacing:-.052em;
-    overflow-wrap:normal;
-  }
-  .hero p{max-width:100%;font-size:14px;line-height:1.72}
-  .hero-note{
-    max-width:100%;
-    margin:0;
-    padding:14px 15px;
-    font-size:12px;
-    line-height:1.65;
-  }
-  .hero-note strong{font-size:14px;line-height:1.4;margin-bottom:5px}
-  .toolbar{gap:14px;margin:20px 0 18px}
-  .filters{gap:8px}
-  .filter{padding:9px 13px;font-size:11px}
-  .search{min-height:48px;font-size:13px;padding:12px 14px}
-  .content{gap:22px}
-  .feed-heading{margin:5px 0 13px;gap:10px}
-  .feed-heading h2{font-size:18px}
-  .trending-panel{gap:11px}
-  .trending-card{flex-basis:min(84%,320px);padding:12px}
-  .community-column .grid{gap:14px}
-  .business{gap:10px;padding:14px}
-  .body{padding:14px}
-  .comments{padding:0 14px 14px}
-  .footer{margin-top:34px;padding-top:17px}
-}
-@media(max-width:390px){
-  .wrap{width:calc(100% - 26px)}
-  .topbar{padding:0 13px}
-  .logo{font-size:12px}
-  .share-cta{font-size:10px;padding:9px 10px}
-  .hero{padding:30px 17px 18px;gap:19px}
-  .hero h1{font-size:clamp(37px,10.8vw,44px)}
-  .hero p{font-size:13px}
-  .hero-note{padding:13px}
-  .filter{padding:8px 11px}
-}
-/* A failed/missing MP4 still leaves a deliberate green ambient hero, not a blank panel. */
-.hero.video-unavailable{
-  background:
-    radial-gradient(ellipse at 78% 22%,rgba(128,201,149,.24),transparent 42%),
-    radial-gradient(ellipse at 18% 82%,rgba(35,132,71,.22),transparent 46%),
-    linear-gradient(135deg,#102218,#080909 72%);
-}
-.hero.video-unavailable .hero-video{opacity:0}
 
 </style>
 </head>
@@ -419,9 +378,140 @@ body{background:var(--bg);color:#f5f7f5}
   </div>
   <footer class="footer"><div class="footer-logo">THE <span class="eco">ECOSYSTEM</span></div><div>DISCOVER · CONNECT · GROW</div></footer>
 </main>
+
+<div class="media-viewer" id="showcase-media-viewer" hidden role="dialog" aria-modal="true" aria-label="Post media viewer">
+  <button class="media-viewer-close" type="button" aria-label="Close media viewer">×</button>
+  <div class="media-viewer-stage" id="showcase-media-stage">
+    <button class="media-viewer-arrow media-viewer-prev" type="button" aria-label="Previous media">‹</button>
+    <div id="showcase-media-content"></div>
+    <button class="media-viewer-arrow media-viewer-next" type="button" aria-label="Next media">›</button>
+    <div class="media-viewer-count" id="showcase-media-count"></div>
+  </div>
+</div>
+
 <script id="national-trends-data" type="application/json">{{ national_trends|default([], true)|tojson }}</script>
 <script id="live-football-data" type="application/json">{{ live_football|default({'configured': false, 'items': [], 'error': 'Live scores are not configured.'}, true)|tojson }}</script>
 <script>
+
+// Tap any image/video in a post to open it at that exact item.
+// The viewer then navigates only through media belonging to that same post.
+(() => {
+  const viewer = document.getElementById('showcase-media-viewer');
+  const stage = document.getElementById('showcase-media-stage');
+  const content = document.getElementById('showcase-media-content');
+  const counter = document.getElementById('showcase-media-count');
+  if (!viewer || !stage || !content || !counter) return;
+
+  let items = [];
+  let index = 0;
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let previousFocus = null;
+
+  const closeButton = viewer.querySelector('.media-viewer-close');
+  const prevButton = viewer.querySelector('.media-viewer-prev');
+  const nextButton = viewer.querySelector('.media-viewer-next');
+
+  function showItem(nextIndex) {
+    if (!items.length) return;
+    index = (nextIndex + items.length) % items.length;
+    content.replaceChildren();
+    const source = items[index];
+    let media;
+    if (source.tagName === 'VIDEO') {
+      media = document.createElement('video');
+      media.src = source.currentSrc || source.src || source.querySelector('source')?.src || '';
+      media.controls = true;
+      media.playsInline = true;
+      media.preload = 'metadata';
+      media.setAttribute('playsinline', '');
+      media.setAttribute('aria-label', 'Showcase post video');
+    } else {
+      media = document.createElement('img');
+      media.src = source.currentSrc || source.src;
+      media.alt = source.alt || 'Showcase post image';
+      media.draggable = false;
+    }
+    content.appendChild(media);
+    counter.textContent = (index + 1) + ' / ' + items.length;
+    prevButton.hidden = items.length < 2;
+    nextButton.hidden = items.length < 2;
+  }
+
+  function openViewer(source) {
+    const post = source.closest('.post');
+    const gallery = post?.querySelector('.media-grid');
+    if (!gallery) return;
+    items = [...gallery.querySelectorAll('img,video')];
+    index = items.indexOf(source);
+    if (index < 0 || !items.length) return;
+    previousFocus = source;
+    showItem(index);
+    viewer.hidden = false;
+    document.body.style.overflow = 'hidden';
+    closeButton.focus();
+  }
+
+  function closeViewer() {
+    const activeVideo = content.querySelector('video');
+    if (activeVideo) activeVideo.pause();
+    viewer.hidden = true;
+    content.replaceChildren();
+    document.body.style.overflow = '';
+    items = [];
+    if (previousFocus?.isConnected) previousFocus.focus?.();
+  }
+
+  document.querySelectorAll('.post .media-grid').forEach(gallery => {
+    gallery.querySelectorAll('img,video').forEach(media => {
+      media.addEventListener('click', event => {
+        event.preventDefault();
+        event.stopPropagation();
+        openViewer(media);
+      });
+      media.setAttribute('tabindex', '0');
+      media.setAttribute('role', 'button');
+      media.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openViewer(media);
+        }
+      });
+    });
+  });
+
+  prevButton.addEventListener('click', () => showItem(index - 1));
+  nextButton.addEventListener('click', () => showItem(index + 1));
+  closeButton.addEventListener('click', closeViewer);
+  viewer.addEventListener('click', event => {
+    if (event.target === viewer) closeViewer();
+  });
+
+  stage.addEventListener('touchstart', event => {
+    if (!viewer.hidden && event.touches.length === 1) {
+      touchStartX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+    }
+  }, {passive:true});
+  stage.addEventListener('touchend', event => {
+    if (viewer.hidden || !touchStartX) return;
+    const dx = event.changedTouches[0].clientX - touchStartX;
+    const dy = event.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      showItem(index + (dx < 0 ? 1 : -1));
+    }
+    touchStartX = 0;
+    touchStartY = 0;
+  }, {passive:true});
+
+  document.addEventListener('keydown', event => {
+    if (viewer.hidden) return;
+    if (event.key === 'Escape') closeViewer();
+    else if (event.key === 'ArrowLeft') showItem(index - 1);
+    else if (event.key === 'ArrowRight') showItem(index + 1);
+  });
+})();
+
 
 // Mobile Safari/Chrome can defer autoplay until the video is ready or the page is visible.
 (() => {
@@ -573,23 +663,6 @@ document.querySelectorAll('.share-button').forEach(button=>button.addEventListen
 document.querySelectorAll('.comment-jump').forEach(button=>button.addEventListener('click',()=>{const target=document.getElementById(button.dataset.target);target?.scrollIntoView({behavior:'smooth',block:'center'});target?.querySelector('input')?.focus()}));
 updateFeed();
 buildTrending();
-
-// Detect a missing/unsupported hero video and retain the designed ambient fallback.
-(() => {
-  const hero = document.querySelector('.hero');
-  const video = document.querySelector('.hero-video');
-  if (!hero || !video) return;
-  const fallback = () => hero.classList.add('video-unavailable');
-  const ready = () => hero.classList.remove('video-unavailable');
-  video.addEventListener('error', fallback);
-  video.addEventListener('stalled', () => {
-    if (video.readyState < 2) fallback();
-  });
-  video.addEventListener('loadeddata', ready);
-  video.addEventListener('playing', ready);
-  if (video.error) fallback();
-})();
-
 </script>
 </body>
 </html>
