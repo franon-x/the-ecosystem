@@ -1423,7 +1423,45 @@ body>.location-quick-card.location-popup-open{z-index:10050!important;display:bl
         .account-notification-wrap .notification-panel-foot span { color:#a9b0aa; }
         @media(max-width:700px){ .account-sidebar .account-notification-wrap .notification-panel { position:fixed; top:78px; right:12px; } }
 </style>
-<style id="ecosystem-brand-wordmark-standard">.brand,.logo{color:#fff!important}.brand>span,.logo>strong,.logo .eco-word-ecosystem{color:#f04444!important}.logo>span{color:#fff!important}.brand .eco-word-the{color:#fff!important}.brand .eco-word-ecosystem{color:#f04444!important}</style></head>
+<style id="ecosystem-brand-wordmark-standard">.brand,.logo{color:#fff!important}.brand>span,.logo>strong,.logo .eco-word-ecosystem{color:#f04444!important}.logo>span{color:#fff!important}.brand .eco-word-the{color:#fff!important}.brand .eco-word-ecosystem{color:#f04444!important}</style>
+<style id="account-mobile-notification-position-fix">
+@media (max-width: 700px) {
+  .account-sidebar .account-notification-wrap .notification-panel,
+  .account-notification-wrap .notification-panel {
+    position: fixed !important;
+    top: 82px !important;
+    left: 12px !important;
+    right: 12px !important;
+    width: auto !important;
+    max-width: 440px !important;
+    max-height: calc(100dvh - 112px) !important;
+    margin-inline: auto !important;
+    box-sizing: border-box !important;
+    transform: none !important;
+    z-index: 10050 !important;
+    overflow: hidden !important;
+    border-radius: 16px !important;
+  }
+  .notification-panel-head,
+  .notification-panel-foot {
+    min-width: 0 !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+  .notification-panel-list {
+    max-height: min(52dvh, 390px) !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+  }
+  .notification-panel-head h3,
+  .notification-panel-head strong {
+    min-width: 0 !important;
+    overflow-wrap: anywhere;
+  }
+}
+</style>
+
+</head>
 
 
 
