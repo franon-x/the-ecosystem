@@ -450,7 +450,50 @@
 .ecosystem-home-link:hover{border-color:#80C995;background:#80C995;color:#07110c!important}
 @media(max-width:620px){.ecosystem-home-link{min-height:34px;padding:8px 10px;font-size:9px}}
 
-    </style>
+    
+
+/* THE ECOSYSTEM — restore the intended green CTA/button treatment.
+   The red wordmark and small brand accents remain unchanged. */
+.btn-primary,
+.nav-actions .signup {
+    background: var(--green) !important;
+    border: 1px solid var(--green) !important;
+    color: #07110a !important;
+}
+.btn-primary:hover,
+.nav-actions .signup:hover {
+    background: #a0e0b1 !important;
+    border-color: #a0e0b1 !important;
+    color: #07110a !important;
+}
+.category-icon {
+    color: var(--green) !important;
+    border-color: rgba(128,201,149,.34) !important;
+    background: rgba(128,201,149,.09) !important;
+}
+.category:hover {
+    background: rgba(128,201,149,.09) !important;
+}
+.text-link {
+    color: var(--green) !important;
+}
+.text-link:hover {
+    color: #a0e0b1 !important;
+}
+.bottom-nav a:hover,
+.bottom-nav a.active {
+    color: var(--green) !important;
+    background: rgba(128,201,149,.13) !important;
+}
+.local-card:hover {
+    border-color: rgba(128,201,149,.55) !important;
+}
+.notification-panel-foot button:hover,
+.notification-item-actions button:hover {
+    color: var(--green) !important;
+}
+
+</style>
 
 </head>
 
